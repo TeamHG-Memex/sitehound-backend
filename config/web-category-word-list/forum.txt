@@ -1,0 +1,11 @@
+forum
+forums
+vbulletin
+phpbb
+bbpress
+beehive
+discourse
+discuzi
+exoplatform
+fluxbb
+fudforum
