@@ -3,12 +3,11 @@
 
 The backend for [Sitehound](https://github.com/TeamHG-Memex/sitehound)
  
+## Prerequisites
+Java >8.*
+Maven >3.3
 
-##Prerequisites
-Java 8
-
-
-## Requeried Components
+## Required Components
 ### Containers
 Containers are stored in [HyperionGray's docker hub](https://hub.docker.com/u/hyperiongray/dashboard/)
 
@@ -35,8 +34,6 @@ wait 10 secs for the service to fully start and be ready for connections
 docker run -d -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 --name=elasticsearch --hostname=elasticsearch elasticsearch:2.0
 ```
 
-Lastly check [HH-DeepDeep](https://github.com/TeamHG-Memex/hh-deep-deep) installation notes about running it with Docker
-
 
 ### Configuration
 
@@ -51,5 +48,4 @@ Alternatively, a container can be run instead of the local installation
 sitehound_backend_version=4.0.5
 docker run -d --name=sitehound-backend-$sitehound_backend_version --hostname=sitehound-backend -v /home/ubuntu/sitehound-backend/config/properties-override:/root/sitehound-backend/config/properties-override --link kafka-2.11-0.10.1.1-2.4:hh-kafka --link mongodb:mongodb --link elasticsearch:hh-elasticsearch hyperiongray/sitehound-backend:$sitehound_backend_version
 ```
-
-place your own cofiguration for other components under (i.e.) /home/ubuntu/sitehound-backend/config/properties-override and mount the directory
+To configure this container, place your own cofiguration for other components under (i.e.) /home/ubuntu/sitehound-backend/config/properties-override and mount the directory
