@@ -4,8 +4,8 @@
 The backend for [Sitehound](https://github.com/TeamHG-Memex/sitehound)
  
 ## Prerequisites
-Java >8.*
-Maven >3.3
+    JDK 8.*
+    Maven 3.*
 
 ## Required Components
 ### Containers
