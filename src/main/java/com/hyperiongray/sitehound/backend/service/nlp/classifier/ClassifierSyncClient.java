@@ -49,6 +49,7 @@ public class ClassifierSyncClient {
 
 	@Value( "${classifier.host}" ) private String host;
 	@Value( "${classifier.host.url}" ) private String hostUrl;
+	@Value( "${classifier.port}" ) private String port;
 	@Value( "${classifier.url.path}" ) private String path;
 	@Value( "${classifier.user}" ) private String user;
 	@Value( "${classifier.password}" ) private String password;
@@ -61,22 +62,22 @@ public class ClassifierSyncClient {
 
 	@PostConstruct
 	public void postConstruct() throws KeyManagementException, NoSuchAlgorithmException {
-		SSLContext sslContext = SSLContexts.custom().useSSL().build();
-		sslContext.init(null, new X509TrustManager[]{new HttpsTrustManager()}, new SecureRandom());
-
-		HostnameVerifier hostnameVerifier = NoopHostnameVerifier.INSTANCE;
-
-		SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(sslContext, hostnameVerifier);
-
-		CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-		credentialsProvider.setCredentials(new AuthScope(host, AuthScope.ANY_PORT),
-				new UsernamePasswordCredentials(user, password));
+//		SSLContext sslContext = SSLContexts.custom().useSSL().build();
+//		sslContext.init(null, new X509TrustManager[]{new HttpsTrustManager()}, new SecureRandom());
+//
+//		HostnameVerifier hostnameVerifier = NoopHostnameVerifier.INSTANCE;
+//
+//		SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(sslContext, hostnameVerifier);
+//
+//		CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+//		credentialsProvider.setCredentials(new AuthScope(host, AuthScope.ANY_PORT),
+//				new UsernamePasswordCredentials(user, password));
 
 		httpClient = HttpClients.custom()
-				.setSSLSocketFactory(factory)
-				.setSslcontext(sslContext)
-				.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
-				.setDefaultCredentialsProvider(credentialsProvider)
+//				.setSSLSocketFactory(factory)
+//				.setSslcontext(sslContext)
+//				.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+//				.setDefaultCredentialsProvider(credentialsProvider)
 				.setMaxConnPerRoute(100)
 				.setMaxConnTotal(101)
 				.build();
@@ -88,7 +89,7 @@ public class ClassifierSyncClient {
 
 			String content =  new JsonMapper().toString(new ClassifierInput(rawHtml));
 
-			String url = hostUrl + path + URLEncoder.encode(targetUrl.toString(), "UTF-8");
+			String url = hostUrl +":"+ port + path + URLEncoder.encode(targetUrl.toString(), "UTF-8");
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setConfig(config);
             httpPost.setHeader("User-Agent", "sitehound-backend");

@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.activity;
 
+import com.hyperiongray.framework.kafka.service.Activity;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumBrokerService;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
@@ -18,7 +19,7 @@ import java.io.IOException;
  * Created by tomas on 9/18/15.
  */
 @Component
-public class AquariumActivity implements Activity{
+public class AquariumActivity implements Activity {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AquariumActivity.class);
 
 	@Autowired private AquariumBrokerService aquariumBrokerService;

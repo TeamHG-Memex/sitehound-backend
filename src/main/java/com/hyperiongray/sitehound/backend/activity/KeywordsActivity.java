@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.activity;
 
+import com.hyperiongray.framework.kafka.service.Activity;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.dispatcher.KeywordsCrawlerMessageDispatcher;
@@ -19,7 +20,7 @@ import java.io.IOException;
  * Created by tomas on 10/28/15.
  */
 @Component
-public class KeywordsActivity implements Activity{
+public class KeywordsActivity implements Activity {
 	private static final Logger LOGGER = LoggerFactory.getLogger(KeywordsActivity.class);
 
 	@Autowired private KeywordsCrawlerMessageDispatcher keywordsCrawlerMessageDispatcher;

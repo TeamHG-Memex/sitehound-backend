@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.activity;
 
+import com.hyperiongray.framework.kafka.service.Activity;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.service.events.EventsBrokerService;
@@ -18,7 +19,7 @@ import java.io.IOException;
  * Created by tomas on 28/09/16.
  */
 @Component
-public class EventsActivity implements Activity{
+public class EventsActivity implements Activity {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventsActivity.class);
 
     @Autowired private EventsBrokerService eventsBrokerService;

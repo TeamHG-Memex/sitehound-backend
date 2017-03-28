@@ -2135,4 +2135,18 @@ public class ClassifierIntegrationTest {
     }
 
 
+    @Test
+    public void classifierEbayTest() {
+        Set<String> webCategories = null;
+        try {
+            webCategories = classifierSyncClient.get(new URI("https://www.punkspider.org"), ClassifierHelper.EBAY_HTML_PART_1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+        Assert.isTrue(webCategories.contains("news"));
+        System.out.println(webCategories);
+    }
+
+
 }

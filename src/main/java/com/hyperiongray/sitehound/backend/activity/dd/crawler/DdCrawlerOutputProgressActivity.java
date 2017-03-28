@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.activity.dd.crawler;
 
-import com.hyperiongray.sitehound.backend.activity.Activity;
+import com.hyperiongray.framework.kafka.service.Activity;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.output.DdCrawlerOutputProgressBrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

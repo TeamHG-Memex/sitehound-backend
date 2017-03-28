@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.activity.dd.modeler;
 
-import com.hyperiongray.sitehound.backend.activity.Activity;
+import com.hyperiongray.framework.kafka.service.Activity;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.output.DdModelerOutputBrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
