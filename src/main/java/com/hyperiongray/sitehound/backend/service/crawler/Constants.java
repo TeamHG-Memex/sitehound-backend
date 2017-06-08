@@ -10,14 +10,14 @@ public class Constants {
 	 */
 
 	public enum CrawlerProvider{
-		HH_JOOGLE, FRONTERA, SCRAPY
+		HH_JOOGLE
 	}
 
 	/**
 	 *	Which was the source of the data
 	 */
 	public enum CrawlEntityType {
-		GOOGLE, TWITTER, TOR, BING, SCRAPY, MANUAL, DD
+		GOOGLE, TWITTER, TOR, BING, MANUAL, DD
 	}
 
 	/**

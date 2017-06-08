@@ -4,7 +4,8 @@
     <!-- Send debug messages to System.out -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+            <!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>-->
+            <pattern>%d{"yyyy-MM-dd'T'HH:mm:ss,SSS"} [%thread] %-5level %logger{5} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -15,11 +16,12 @@
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+            <!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>-->
+            <pattern>%d{"yyyy-MM-dd'T'HH:mm:ss,SSS"} [%thread] %-5level %logger{5} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="org.apache.kafka" level="WARN" additivity="false">
+    <logger name="org.apache.kafka" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </logger>
