@@ -74,11 +74,11 @@ public class KeywordsCrawlerMessageDispatcher implements KafkaListenerProcessor<
 						torCrawlerBrokerService.process(subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.KEYWORDS);
 						break;
 					case "DD":
-						Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.KEYWORDS, Constants.CrawlEntityType.DD);
+//						Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.KEYWORDS, Constants.CrawlEntityType.DD);
 						EventInput eventInput = new EventInput();
 						eventInput.setAction("start");
 						eventInput.setEvent("dd-trainer");
-						eventInput.setMetadata(metadata);
+//						eventInput.setMetadata(metadata);
 						eventService.dispatch(eventInput);
 						break;
 					default:

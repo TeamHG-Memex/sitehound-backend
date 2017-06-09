@@ -25,7 +25,7 @@ public class CrawledIndexService{
 
 
 	public List<TrainedCrawledUrl> getTrainedDocuments(String workspaceId) throws IOException{
-		List<TrainedCrawledUrl> trainedDocuments = crawledTrainingRepository.getTrainedDocuments(workspaceId);
+		List<TrainedCrawledUrl> trainedDocuments = crawledTrainingRepository.getAllTrainedDocuments(workspaceId);
 		for(TrainedCrawledUrl trainedCrawledUrl: trainedDocuments){
 			AnalyzedCrawlResultDto analyzedCrawlResultDto = crawledIndexHttpRepository.get(trainedCrawledUrl.getUrl());
 			String text = analyzedCrawlResultDto.getText() == null ? "" : analyzedCrawlResultDto.getText();

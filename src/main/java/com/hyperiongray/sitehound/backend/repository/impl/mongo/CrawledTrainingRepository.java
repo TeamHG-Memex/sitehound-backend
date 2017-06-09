@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.in;
+
 /**
  * Created by tomas on 11/16/15.
  */
@@ -18,7 +21,7 @@ import java.util.List;
 public class CrawledTrainingRepository extends GenericCrawlMongoRepository{
 
 
-	public List<TrainedCrawledUrl> getTrainedDocuments(String workspaceId){
+	public List<TrainedCrawledUrl> getAllTrainedDocuments(String workspaceId){
 		List<TrainedCrawledUrl> trainedCrawledUrls = new LinkedList<>();
 
 		String collectionName = this.getCollectionName(Constants.CrawlType.KEYWORDS);
@@ -33,12 +36,43 @@ public class CrawledTrainingRepository extends GenericCrawlMongoRepository{
 		return trainedCrawledUrls;
 	}
 
+	public List<String> getRelevantTrainedUrls(String workspaceId){
+		List<String> urls = new LinkedList<>();
+
+		String collectionName = this.getCollectionName(Constants.CrawlType.KEYWORDS);
+		Bson workspaceFilter = new Document("workspaceId", workspaceId);
+		Bson relevantFilter = new Document("relevant", true);
+		Bson filter = and(workspaceFilter, relevantFilter);
+
+		FindIterable<Document> iterable = mongoRepository.find(collectionName, workspaceId, filter);
+		MongoCursor<Document> iterator = iterable.iterator();
+		while(iterator.hasNext()){
+			urls.add(iterator.next().getString("url"));
+		}
+		return urls;
+	}
+
 	private TrainedCrawledUrl translate(Document document){
 		TrainedCrawledUrl trainedCrawledUrl = new TrainedCrawledUrl();
 		trainedCrawledUrl.setUrl(document.getString("url"));
 //		trainedCrawledUrl.setContent(document.getString("desc"));
 		trainedCrawledUrl.setRelevant(document.getBoolean("relevant"));
 		return trainedCrawledUrl;
+	}
+
+	public List<String> getPinnedUrls(String workspaceId){
+		List<String> urls = new LinkedList<>();
+		String collectionName = this.getCollectionName(Constants.CrawlType.BROADCRAWL);
+		Bson workspaceFilter = new Document("workspaceId", workspaceId);
+		Bson relevantFilter = new Document("pinned", true);
+		Bson filter = and(workspaceFilter, relevantFilter);
+
+		FindIterable<Document> iterable = mongoRepository.find(collectionName, workspaceId, filter);
+		MongoCursor<Document> iterator = iterable.iterator();
+		while(iterator.hasNext()){
+			urls.add(iterator.next().getString("url"));
+		}
+		return urls;
 	}
 
 }

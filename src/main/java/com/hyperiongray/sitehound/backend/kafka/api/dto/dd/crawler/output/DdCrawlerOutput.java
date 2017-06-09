@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * Created by tomas on 3/10/16.
  */
-public class DdCrawlerOutput {
 
+public class DdCrawlerOutput {
     private String id;
 
     private List<PageSample> page_sample;

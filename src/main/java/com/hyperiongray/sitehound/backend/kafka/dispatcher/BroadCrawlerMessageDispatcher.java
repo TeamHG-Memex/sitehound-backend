@@ -91,11 +91,12 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 							executorService.submit(new DispatcherWorker(torCrawlerBrokerService, subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.BROADCRAWL));
 							break;
 						case "DD":
-							Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.BROADCRAWL, Constants.CrawlEntityType.DD);
+//							Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.BROADCRAWL, Constants.CrawlEntityType.DD);
 							EventInput eventInput = new EventInput();
 							eventInput.setAction("start");
 							eventInput.setEvent("dd-crawler");
-							eventInput.setMetadata(metadata);
+//							eventInput.setMetadata(metadata);
+							eventInput.setWorkspaceId(subscriberInput.getWorkspace());
 							eventService.dispatch(eventInput);
 							break;
 

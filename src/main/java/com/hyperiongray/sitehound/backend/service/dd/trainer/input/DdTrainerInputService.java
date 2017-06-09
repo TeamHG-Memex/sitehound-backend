@@ -26,7 +26,7 @@ public class DdTrainerInputService {
 
         DdTrainerInputStart ddTrainerInputStart = new DdTrainerInputStart();
 
-        List<TrainedCrawledUrl> trainedDocuments = crawledTrainingRepository.getTrainedDocuments(workspaceId);
+        List<TrainedCrawledUrl> trainedDocuments = crawledTrainingRepository.getAllTrainedDocuments(workspaceId);
         List<String> seeds = new LinkedList<>();
         for (TrainedCrawledUrl trainedDocument : trainedDocuments){
             seeds.add(trainedDocument.getUrl());

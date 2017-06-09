@@ -1,5 +1,7 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.List;
 
 /**
@@ -8,10 +10,14 @@ import java.util.List;
 public class DdCrawlerInputStart{
 
     private String id;
-    private String link_model;
-    private String page_model;
+    private String linkModel;
+    private String pageModel;
     private List<String> seeds;
-    private Integer max_results;
+    private List<String> hints;
+    private String broadness;
+    private Integer pageLimit;
+
+
 
     public String getId() {
         return id;
@@ -21,20 +27,22 @@ public class DdCrawlerInputStart{
         this.id = id;
     }
 
-    public String getLink_model() {
-        return link_model;
+    @JsonProperty("link_model")
+    public String getLinkModel() {
+        return linkModel;
     }
 
-    public void setLink_model(String link_model) {
-        this.link_model = link_model;
+    public void setLinkModel(String linkModel) {
+        this.linkModel = linkModel;
     }
 
-    public String getPage_model() {
-        return page_model;
+    @JsonProperty("page_model")
+    public String getPageModel() {
+        return pageModel;
     }
 
-    public void setPage_model(String page_model) {
-        this.page_model = page_model;
+    public void setPageModel(String pageModel) {
+        this.pageModel = pageModel;
     }
 
     public List<String> getSeeds() {
@@ -45,11 +53,28 @@ public class DdCrawlerInputStart{
         this.seeds = seeds;
     }
 
-    public Integer getMax_results() {
-        return max_results;
+    @JsonProperty("page_limit")
+    public Integer getPageLimit() {
+        return pageLimit;
     }
 
-    public void setMax_results(Integer max_results) {
-        this.max_results = max_results;
+    public void setPageLimit(Integer pageLimit) {
+        this.pageLimit = pageLimit;
+    }
+
+    public String getBroadness() {
+        return broadness;
+    }
+
+    public void setBroadness(String broadness) {
+        this.broadness = broadness;
+    }
+
+    public List<String> getHints() {
+        return hints;
+    }
+
+    public void setHints(List<String> hints) {
+        this.hints = hints;
     }
 }

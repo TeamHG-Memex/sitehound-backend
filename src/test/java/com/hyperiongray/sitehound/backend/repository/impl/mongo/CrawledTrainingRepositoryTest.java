@@ -26,7 +26,7 @@ public class CrawledTrainingRepositoryTest extends TestCase{
 
 	@Test
 	public void test(){
-		List<TrainedCrawledUrl> trainedCrawledUrls = crawledTrainingRepository.getTrainedDocuments("volley3");
+		List<TrainedCrawledUrl> trainedCrawledUrls = crawledTrainingRepository.getAllTrainedDocuments("volley3");
 
 		for(TrainedCrawledUrl trainedCrawledUrl : trainedCrawledUrls){
 			LOGGER.debug(trainedCrawledUrl.toString());

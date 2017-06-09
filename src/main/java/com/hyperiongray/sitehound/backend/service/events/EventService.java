@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.events;
 
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.event.DdCrawlerInputStartArgs;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.modeler.DdModelerProducer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStart;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStop;
@@ -10,6 +11,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.crawler.DdCrawlerInputProducer;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.trainer.DdTrainerInputProducer;
 import com.hyperiongray.sitehound.backend.model.DdEventsType;
+import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.input.DdCrawlerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.trainer.input.DdTrainerInputService;
@@ -45,17 +47,17 @@ public class EventService {
         switch (event){
 
             case DD_MODELER:
-                DdModelerInput ddModelerInput = ddModelerInputService.getDdModelerInput(eventInput.getMetadata().getWorkspace());
+                DdModelerInput ddModelerInput = ddModelerInputService.getDdModelerInput(eventInput.getWorkspaceId());
                 ddModelerProducer.submit(ddModelerInput);
                 break;
 
             case DD_TRAINER:
                 if (eventInput.getAction().equals("start")){
-                    DdTrainerInputStart ddTrainerInputStart = ddTrainerInputService.getDdTrainerInputStart(eventInput.getMetadata().getWorkspace());
+                    DdTrainerInputStart ddTrainerInputStart = ddTrainerInputService.getDdTrainerInputStart(eventInput.getWorkspaceId());
                     ddTrainerInputProducer.submit(ddTrainerInputStart);
                 }
                 else if (eventInput.getAction().equals("stop")){
-                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput.getMetadata().getWorkspace());
+                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput.getWorkspaceId());
                     ddTrainerInputProducer.submit(ddTrainerInputStop);
                 }
                 else{
@@ -65,13 +67,12 @@ public class EventService {
 
             case DD_CRAWLER:
                 if (eventInput.getAction().equals("start")){
-
-                    DdCrawlerInputStart ddCrawlerInputStart = ddCrawlerInputService.getDdCrawlerInputStart(eventInput.getMetadata().getWorkspace());
+                    DdCrawlerInputStart ddCrawlerInputStart = ddCrawlerInputService.getDdCrawlerInputStart(eventInput);
                     ddCrawlerInputProducer.submit(ddCrawlerInputStart);
                 }
 
                 else if (eventInput.getAction().equals("stop")){
-                    DdCrawlerInputStop ddCrawlerInputStop = ddCrawlerInputService.getDdCrawlerInputStop(eventInput.getMetadata().getWorkspace());
+                    DdCrawlerInputStop ddCrawlerInputStop = ddCrawlerInputService.getDdCrawlerInputStop(eventInput.getWorkspaceId());
                     ddCrawlerInputProducer.submit(ddCrawlerInputStop);
                 }
                 else{

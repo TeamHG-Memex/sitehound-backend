@@ -21,7 +21,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.apache.kafka" level="INFO" additivity="false">
+    <logger name="org.apache.kafka" level="WARN" additivity="false">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </logger>
