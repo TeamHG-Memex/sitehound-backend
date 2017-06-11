@@ -20,8 +20,10 @@ import java.util.Map;
 @Repository
 public class DdRepository {
 
-    @Autowired
-    private MongoRepository mongoRepository;
+
+    @Autowired private CrawlJobRepository crawlJobRepository;
+
+    @Autowired private MongoRepository mongoRepository;
 
     private static final String WORKSPACE_COLLECTION_NAME = "workspace";
     private static final Logger LOGGER = LoggerFactory.getLogger(CrawlTaskRepository.class);
@@ -72,7 +74,8 @@ public class DdRepository {
         LOGGER.info("About to crawler saveProgress:" + ddCrawlerOutputProgress.getId());
         Document document = new Document();
         document.put("crawler_progress", ddCrawlerOutputProgress.getProgress());
-        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, ddCrawlerOutputProgress.getId(), "dd_crawler", document);
+        String workspaceId = crawlJobRepository.getWorkspaceId(ddCrawlerOutputProgress.getId());
+        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, workspaceId, "dd_crawler", document);
     }
 
 

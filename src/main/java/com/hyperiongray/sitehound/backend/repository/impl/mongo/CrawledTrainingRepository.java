@@ -6,6 +6,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
@@ -20,6 +21,7 @@ import static com.mongodb.client.model.Filters.in;
 @Repository
 public class CrawledTrainingRepository extends GenericCrawlMongoRepository{
 
+	@Autowired private CrawlJobRepository crawlJobRepository;
 
 	public List<TrainedCrawledUrl> getAllTrainedDocuments(String workspaceId){
 		List<TrainedCrawledUrl> trainedCrawledUrls = new LinkedList<>();

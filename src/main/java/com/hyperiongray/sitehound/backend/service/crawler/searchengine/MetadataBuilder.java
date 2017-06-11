@@ -2,7 +2,9 @@ package com.hyperiongray.sitehound.backend.service.crawler.searchengine;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MetadataBuilder{
+
+	@Autowired private CrawlJobRepository crawlJobRepository;
 
 	public static Metadata build(SubscriberInput subscriberInput, Constants.CrawlType crawlType, Constants.CrawlEntityType crawlEntityType){
 		Metadata metadata = new Metadata();
@@ -25,8 +29,6 @@ public class MetadataBuilder{
 		return metadata;
 	}
 
-
-
 	public static Metadata buildFromTrainerOutputPages(String workspaceId){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(Constants.CrawlType.KEYWORDS);
@@ -41,12 +43,12 @@ public class MetadataBuilder{
 		return metadata;
 	}
 
-	public static Metadata buildFromCrawlerOutput(String workspaceId){
+	public Metadata buildFromCrawlerOutput(String jobId){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(Constants.CrawlType.BROADCRAWL);
 		metadata.setSource("DD");
 		metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
-		metadata.setWorkspace(workspaceId);
+		metadata.setWorkspace(crawlJobRepository.getWorkspaceId(jobId));
 		metadata.setTimestamp(System.currentTimeMillis());
 		metadata.setCallbackQueue("");
 		metadata.setJobId("generic-broadcrawl-job-id");

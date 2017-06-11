@@ -1,7 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity;
 
 import com.beust.jcommander.internal.Maps;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlRepositoryContainer;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ import java.util.concurrent.locks.ReentrantLock;
 @Service
 public class SimilarityService{
 
-	@Autowired private CrawlRepositoryContainer crawlRepositoryContainer;
 	@Autowired private IndexerDao indexerDao;
 	private final Lock lock = new ReentrantLock();
 

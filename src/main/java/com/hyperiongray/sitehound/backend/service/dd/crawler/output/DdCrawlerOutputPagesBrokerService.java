@@ -31,6 +31,7 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
 
     @Autowired private DdCrawlerAquariumCallbackService ddCrawlerAquariumCallbackService;
     @Autowired private AquariumAsyncClient aquariumClient;
+    @Autowired private MetadataBuilder metadataBuilder;
 
     @Override
     public void process(String jsonInput, Semaphore semaphore){
@@ -39,7 +40,7 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdCrawlerOutput> jsonMapper= new JsonMapper();
             DdCrawlerOutput ddCrawlerOutput = jsonMapper.toObject(jsonInput, DdCrawlerOutput.class);
-            Metadata metadata = MetadataBuilder.buildFromCrawlerOutput(ddCrawlerOutput.getId());
+            Metadata metadata = metadataBuilder.buildFromCrawlerOutput(ddCrawlerOutput.getId());
             for (PageSample pageSample : ddCrawlerOutput.getPage_sample()){
                 AquariumInput aquariumInput = new AquariumInput(metadata);
                 aquariumInput.setUrl(pageSample.getUrl());

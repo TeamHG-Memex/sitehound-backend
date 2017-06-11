@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input;
 
+import com.hyperiongray.framework.kafka.dto.KafkaDto;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.List;
 /**
  * Created by tomas on 29/09/16.
  */
-public class DdCrawlerInputStart{
+public class DdCrawlerInputStartDto extends KafkaDto {
 
-    private String id;
+    private String id; // the jobId
     private String linkModel;
     private String pageModel;
     private List<String> seeds;
