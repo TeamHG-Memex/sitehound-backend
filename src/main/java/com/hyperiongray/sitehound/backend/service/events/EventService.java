@@ -81,11 +81,16 @@ public class EventService {
                         LOGGER.info("SKIPPING broadcrawl dd-crawler start job: " + ddCrawlerInputStartDto.getId());
                         return;
                     }
-
                     ddCrawlerInputProducer.submit(ddCrawlerInputStartDto);
                 }
-
                 else if (eventInput.getAction().equals("stop")){
+//                    boolean jobQueuedStarted = crawlJobRepository.updateJobStatus(ddCrawlerInputStartDto.getId(), Constants.JobStatus.STOPPED);
+//                    LOGGER.info("Saved broadcrawl dd-crawler start job: " + ddCrawlerInputStartDto.getId());
+//
+//                    if(!jobQueuedStarted){
+//                        LOGGER.info("SKIPPING broadcrawl dd-crawler start job: " + ddCrawlerInputStartDto.getId());
+//                        return;
+//                    }
                     DdCrawlerInputStopDto ddCrawlerInputStopDto = ddCrawlerInputService.getDdCrawlerInputStop(eventInput.getWorkspaceId());
                     ddCrawlerInputProducer.submit(ddCrawlerInputStopDto);
                 }

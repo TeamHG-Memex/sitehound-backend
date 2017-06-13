@@ -30,10 +30,12 @@ public class DdCrawlerInputService {
         DdCrawlerInputStartArgs eventInputStartArgs = jsonMapperDdCrawlerInputStartArgs.toObject(eventInput.getArguments(), DdCrawlerInputStartArgs.class);
 
         DdCrawlerInputStartDto ddCrawlerInputStartDto = new DdCrawlerInputStartDto();
+        ddCrawlerInputStartDto.setId(eventInputStartArgs.getJobId());
+        ddCrawlerInputStartDto.setWorkspaceId(eventInput.getWorkspaceId());
+
         ddCrawlerInputStartDto.setBroadness(eventInputStartArgs.getBroadness());
         ddCrawlerInputStartDto.setPageLimit(eventInputStartArgs.getnResults());
-//        ddCrawlerInputStartDto.setId(eventInput.getWorkspaceId());
-        ddCrawlerInputStartDto.setId(eventInputStartArgs.getJobId());
+
 
         Map<String, String> models = ddRepository.getModels(eventInput.getWorkspaceId());
         ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
