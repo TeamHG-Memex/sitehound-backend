@@ -43,10 +43,11 @@ public class DdRepository {
     }
 
     public void saveLinkModel(DdTrainerOutputModel ddTrainerOutputModel){
-        LOGGER.info("About to saveLinkModel:" + ddTrainerOutputModel.getId());
         Document document = new Document();
         document.put("model", ddTrainerOutputModel.getLink_model());
-        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, ddTrainerOutputModel.getId(), LINK_MODEL_FIELD, document);
+        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputModel.getId());
+        LOGGER.info("About to saveLinkModel jobId:" + ddTrainerOutputModel.getId() + ", workspaceId: " + workspaceId);
+        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, workspaceId, LINK_MODEL_FIELD, document);
     }
 
 
@@ -64,10 +65,13 @@ public class DdRepository {
 
 
     public void saveProgress(DdTrainerOutputProgress ddTrainerOutputProgress) {
-        LOGGER.info("About to trainer saveProgress:" + ddTrainerOutputProgress.getId());
+        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputProgress.getId());
+
+        LOGGER.info("About to trainer saveProgress for jobId:" + ddTrainerOutputProgress.getId() +", workspaceId:" + workspaceId);
         Document document = new Document();
         document.put("trainer_progress", ddTrainerOutputProgress.getProgress());
-        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, ddTrainerOutputProgress.getId(), "dd_trainer", document);
+
+        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, workspaceId, "dd_trainer", document);
     }
 
     public void saveProgress(DdCrawlerOutputProgress ddCrawlerOutputProgress) {

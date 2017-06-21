@@ -30,7 +30,8 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdTrainerOutputModel> jsonMapper= new JsonMapper();
             DdTrainerOutputModel ddTrainerOutputModel = jsonMapper.toObject(jsonInput, DdTrainerOutputModel.class);
-            dispatch(ddTrainerOutputModel);
+
+            ddRepository.saveLinkModel(ddTrainerOutputModel);
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
@@ -42,8 +43,4 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
 
     }
 
-    public void dispatch(DdTrainerOutputModel ddTrainerOutputModel){
-        ddRepository.saveLinkModel(ddTrainerOutputModel);
-
-    }
 }

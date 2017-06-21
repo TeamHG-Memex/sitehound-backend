@@ -29,12 +29,12 @@ public class MetadataBuilder{
 		return metadata;
 	}
 
-	public static Metadata buildFromTrainerOutputPages(String workspaceId){
+	public Metadata buildFromTrainerOutputPages(String jobId){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(Constants.CrawlType.KEYWORDS);
 		metadata.setSource("DD");
 		metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
-		metadata.setWorkspace(workspaceId);
+		metadata.setWorkspace(crawlJobRepository.getWorkspaceId(jobId));
 		metadata.setTimestamp(System.currentTimeMillis());
 		metadata.setCallbackQueue("");
 		metadata.setJobId("generic-job-id");

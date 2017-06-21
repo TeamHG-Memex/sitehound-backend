@@ -10,7 +10,8 @@ public enum EventsType {
     DD_MODELER("dd-modeler"),
     DD_TRAINER("dd-trainer"),
     DD_CRAWLER("dd-crawler"),
-    BOOKMARK("bookmark");
+    BOOKMARK("bookmark"),
+    JOB("job");
 
     private String code;
     EventsType (String code){

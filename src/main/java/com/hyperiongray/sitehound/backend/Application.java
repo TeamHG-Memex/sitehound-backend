@@ -37,9 +37,9 @@ public class Application implements CommandLineRunner{
 		System.setProperty("jsse.enableSNIExtension", "false");
 		try {
 			System.out.println("Giving 10\" for other containers to load..."); // FIXME until we add depends_on on docker-compose, remove this when done!
-			Thread.sleep(10*1000L); //quick&dirty,
+			Thread.sleep(5*1000L);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			LOGGER.error("failed to wait", e);
 		}
 		SpringApplication.run(Application.class, args);
 	}

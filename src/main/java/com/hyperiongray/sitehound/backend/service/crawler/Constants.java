@@ -32,7 +32,7 @@ public class Constants {
 	}
 
 	public enum JobStatus{
-		STARTED, QUEUED, STOPPED
+		STARTED, QUEUED, STOPPED, FINISHED
 	}
 
 
