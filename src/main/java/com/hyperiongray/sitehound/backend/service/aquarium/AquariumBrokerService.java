@@ -34,6 +34,7 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 		try {
 			semaphore.acquire();
 		} catch (InterruptedException e) {
+			LOGGER.error("Interrupted Exception!");
 			e.printStackTrace();
 		}
 

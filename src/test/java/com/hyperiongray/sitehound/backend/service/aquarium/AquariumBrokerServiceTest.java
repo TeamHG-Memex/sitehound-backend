@@ -17,42 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class AquariumBrokerServiceTest{
 
 	@Autowired AquariumBrokerService instance;
-//	@Autowired
-//	KeywordsAquariumCallbackServiceBaseAquariumCallbackService aquariumCallbackService;
-//
-//	private static final Logger LOGGER = LoggerFactory.getLogger(AquariumBrokerServiceTest.class);
-//
-//	@Test
-//	public void testBroadcrawlFetch() throws Exception{
-//
-//		AquariumCallbackServiceMockUtils.mockScorerService(aquariumCallbackService);
-//		Semaphore semaphore = new Semaphore(1);
-//		semaphore.acquire(1);
-//
-//		Metadata metadata = getMetadata_broadcrawl();
-//
-//		AquariumInput aquariumInput = new AquariumInput(metadata);
-//		aquariumInput.setUrl("https://www.elastic.co/guide/en/elasticsearch/guide/current/partial-updates.html");
-//
-//		instance.fetch(semaphore, aquariumInput);
-//		semaphore.acquire(1);
-//	}
-
-//	@Test
-//	public void testKeywordsFetch() throws Exception{
-//
-//		AquariumCallbackServiceMockUtils.mockScorerService(aquariumCallbackService);
-//		Semaphore semaphore = new Semaphore(1);
-//		semaphore.acquire(1);
-//
-//		Metadata metadata = getMetadata_keywords();
-//
-//		AquariumInput aquariumInput = new AquariumInput(metadata);
-//		aquariumInput.setUrl("http://www.bing.com");
-//
-//		instance.fetch(semaphore, aquariumInput);
-//		semaphore.acquire(1);
-//	}
 
 	@NotNull
 	private Metadata getMetadata_broadcrawl(){

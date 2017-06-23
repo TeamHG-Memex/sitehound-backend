@@ -36,9 +36,7 @@ public class KeywordsCrawlerMessageDispatcher implements KafkaListenerProcessor<
 	@Autowired private BingCrawlerBrokerService keywordBingCrawlerBrokerService;
 	@Autowired private TwitterCrawlerBrokerService twitterCrawlerBrokerService;
 	@Autowired private TorCrawlerBrokerService torCrawlerBrokerService;
-//	@Autowired private ProducerBuilder producerBuilder;
 	@Autowired private CrawlJobRepository crawlJobRepository;
-//	@Autowired private AquariumProducer aquariumProducer;
 	@Autowired private AquariumTaskSubmitter aquariumTaskSubmitter;
 	@Autowired private EventService eventService;
 
@@ -48,9 +46,6 @@ public class KeywordsCrawlerMessageDispatcher implements KafkaListenerProcessor<
 	@Override
 	public void process(SubscriberInput subscriberInput) throws IOException {
 
-
-//		CrawlJob crawlJob = new CrawlJob(subscriberInput.getWorkspace(), subscriberInput.getJobId(), subscriberInput.getSource(),
-//				                                Constants.CrawlType.KEYWORDS, subscriberInput.getnResults(), Constants.CrawlerProvider.valueOf(subscriberInput.getCrawlProvider()));
 
 		boolean jobQueuedStarted = crawlJobRepository.updateJobStatus(subscriberInput.getJobId(), Constants.JobStatus.STARTED);
 		LOGGER.info("Keywords saved job:" +  subscriberInput.getJobId());

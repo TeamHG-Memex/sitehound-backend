@@ -52,7 +52,7 @@ public class AquariumAsyncClient{
         provider.setCredentials(AuthScope.ANY, credentials);
 
 //        HttpClient httpClient = HttpClientBuilder.create().setMaxConnPerRoute(100).setMaxConnTotal(threads-1).build();
-        HttpClient httpClient = HttpClientBuilder.create().setMaxConnPerRoute(100).setMaxConnTotal(threads-1).setDefaultCredentialsProvider(provider).build();
+        HttpClient httpClient = HttpClientBuilder.create().setMaxConnPerRoute(50).setMaxConnTotal(threads-1).setDefaultCredentialsProvider(provider).build();
         executorService=Executors.newFixedThreadPool(threads);
         futureRequestExecutionService = new FutureRequestExecutionService(httpClient, executorService);
         config = RequestConfig.custom().setConnectionRequestTimeout(120*1000).setConnectTimeout(120*1000).setSocketTimeout(120*1000).build();
