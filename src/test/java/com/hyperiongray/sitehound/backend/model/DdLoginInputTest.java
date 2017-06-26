@@ -13,7 +13,7 @@ import java.util.Map;
 public class DdLoginInputTest {
 
     public static DdLoginInput getOne(){
-        String id = "9d11ff30005";
+//        String id = "9d11ff30005";
         String workspaceId = "57ea86a9d11ff300054a3519";
         String jobId = "jobId1223124";
         String url = "http://www.example.com/login";
@@ -25,7 +25,7 @@ public class DdLoginInputTest {
         List<String> keysOrder= Lists.newArrayList("user", "password");
 
         return new DdLoginInput.Builder()
-                .withId(id)
+//                .withId(id)
                 .withWorkspaceId(workspaceId)
                 .withJobId(jobId)
                 .withKeyValues(keyValues)

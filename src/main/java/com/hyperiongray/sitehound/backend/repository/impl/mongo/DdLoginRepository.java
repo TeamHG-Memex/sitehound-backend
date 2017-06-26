@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.model.CrawlTask;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
+import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.slf4j.Logger;
@@ -31,8 +32,18 @@ public class DdLoginRepository {
         document.putAll(entityToFields(ddLoginInput));
 
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(LOGIN_COLLECTION_NAME);
-        collection.insertOne(document);
-        LOGGER.info("Saved ddLogin");
+        try {
+            collection.insertOne(document);
+            LOGGER.info("Saved ddLogin");
+        }
+        catch (MongoWriteException monoWriteException){
+            if(monoWriteException.getCode()==11000){
+                LOGGER.warn("Skipping duplicate: " + ddLoginInput);
+            }
+            else{
+                LOGGER.error("save failed", monoWriteException);
+            }
+        }
     }
 
     private Map<String, Object> entityToFields(DdLoginInput ddLoginInput){

@@ -102,4 +102,21 @@ public class DdLoginInput {
         this.screenshot = builder.screenshot;
         this.keysOrder = builder.keysOrder;
     }
+
+    @Override
+    public String toString() {
+        String screenshotStr = null;
+        if (screenshot!=null){
+            screenshotStr = "" + screenshot.length();
+        }
+        return "DdLoginInput{" +
+                "id='" + id + '\'' +
+                ", workspaceId='" + workspaceId + '\'' +
+                ", jobId='" + jobId + '\'' +
+                ", url='" + url + '\'' +
+                ", keyValues=" + keyValues +
+                ", screenshot='" + screenshotStr + '\'' +
+                ", keysOrder=" + keysOrder +
+                '}';
+    }
 }
