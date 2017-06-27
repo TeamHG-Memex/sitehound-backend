@@ -64,4 +64,15 @@ public class EventInput extends KafkaDto{
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "EventInput{" +
+                "timestamp='" + timestamp + '\'' +
+                ", workspaceId='" + workspaceId + '\'' +
+                ", event='" + event + '\'' +
+                ", action='" + action + '\'' +
+                ", arguments='" + arguments + '\'' +
+                '}';
+    }
 }

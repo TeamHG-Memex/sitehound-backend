@@ -29,6 +29,7 @@ public class DdCrawlerOutputPagesActivity implements Activity {
                        @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
+        LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
         ddCrawlerOutputPagesBrokerService.process(data, new Semaphore(10000));
     }

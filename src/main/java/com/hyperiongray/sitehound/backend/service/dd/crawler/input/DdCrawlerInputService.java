@@ -4,7 +4,8 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.event.DdCrawl
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawledTrainingRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.BroadCrawlRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import java.util.Map;
 public class DdCrawlerInputService {
 
     @Autowired private DdRepository ddRepository;
-    @Autowired private CrawledTrainingRepository crawledTrainingRepository;
+    @Autowired private KeywordsRepository keywordsRepository;
+    @Autowired private BroadCrawlRepository broadCrawlRepository;
 
     private JsonMapper<DdCrawlerInputStartArgs> jsonMapperDdCrawlerInputStartArgs = new JsonMapper();
 
@@ -41,11 +43,11 @@ public class DdCrawlerInputService {
         ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
         ddCrawlerInputStartDto.setLinkModel(models.get("link_model"));
 
-        List<String> seeds = crawledTrainingRepository.getRelevantTrainedUrls(eventInput.getWorkspaceId());
+        List<String> seeds = keywordsRepository.getRelevantTrainedUrls(eventInput.getWorkspaceId());
         ddCrawlerInputStartDto.setSeeds(seeds);
 
 
-        List<String> hints = crawledTrainingRepository.getPinnedUrls(eventInput.getWorkspaceId());
+        List<String> hints = broadCrawlRepository.getPinnedUrls(eventInput.getWorkspaceId());
         ddCrawlerInputStartDto.setHints(hints);
 
         return ddCrawlerInputStartDto;
