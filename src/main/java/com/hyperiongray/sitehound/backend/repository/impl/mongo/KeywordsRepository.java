@@ -86,10 +86,7 @@ public class KeywordsRepository extends GenericCrawlMongoRepository{
 	}
 
 	private TrainedCrawledUrl translate(Document document){
-		TrainedCrawledUrl trainedCrawledUrl = new TrainedCrawledUrl();
-		trainedCrawledUrl.setUrl(document.getString("url"));
-//		trainedCrawledUrl.setContent(document.getString("desc"));
-		trainedCrawledUrl.setRelevant(document.getBoolean("relevant"));
+		TrainedCrawledUrl trainedCrawledUrl = new TrainedCrawledUrl(document.getString("url"), document.getBoolean("relevant"));
 		return trainedCrawledUrl;
 	}
 

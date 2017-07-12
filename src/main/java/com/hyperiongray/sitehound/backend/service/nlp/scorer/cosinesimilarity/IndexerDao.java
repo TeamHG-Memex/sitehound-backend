@@ -118,7 +118,7 @@ public class IndexerDao{
 
 		IndexWriter indexWriter = new IndexWriter(dir, iwc);
 		for(TrainedCrawledUrl trainedCrawledUrl: trainedCrawledUrls){
-			Document doc = createDocument(trainedCrawledUrl.getUrl(), trainedCrawledUrl.getContent());
+			Document doc = createDocument(trainedCrawledUrl.getUrl(), trainedCrawledUrl.getText());
 			indexWriter.addDocument(doc);
 //			LOGGER.info(trainedCrawledUrl.toString());
 		}

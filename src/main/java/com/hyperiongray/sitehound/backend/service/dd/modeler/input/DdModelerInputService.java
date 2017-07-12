@@ -43,10 +43,10 @@ public class DdModelerInputService {
         for(TrainedCrawledUrl trainedCrawledUrl : trainedCrawledUrls){
             DdModelerInput.Page page = new DdModelerInput.Page();
             if(compressHtml) {
-                page.setHtml(compressionService.b64compress(trainedCrawledUrl.getContent()));
+                page.setHtml(compressionService.b64compress(trainedCrawledUrl.getHtml()));
             }
             else{
-                page.setHtml(trainedCrawledUrl.getContent());
+                page.setHtml(trainedCrawledUrl.getHtml());
             }
             page.setUrl(trainedCrawledUrl.getUrl());
             page.setRelevant(trainedCrawledUrl.getRelevant());
