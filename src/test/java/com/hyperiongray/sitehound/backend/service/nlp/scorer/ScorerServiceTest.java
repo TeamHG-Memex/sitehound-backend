@@ -304,8 +304,14 @@ public class ScorerServiceTest {
 //			List<TrainedCrawledUrl> trainedDocuments = mockCrawledIndexService.getTrainedDocuments(workspaceId);
 
 			List<TrainedCrawledUrl> trainedDocuments = new LinkedList<>();
-			trainedDocuments.add(new TrainedCrawledUrl("url1.com", "the lazy fox jumped over the lazy dog", true));
-			trainedDocuments.add(new TrainedCrawledUrl("url2.com", "the dog was sleeping", true));
+
+			TrainedCrawledUrl trainedCrawledUrl1 = new TrainedCrawledUrl("url1.com", true);
+			trainedCrawledUrl1.setText("the lazy fox jumped over the lazy dog");
+			trainedDocuments.add(trainedCrawledUrl1);
+
+			TrainedCrawledUrl trainedCrawledUrl2 = new TrainedCrawledUrl("url2.com", true);
+			trainedCrawledUrl2.setText("the dog was sleeping");
+			trainedDocuments.add(trainedCrawledUrl2);
 
 			indexerDao.bulkIndex(workspaceId,jobId, RelevanceType.ALL, trainedDocuments);
 //			indexerDao.bulkIndex(workspaceId,jobId, RelevanceType.RELEVANT, trainedDocuments);

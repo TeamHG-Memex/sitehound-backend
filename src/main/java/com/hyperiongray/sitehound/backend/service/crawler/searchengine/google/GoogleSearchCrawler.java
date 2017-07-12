@@ -89,7 +89,7 @@ public class GoogleSearchCrawler implements Crawler<SearchEngineCrawlResult> {
 
 //			sb.append(startingFrom > 0 ? "&getDdTrainerInputStart=" + startingFrom : "");
 			if(startingFrom > 0){
-				uriBuilder.setParameter("getDdTrainerInputStart", String.valueOf(startingFrom));
+				uriBuilder.setParameter("start", String.valueOf(startingFrom));
 			}
 
 			uri = uriBuilder.build();

@@ -39,6 +39,10 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </logger>
+    <logger name="com.hyperiongray" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </logger>
 
     <!-- By default, the level of the root level is set to DEBUG -->
     <root level="INFO">

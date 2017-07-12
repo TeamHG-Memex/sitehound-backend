@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.crawledindex;
 
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawledTrainingRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.CrawledIndexHttpRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import org.slf4j.Logger;
@@ -17,19 +17,21 @@ import java.util.List;
  */
 @Service
 public class CrawledIndexService{
-
-	@Autowired private CrawledTrainingRepository crawledTrainingRepository;
-	@Autowired private CrawledIndexHttpRepository crawledIndexHttpRepository;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(CrawledIndexService.class);
+
+	@Autowired private KeywordsRepository keywordsRepository;
+	@Autowired private CrawledIndexHttpRepository crawledIndexHttpRepository;
 
 
 	public List<TrainedCrawledUrl> getTrainedDocuments(String workspaceId) throws IOException{
-		List<TrainedCrawledUrl> trainedDocuments = crawledTrainingRepository.getAllTrainedDocuments(workspaceId);
+		List<TrainedCrawledUrl> trainedDocuments = keywordsRepository.getTrainedDocuments(workspaceId);
 		for(TrainedCrawledUrl trainedCrawledUrl: trainedDocuments){
 			AnalyzedCrawlResultDto analyzedCrawlResultDto = crawledIndexHttpRepository.get(trainedCrawledUrl.getUrl());
 			String text = analyzedCrawlResultDto.getText() == null ? "" : analyzedCrawlResultDto.getText();
-			trainedCrawledUrl.setContent(text);
+			trainedCrawledUrl.setText(text);
+			if(analyzedCrawlResultDto.getCrawlResultDto()!=null){
+				trainedCrawledUrl.setHtml(analyzedCrawlResultDto.getCrawlResultDto().getHtml());
+			}
 		}
 		return trainedDocuments;
 	}
