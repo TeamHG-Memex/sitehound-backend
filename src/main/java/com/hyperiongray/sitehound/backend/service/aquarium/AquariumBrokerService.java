@@ -1,14 +1,13 @@
 package com.hyperiongray.sitehound.backend.service.aquarium;
 
 import com.hyperiongray.framework.kafka.service.KafkaListenerProcessor;
-import org.apache.http.client.fluent.ContentResponseHandler;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.BroadcrawlerAquariumCallbackService;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdBroadcrawlerAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.KeywordsAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DefaultCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
+import org.apache.http.client.fluent.ContentResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,6 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 	@Autowired private AquariumAsyncClient aquariumClient;
 	@Autowired private KeywordsAquariumCallbackService keywordsAquariumCallbackService;
 	@Autowired private BroadcrawlerAquariumCallbackService broadcrawlerAquariumCallbackService;
-	@Autowired private DdBroadcrawlerAquariumCallbackService ddBroadcrawlerAquariumCallbackService;
 
 	private Semaphore semaphore = new Semaphore(10);
 
@@ -38,9 +36,8 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		AquariumAsyncClientCallback aquariumAsyncClientCallback = null;
-		DefaultCallbackServiceWrapper callbackServiceWrapper = null;
 
+		DefaultCallbackServiceWrapper callbackServiceWrapper;
 		if (aquariumInput.getMetadata().getCrawlType().equals(Constants.CrawlType.KEYWORDS)){
 			callbackServiceWrapper = new DefaultCallbackServiceWrapper(keywordsAquariumCallbackService);
 		}
@@ -51,7 +48,7 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 			semaphore.release();
 			throw new UnsupportedOperationException();
 		}
-		aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput, semaphore, callbackServiceWrapper);
+		AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput, semaphore, callbackServiceWrapper);
 		aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
 		LOGGER.info("Aquarium requested (with semaphores :"+semaphore.availablePermits()+"): " + aquariumInput.getUrl());
 	}

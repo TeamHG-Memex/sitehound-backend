@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.activity.dd.trainer;
 
 import com.hyperiongray.sitehound.backend.service.dd.trainer.output.DdTrainerOutputProgressBrokerService;
-import com.hyperiongray.sitehound.backend.activity.Activity;
+import com.hyperiongray.framework.kafka.service.Activity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

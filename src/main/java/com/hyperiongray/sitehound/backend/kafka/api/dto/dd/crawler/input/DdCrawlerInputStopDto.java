@@ -5,7 +5,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrain
 /**
  * Created by tomas on 29/09/16.
  */
-public class DdCrawlerInputStop extends DdTrainerInputBase {
+public class DdCrawlerInputStopDto extends DdTrainerInputBase {
 
     private static final Boolean stop = true;
 

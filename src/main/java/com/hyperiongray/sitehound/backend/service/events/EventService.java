@@ -1,15 +1,18 @@
 package com.hyperiongray.sitehound.backend.service.events;
 
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.modeler.DdModelerProducer;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStart;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStop;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStop;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.crawler.DdCrawlerInputProducer;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.trainer.DdTrainerInputProducer;
-import com.hyperiongray.sitehound.backend.model.DdEventsType;
+import com.hyperiongray.sitehound.backend.model.EventsType;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.service.crawler.Constants;
+import com.hyperiongray.sitehound.backend.service.dd.crawler.input.DdCrawlerHintsInputService;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.input.DdCrawlerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.trainer.input.DdTrainerInputService;
@@ -34,31 +37,46 @@ public class EventService {
     @Autowired private DdTrainerInputProducer ddTrainerInputProducer;
 
     @Autowired private DdCrawlerInputService ddCrawlerInputService;
+    @Autowired private DdCrawlerHintsInputService ddCrawlerHintsInputService;
     @Autowired private DdCrawlerInputProducer ddCrawlerInputProducer;
+
+    @Autowired private CrawlJobRepository crawlJobRepository;
 
     public void dispatch(EventInput eventInput) throws IOException {
 
         String eventAsString = eventInput.getEvent();
-        DdEventsType event = DdEventsType.getEnumFromString(eventAsString);
+        EventsType event = EventsType.getEnumFromString(eventAsString);
 
         LOGGER.info("received event:" + eventAsString);
         switch (event){
 
             case DD_MODELER:
-                DdModelerInput ddModelerInput = ddModelerInputService.getDdModelerInput(eventInput.getMetadata().getWorkspace());
+                DdModelerInput ddModelerInput = ddModelerInputService.getDdModelerInput(eventInput.getWorkspaceId());
                 ddModelerProducer.submit(ddModelerInput);
                 break;
 
             case DD_TRAINER:
                 if (eventInput.getAction().equals("start")){
-                    DdTrainerInputStart ddTrainerInputStart = ddTrainerInputService.getDdTrainerInputStart(eventInput.getMetadata().getWorkspace());
+
+                    DdTrainerInputStart ddTrainerInputStart = ddTrainerInputService.getDdTrainerInputStart(eventInput);
+
+                    crawlJobRepository.updateJobStatus(ddTrainerInputStart.getId(), Constants.JobStatus.STARTED);
+
                     ddTrainerInputProducer.submit(ddTrainerInputStart);
+
                 }
                 else if (eventInput.getAction().equals("stop")){
-                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput.getMetadata().getWorkspace());
+                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
+
+                    crawlJobRepository.updateJobStatus(ddTrainerInputStop.getId(), Constants.JobStatus.STOPPED);
+
                     ddTrainerInputProducer.submit(ddTrainerInputStop);
                 }
-                else{
+                else if (eventInput.getAction().toLowerCase().equals("finished")){
+                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
+                    crawlJobRepository.updateJobStatus(ddTrainerInputStop.getId(), Constants.JobStatus.FINISHED);
+                }
+                else {
                     throw new UnsupportedOperationException();
                 }
                 break;
@@ -66,20 +84,44 @@ public class EventService {
             case DD_CRAWLER:
                 if (eventInput.getAction().equals("start")){
 
-                    DdCrawlerInputStart ddCrawlerInputStart = ddCrawlerInputService.getDdCrawlerInputStart(eventInput.getMetadata().getWorkspace());
-                    ddCrawlerInputProducer.submit(ddCrawlerInputStart);
-                }
+                    DdCrawlerInputStartDto ddCrawlerInputStartDto = ddCrawlerInputService.getDdCrawlerInputStart(eventInput);
 
+                    boolean jobQueuedStarted = crawlJobRepository.updateJobStatus(ddCrawlerInputStartDto.getId(), Constants.JobStatus.STARTED);
+                    LOGGER.info("Saved broadcrawl dd-crawler start job: " + ddCrawlerInputStartDto.getId());
+
+                    if(!jobQueuedStarted){
+                        LOGGER.info("SKIPPING broadcrawl dd-crawler start job: " + ddCrawlerInputStartDto.getId());
+                        return;
+                    }
+                    ddCrawlerInputProducer.submit(ddCrawlerInputStartDto);
+                }
                 else if (eventInput.getAction().equals("stop")){
-                    DdCrawlerInputStop ddCrawlerInputStop = ddCrawlerInputService.getDdCrawlerInputStop(eventInput.getMetadata().getWorkspace());
-                    ddCrawlerInputProducer.submit(ddCrawlerInputStop);
+                    DdCrawlerInputStopDto ddCrawlerInputStopDto = ddCrawlerInputService.getDdCrawlerInputStop(eventInput.getWorkspaceId());
+                    crawlJobRepository.updateJobStatus(ddCrawlerInputStopDto.getId(), Constants.JobStatus.STOPPED);
+                    ddCrawlerInputProducer.submit(ddCrawlerInputStopDto);
+                }
+                else if (eventInput.getAction().toLowerCase().equals("finished")){
+                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
+                    crawlJobRepository.updateJobStatus(ddTrainerInputStop.getId(), Constants.JobStatus.FINISHED);
                 }
                 else{
                     throw new UnsupportedOperationException();
                 }
                 break;
 
-            default:
+            case BOOKMARK:
+                /// action is always "changed"
+                ddCrawlerHintsInputService.execute(eventInput);
+                break;
+
+            case JOB:
+                if (eventInput.getAction().toLowerCase().equals("stop")) {
+                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
+                    crawlJobRepository.updateJobStatus(ddTrainerInputStop.getId(), Constants.JobStatus.STOPPED);
+                }
+                break;
+
+                default:
                 throw new UnsupportedOperationException();
 
         }

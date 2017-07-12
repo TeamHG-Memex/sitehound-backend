@@ -1,15 +1,16 @@
 package com.hyperiongray.sitehound.backend.service.dd.crawler.input;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStart;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStop;
-import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.event.DdCrawlerInputStartArgs;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawledTrainingRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,30 +23,38 @@ public class DdCrawlerInputService {
     @Autowired private DdRepository ddRepository;
     @Autowired private CrawledTrainingRepository crawledTrainingRepository;
 
+    private JsonMapper<DdCrawlerInputStartArgs> jsonMapperDdCrawlerInputStartArgs = new JsonMapper();
 
-    public DdCrawlerInputStart getDdCrawlerInputStart(String workspaceId) throws IOException {
+    public DdCrawlerInputStartDto getDdCrawlerInputStart(EventInput eventInput) throws IOException {
 
-        DdCrawlerInputStart ddCrawlerInputStart = new DdCrawlerInputStart();
+        DdCrawlerInputStartArgs eventInputStartArgs = jsonMapperDdCrawlerInputStartArgs.toObject(eventInput.getArguments(), DdCrawlerInputStartArgs.class);
 
-        Map<String, String> models = ddRepository.getModels(workspaceId);
+        DdCrawlerInputStartDto ddCrawlerInputStartDto = new DdCrawlerInputStartDto();
+        ddCrawlerInputStartDto.setId(eventInputStartArgs.getJobId());
+        ddCrawlerInputStartDto.setWorkspaceId(eventInput.getWorkspaceId());
 
-        List<TrainedCrawledUrl> trainedDocuments = crawledTrainingRepository.getTrainedDocuments(workspaceId);
-        List<String> seeds = new LinkedList<>();
-        for (TrainedCrawledUrl trainedDocument : trainedDocuments){
-            seeds.add(trainedDocument.getUrl());
-        }
+        ddCrawlerInputStartDto.setBroadness(eventInputStartArgs.getBroadness());
+        ddCrawlerInputStartDto.setPageLimit(eventInputStartArgs.getnResults());
 
-        ddCrawlerInputStart.setId(workspaceId);
-        ddCrawlerInputStart.setPage_model(models.get("page_model"));
-        ddCrawlerInputStart.setLink_model(models.get("link_model"));
-        ddCrawlerInputStart.setSeeds(seeds);
 
-        return ddCrawlerInputStart;
+        Map<String, String> models = ddRepository.getModels(eventInput.getWorkspaceId());
+        ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
+        ddCrawlerInputStartDto.setLinkModel(models.get("link_model"));
+
+        List<String> seeds = crawledTrainingRepository.getRelevantTrainedUrls(eventInput.getWorkspaceId());
+        ddCrawlerInputStartDto.setSeeds(seeds);
+
+
+        List<String> hints = crawledTrainingRepository.getPinnedUrls(eventInput.getWorkspaceId());
+        ddCrawlerInputStartDto.setHints(hints);
+
+        return ddCrawlerInputStartDto;
     }
 
-    public DdCrawlerInputStop getDdCrawlerInputStop(String workspaceId){
-        DdCrawlerInputStop ddCrawlerInputStop = new DdCrawlerInputStop();
-        ddCrawlerInputStop.setId(workspaceId);
-        return ddCrawlerInputStop;
+    public DdCrawlerInputStopDto getDdCrawlerInputStop(String workspaceId){
+        DdCrawlerInputStopDto ddCrawlerInputStopDto = new DdCrawlerInputStopDto();
+        ddCrawlerInputStopDto.setId(workspaceId);
+        return ddCrawlerInputStopDto;
     }
+
 }

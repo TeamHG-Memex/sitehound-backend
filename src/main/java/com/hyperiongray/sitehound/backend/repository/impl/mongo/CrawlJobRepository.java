@@ -14,22 +14,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+
 /**
  * Created by tomas on 11/16/15.
  */
 @Repository
 public class CrawlJobRepository{
+	private static final Logger LOGGER = LoggerFactory.getLogger(CrawlJobRepository.class);
 
 	@Autowired
 	private MongoRepository mongoRepository;
 
 	private static final String CRAWL_JOB_COLLECTION_NAME = "crawl_job";
-	private static final Logger LOGGER = LoggerFactory.getLogger(CrawlJobRepository.class);
+	private ConcurrentHashMap<String, String> cacheMap = new ConcurrentHashMap<>(50);
+
 
 	public boolean updateJobStatus(String jobId, Constants.JobStatus status){
 		LOGGER.info("About to update crawlJob:" + jobId);
 		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
-		Bson filter = new BasicDBObject("_id", new ObjectId(jobId)).append("status", "QUEUED");
+//		Bson filter = new BasicDBObject("_id", new ObjectId(jobId)).append("status", "QUEUED");
+		Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
 		UpdateResult updateResult=collection.updateOne(filter,
 				new BasicDBObject("$set", new BasicDBObject("status", status.toString())));
 		LOGGER.info("Finished to update crawlJob:" + jobId);
@@ -41,11 +47,6 @@ public class CrawlJobRepository{
 		Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
 		FindIterable<Document> iterable = collection.find(filter);
 		MongoCursor<Document> iterator = iterable.iterator();
-//		List<TrainedCrawledUrl> trainedCrawledUrls= new LinkedList<>();
-//		while(iterator.hasNext()){
-//			trainedCrawledUrls.add(translate(iterator.next()));
-//		}
-//		return trainedCrawledUrls;
 		if(iterator.hasNext()){
 			String status= iterator.next().getString("status");
 			if(Constants.JobStatus.STOPPED.toString().equalsIgnoreCase(status)){
@@ -58,6 +59,18 @@ public class CrawlJobRepository{
 		else {
 			return false;
 		}
+	}
+
+	public String getWorkspaceId(String jobId){
+		return cacheMap.computeIfAbsent(jobId, k ->getWorkspaceIdNoCache(k));
+	}
+
+	private String getWorkspaceIdNoCache(String jobId){
+		LOGGER.info("About to update crawlJob:" + jobId);
+		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
+		Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
+		FindIterable<Document> iterable = collection.find(filter);
+		return iterable.iterator().next().getString("workspaceId");
 	}
 
 }

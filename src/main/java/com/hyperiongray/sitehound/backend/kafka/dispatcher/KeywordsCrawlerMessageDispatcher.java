@@ -49,14 +49,14 @@ public class KeywordsCrawlerMessageDispatcher implements KafkaListenerProcessor<
 	public void process(SubscriberInput subscriberInput) throws IOException {
 
 
-		CrawlJob crawlJob = new CrawlJob(subscriberInput.getWorkspace(), subscriberInput.getJobId(), subscriberInput.getSource(),
-				                                Constants.CrawlType.KEYWORDS, subscriberInput.getnResults(), Constants.CrawlerProvider.valueOf(subscriberInput.getCrawlProvider()));
+//		CrawlJob crawlJob = new CrawlJob(subscriberInput.getWorkspace(), subscriberInput.getJobId(), subscriberInput.getSource(),
+//				                                Constants.CrawlType.KEYWORDS, subscriberInput.getnResults(), Constants.CrawlerProvider.valueOf(subscriberInput.getCrawlProvider()));
 
-		boolean jobQueuedStarted = crawlJobRepository.updateJobStatus(crawlJob.getJobId(), Constants.JobStatus.STARTED);
+		boolean jobQueuedStarted = crawlJobRepository.updateJobStatus(subscriberInput.getJobId(), Constants.JobStatus.STARTED);
 		LOGGER.info("Keywords saved job:" +  subscriberInput.getJobId());
 
 		if(!jobQueuedStarted){
-			LOGGER.info("SKIPPING PROCESS REQUEST FOR JOB:" + crawlJob.getJobId());
+			LOGGER.info("SKIPPING PROCESS REQUEST FOR JOB:" + subscriberInput.getJobId());
 			return;
 		}
 
@@ -74,11 +74,11 @@ public class KeywordsCrawlerMessageDispatcher implements KafkaListenerProcessor<
 						torCrawlerBrokerService.process(subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.KEYWORDS);
 						break;
 					case "DD":
-						Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.KEYWORDS, Constants.CrawlEntityType.DD);
+//						Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.KEYWORDS, Constants.CrawlEntityType.DD);
 						EventInput eventInput = new EventInput();
 						eventInput.setAction("start");
 						eventInput.setEvent("dd-trainer");
-						eventInput.setMetadata(metadata);
+//						eventInput.setMetadata(metadata);
 						eventService.dispatch(eventInput);
 						break;
 					default:

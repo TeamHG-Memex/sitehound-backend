@@ -4,9 +4,9 @@ MAINTAINER Tomas <tfornara@hyperiongray.com>
 
 
 RUN mkdir -p /root/sitehound-backend/config/properties
-RUN mkdir -p /root/sitehound-backend/config/properties-override
-RUN mkdir -p /root/sitehound-backend/temp
-RUN mkdir -p /root/sitehound-backend/logs
+RUN mkdir /root/sitehound-backend/config/properties-override
+RUN mkdir /root/sitehound-backend/temp
+RUN mkdir /root/sitehound-backend/logs
 
 WORKDIR /root/sitehound-backend
 COPY ./config/properties /root/sitehound-backend/config/properties

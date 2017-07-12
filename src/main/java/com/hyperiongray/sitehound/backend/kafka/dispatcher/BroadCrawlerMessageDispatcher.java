@@ -40,9 +40,7 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 	@Autowired private AquariumTaskSubmitter aquariumTaskSubmitter;
 	@Autowired private EventService eventService;
 
-
 	private ExecutorService executorService = Executors.newFixedThreadPool(2);
-
 
 	@Override
 	public void process(SubscriberInput subscriberInput){
@@ -51,15 +49,15 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 
 			LOGGER.info("Broadcrawl processing job:" +  subscriberInput.getJobId());
 
-			CrawlJob crawlJob = new CrawlJob(subscriberInput.getWorkspace(), subscriberInput.getJobId(), subscriberInput.getSource(),
-					                                Constants.CrawlType.BROADCRAWL, subscriberInput.getnResults(),
-					                                Constants.CrawlerProvider.valueOf(subscriberInput.getCrawlProvider()));
+//			CrawlJob crawlJob = new CrawlJob(subscriberInput.getWorkspace(), subscriberInput.getJobId(), subscriberInput.getSource(),
+//					                                Constants.CrawlType.BROADCRAWL, subscriberInput.getnResults(),
+//					                                Constants.CrawlerProvider.valueOf(subscriberInput.getCrawlProvider()));
 
-			boolean jobQueuedStarted = crawlJobRepository.updateJobStatus(crawlJob.getJobId(), Constants.JobStatus.STARTED);
+			boolean jobQueuedStarted = crawlJobRepository.updateJobStatus(subscriberInput.getJobId(), Constants.JobStatus.STARTED);
 			LOGGER.info("Broadcrawl saved job:" +  subscriberInput.getJobId());
 
 			if(!jobQueuedStarted){
-				LOGGER.info("SKIPPING PROCESS REQUEST FOR JOB:" + crawlJob.getJobId());
+				LOGGER.info("SKIPPING PROCESS REQUEST FOR JOB:" + subscriberInput.getJobId());
 				return;
 			}
 
@@ -91,11 +89,12 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 							executorService.submit(new DispatcherWorker(torCrawlerBrokerService, subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.BROADCRAWL));
 							break;
 						case "DD":
-							Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.BROADCRAWL, Constants.CrawlEntityType.DD);
+//							Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.BROADCRAWL, Constants.CrawlEntityType.DD);
 							EventInput eventInput = new EventInput();
 							eventInput.setAction("start");
 							eventInput.setEvent("dd-crawler");
-							eventInput.setMetadata(metadata);
+//							eventInput.setMetadata(metadata);
+							eventInput.setWorkspaceId(subscriberInput.getWorkspace());
 							eventService.dispatch(eventInput);
 							break;
 

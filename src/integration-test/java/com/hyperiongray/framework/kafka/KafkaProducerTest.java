@@ -1,5 +1,6 @@
 package com.hyperiongray.framework.kafka;
 
+import com.hyperiongray.framework.kafka.service.KafkaProducer;
 import com.hyperiongray.sitehound.backend.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;

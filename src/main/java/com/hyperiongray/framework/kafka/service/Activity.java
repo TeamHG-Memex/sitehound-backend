@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.activity;
+package com.hyperiongray.framework.kafka.service;
 
 /**
  * Created by tomas on 22/03/17.

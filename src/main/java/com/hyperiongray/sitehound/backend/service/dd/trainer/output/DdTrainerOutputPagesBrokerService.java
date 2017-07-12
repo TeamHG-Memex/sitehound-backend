@@ -22,12 +22,12 @@ import java.util.concurrent.Semaphore;
  */
 @Service
 public class DdTrainerOutputPagesBrokerService implements BrokerService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputPagesBrokerService.class);
 
     @Autowired private DdRepository ddRepository;
 
     @Autowired private AquariumProducer producer;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputPagesBrokerService.class);
+    @Autowired private MetadataBuilder metadataBuilder;
 
     @Override
     public void process(String jsonInput, Semaphore semaphore){
@@ -49,7 +49,7 @@ public class DdTrainerOutputPagesBrokerService implements BrokerService {
     }
 
     public void dispatch(DdTrainerOutputPages ddTrainerOutputPages) throws IOException {
-        Metadata metadata = MetadataBuilder.buildFromTrainerOutputPages(ddTrainerOutputPages.getId());
+        Metadata metadata = metadataBuilder.buildFromTrainerOutputPages(ddTrainerOutputPages.getId());
         for (PageSample pageSample : ddTrainerOutputPages.getPage_sample()){
             AquariumInput aquariumInput = new AquariumInput(metadata);
             aquariumInput.setUrl(pageSample.getUrl());

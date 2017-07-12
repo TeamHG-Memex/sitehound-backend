@@ -3,15 +3,9 @@ package com.hyperiongray.sitehound.backend.kafka.producer;
 //import kafka.javaapi.producer.Producer;
 //import kafka.producer.KeyedMessage;
 //import kafka.producer.ProducerConfig;
-import com.hyperiongray.framework.kafka.KafkaProducer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.hyperiongray.framework.kafka.service.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.util.Properties;
 
 /**
  * Created by tomas on 2/4/16.

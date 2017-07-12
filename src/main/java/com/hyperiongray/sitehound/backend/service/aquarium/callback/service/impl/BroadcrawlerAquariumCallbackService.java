@@ -22,15 +22,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BroadcrawlerAquariumCallbackService implements DefaultProcess{
+    private static final Logger LOGGER = LoggerFactory.getLogger(BroadcrawlerAquariumCallbackService.class);
 
-    @Autowired
-    private CrawlRequestTranslator crawlRequestTranslator;
+    @Autowired private CrawlRequestTranslator crawlRequestTranslator;
     @Autowired private CrawlResultTranslator crawlResultTranslator;
     @Autowired private AnalyzedCrawlRequestFactory analyzedCrawlRequestFactory;
     @Autowired private ScorerService scorerService;
     @Autowired private CrawlResultService crawlResultService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BroadcrawlerAquariumCallbackService.class);
 
     public void process(AquariumInput aquariumInput, AquariumInternal aquariumInternal){
 
