@@ -25,12 +25,6 @@ public class AquariumAsyncClientCallback implements FutureCallback<Content>{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AquariumAsyncClientCallback.class);
 
-//	public AquariumAsyncClientCallback(AquariumInput aquariumInput, Semaphore semaphore, BaseAquariumCallbackService aquariumCallbackService){
-//		this.aquariumInput=aquariumInput;
-//		this.semaphore=semaphore;
-//		this.aquariumCallbackService = aquariumCallbackService;
-//	}
-
 	public AquariumAsyncClientCallback(AquariumInput aquariumInput, Semaphore semaphore, BaseCallbackServiceWrapper baseCallbackServiceWrapper){
 		this.aquariumInput=aquariumInput;
 		this.semaphore=semaphore;
