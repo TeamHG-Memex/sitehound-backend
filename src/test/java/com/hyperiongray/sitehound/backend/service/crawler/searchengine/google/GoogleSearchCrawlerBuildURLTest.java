@@ -60,7 +60,7 @@ public class GoogleSearchCrawlerBuildURLTest {
 		Set<String> hosts = CrawlerUtils.getHostsFromUrls(irrelevantUrls);
 		URI urlActual2 = instance.buildURL(included, excluded, hosts, existentUrl, 10, 20);
 		String urlExpected2 = "http://www.google" +
-				".com/search?q=%28barceloneta+AND+bogatell+AND+padel+surf+AND+werunbarcelona%29+-barza+-fcb+-messi+-futbol&num=20&getDdTrainerInputStart=10";
+				".com/search?q=%28barceloneta+AND+bogatell+AND+padel+surf+AND+werunbarcelona%29+-barza+-fcb+-messi+-futbol&num=20&start=10";
 		Assert.assertEquals(urlExpected2, urlActual2.toString());
 	}
 }

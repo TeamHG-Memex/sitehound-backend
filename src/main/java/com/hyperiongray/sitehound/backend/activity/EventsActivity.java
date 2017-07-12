@@ -32,6 +32,7 @@ public class EventsActivity implements Activity {
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
         try{
+            LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
             LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
             EventInput eventInput = jsonMapper.toObject(data, EventInput.class);
             eventsBrokerService.process(eventInput);

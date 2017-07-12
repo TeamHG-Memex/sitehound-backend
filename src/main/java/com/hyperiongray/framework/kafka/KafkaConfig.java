@@ -13,7 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
+import org.springframework.kafka.listener.AbstractMessageListenerContainer;
+import org.springframework.kafka.listener.config.ContainerProperties;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,14 +44,15 @@ public class KafkaConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
-        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "90000");
 //        props.put(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG, "16000");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-        props.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, "20000000");
-//        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "1000");
+        props.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, "200000000");
+        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "10000");
         props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "3000");
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "2");
         props.put(ConsumerConfig.CONNECTIONS_MAX_IDLE_MS_CONFIG, "3000");
         return props;
 
@@ -68,6 +72,8 @@ public class KafkaConfig {
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(1);                              //TURBO!!!!
         factory.getContainerProperties().setPollTimeout(3000);
+//        factory.getContainerProperties().setPollTimeout(1000);
+        factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.RECORD);
         return factory;
     }
 
@@ -80,7 +86,8 @@ public class KafkaConfig {
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
         props.put(ProducerConfig.LINGER_MS_CONFIG, 1);
-        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
+//        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
+        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 100000000);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, 209715200);

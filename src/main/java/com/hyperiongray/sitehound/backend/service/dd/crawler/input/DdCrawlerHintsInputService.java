@@ -1,21 +1,14 @@
 package com.hyperiongray.sitehound.backend.service.dd.crawler.input;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.event.DdCrawlerInputStartArgs;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerHintsInputDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.crawler.DdCrawlerHintsInputProducer;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.BroadCrawlRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawledTrainingRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by tomas on 2/10/16.

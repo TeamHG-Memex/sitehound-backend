@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -31,9 +32,11 @@ public class ImportUrlActivity {
 					   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
 					   @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
+//		ack.acknowledge();
 //		LOGGER.debug("received data:" + data + ", key:" + key + "; partition:" + partition + ", topic:" + topic);
 		LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
 		try {
+			LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
 			ImportUrlInput input = importUrlInputJsonMapper.toObject(data, ImportUrlInput.class);
 			importUrlBrokerService.process(input);
 		}catch(IOException e){

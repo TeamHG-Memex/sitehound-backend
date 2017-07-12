@@ -34,6 +34,7 @@ public class KeywordsActivity implements Activity {
 					   @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
 		try{
+			LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
 			LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
 			SubscriberInput subscriberInput = jsonMapper.toObject(data, SubscriberInput.class);
 			keywordsCrawlerMessageDispatcher.process(subscriberInput);

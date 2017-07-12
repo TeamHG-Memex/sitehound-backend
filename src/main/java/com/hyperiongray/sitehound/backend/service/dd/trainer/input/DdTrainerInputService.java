@@ -1,11 +1,9 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.input;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStop;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
-import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawledTrainingRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -23,7 +20,7 @@ import java.util.List;
 public class DdTrainerInputService {
 
 
-    @Autowired private CrawledTrainingRepository crawledTrainingRepository;
+    @Autowired private KeywordsRepository keywordsRepository;
     @Autowired private DdRepository ddRepository;
 
     public DdTrainerInputStart getDdTrainerInputStart(EventInput eventInput) throws IOException {
@@ -34,11 +31,7 @@ public class DdTrainerInputService {
         ddTrainerInputStart.setId(ddTrainerInputStartArgs.getJobId());
         ddTrainerInputStart.setWorkspaceId(eventInput.getWorkspaceId());
 
-        List<TrainedCrawledUrl> trainedDocuments = crawledTrainingRepository.getAllTrainedDocuments(eventInput.getWorkspaceId());
-        List<String> seeds = new LinkedList<>();
-        for (TrainedCrawledUrl trainedDocument : trainedDocuments){
-            seeds.add(trainedDocument.getUrl());
-        }
+        List<String> seeds = keywordsRepository.getAllUrls(eventInput.getWorkspaceId());
 
         DdModelerOutput ddModelerOutput = ddRepository.getPageModel(eventInput.getWorkspaceId());
 

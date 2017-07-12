@@ -6,18 +6,21 @@ package com.hyperiongray.sitehound.backend.model;
 public class TrainedCrawledUrl{
 
 	private String url;
-	private String content;
+	private String text;
+	private String html;
 	private Boolean relevant;
 
-	public TrainedCrawledUrl() {
-	}
-
-	public TrainedCrawledUrl(String url, String content, Boolean relevant) {
+	public TrainedCrawledUrl(String url, String text, String html, Boolean relevant) {
 		this.url = url;
-		this.content = content;
+		this.text = text;
+		this.html = html;
 		this.relevant = relevant;
 	}
 
+	public TrainedCrawledUrl(String url, Boolean relevant) {
+		this.url = url;
+		this.relevant = relevant;
+	}
 	public String getUrl(){
 		return url;
 	}
@@ -26,13 +29,23 @@ public class TrainedCrawledUrl{
 		this.url=url;
 	}
 
-	public String getContent(){
-		return content;
+
+	public String getText() {
+		return text;
 	}
 
-	public void setContent(String content){
-		this.content=content;
+	public void setText(String text) {
+		this.text = text;
 	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
+	}
+
 
 	public Boolean getRelevant(){
 		return relevant;
@@ -43,11 +56,12 @@ public class TrainedCrawledUrl{
 	}
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return "TrainedCrawledUrl{" +
-				       "url='" + url + '\'' +
-				       ", content='" + content.length() + '\'' +
-				       ", relevant=" + relevant +
-				       '}';
+				"url='" + url + '\'' +
+				", relevant=" + relevant +
+				", text='" + (text!=null? String.valueOf(text.length()): "0") + '\'' +
+				", html='" + (html!=null? String.valueOf(html.length()): "0") +  + '\'' +
+				'}';
 	}
 }

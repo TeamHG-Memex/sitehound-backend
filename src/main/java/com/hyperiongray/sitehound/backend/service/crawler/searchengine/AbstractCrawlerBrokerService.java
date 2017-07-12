@@ -74,8 +74,10 @@ public abstract class AbstractCrawlerBrokerService implements CrawlerBrokerServi
 
 				int nSubmitted = this.submitSearchResults(currentTarget, crawlResultsFiltered, taskSubmitter, metadata, numberOfResultsRequested);
 				currentIndex += pageSize;
-				currentTarget = nSubmitted;
+				currentTarget += nSubmitted;
+				LOGGER.info("iterating. Now with: " + currentTarget + "/" + numberOfResultsRequested );
 			}
+			LOGGER.info("exit iterating  with: " + currentTarget + "/" + numberOfResultsRequested );
 
 			// save the task
 			CrawlTask crawlTask = new CrawlTask(subscriberInput.getJobId(), getCrawler().getCrawlerEntityType(),
