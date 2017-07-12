@@ -63,6 +63,7 @@ public class KafkaConfig {
     public ConsumerFactory<Integer, String> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }
+
     @Bean
     ConcurrentKafkaListenerContainerFactory<Integer, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Integer, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
@@ -70,7 +71,7 @@ public class KafkaConfig {
         factory.setConcurrency(1);                              //TURBO!!!!
         factory.getContainerProperties().setPollTimeout(3000);
 //        factory.getContainerProperties().setPollTimeout(1000);
-        factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.RECORD);
+//        factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.RECORD);
         return factory;
     }
 

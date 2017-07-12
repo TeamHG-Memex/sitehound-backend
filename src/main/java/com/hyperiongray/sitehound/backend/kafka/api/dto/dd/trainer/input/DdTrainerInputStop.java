@@ -1,9 +1,11 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input;
 
+import com.hyperiongray.framework.kafka.dto.KafkaDto;
+
 /**
  * Created by tomas on 29/09/16.
  */
-public class DdTrainerInputStop{
+public class DdTrainerInputStop extends KafkaDto {
 
     private String id;
     private static final Boolean stop = true;

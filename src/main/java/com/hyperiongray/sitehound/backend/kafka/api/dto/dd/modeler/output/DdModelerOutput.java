@@ -1,8 +1,10 @@
-package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler;
+package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output;
 
 /**
  * Created by tomas on 28/09/16.
  */
+
+import com.hyperiongray.framework.kafka.dto.KafkaDto;
 
 /**
  dd-modeler-output
@@ -14,7 +16,7 @@ package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler;
 
 
  */
-public class DdModelerOutput {
+public class DdModelerOutput extends KafkaDto {
 
     private String id;
     private String quality;

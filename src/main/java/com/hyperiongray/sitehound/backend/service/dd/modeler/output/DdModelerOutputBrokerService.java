@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.modeler.output;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerOutput;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd.DdModelerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import java.util.concurrent.Semaphore;
 @Service
 public class DdModelerOutputBrokerService implements BrokerService {
 
-    @Autowired private DdRepository ddRepository;
+    @Autowired private DdModelerRepository ddModelerRepository;
 
     private JsonMapper jsonMapper = new JsonMapper();
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
@@ -50,7 +50,7 @@ public class DdModelerOutputBrokerService implements BrokerService {
 
 
     public void dispatch(DdModelerOutput ddModelerOutput){
-        ddRepository.savePageModel(ddModelerOutput);
+        ddModelerRepository.savePageModel(ddModelerOutput);
 
     }
 }

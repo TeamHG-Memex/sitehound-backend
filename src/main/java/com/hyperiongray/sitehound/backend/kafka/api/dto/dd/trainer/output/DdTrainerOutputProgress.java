@@ -1,9 +1,11 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output;
 
+import com.hyperiongray.framework.kafka.dto.KafkaDto;
+
 /**
  * Created by tomas on 2/10/16.
  */
-public class DdTrainerOutputProgress {
+public class DdTrainerOutputProgress extends KafkaDto {
 
     private String id;
 

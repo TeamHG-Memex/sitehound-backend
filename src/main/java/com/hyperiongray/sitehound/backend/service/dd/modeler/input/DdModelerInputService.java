@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.dd.modeler.input;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerInput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.input.DdModelerInput;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.service.CompressionService;
 import com.hyperiongray.sitehound.backend.service.crawledindex.CrawledIndexService;

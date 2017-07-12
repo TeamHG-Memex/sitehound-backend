@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputModel;
 import org.bson.Document;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputProgress;
@@ -13,34 +13,25 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd.DdModelerRepository.PAGE_MODEL_FIELD;
+
 /**
  * Created by tomas on 29/09/16.
  */
 
 @Repository
 public class DdRepository {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(DdRepository.class);
 
     @Autowired private CrawlJobRepository crawlJobRepository;
-
     @Autowired private MongoRepository mongoRepository;
 
-    private static final String WORKSPACE_COLLECTION_NAME = "workspace";
-    private static final Logger LOGGER = LoggerFactory.getLogger(CrawlTaskRepository.class);
 
-    private static final String PAGE_MODEL_FIELD = "page_model";
+    public static final String WORKSPACE_COLLECTION_NAME = "workspace";
     private static final String LINK_MODEL_FIELD = "link_model";
     private static final String TRAINER_PROGRESS_FIELD = "trainer_progress";
 
 
-    public void savePageModel(DdModelerOutput ddModelerOutput){
-        LOGGER.info("About to savePageModel:" + ddModelerOutput.getId());
-
-        Document document = new Document();
-        document.put("quality", ddModelerOutput.getQuality());
-        document.put("model", ddModelerOutput.getModel());
-        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, ddModelerOutput.getId(), PAGE_MODEL_FIELD, document);
-    }
 
     public void saveLinkModel(DdTrainerOutputModel ddTrainerOutputModel){
         Document document = new Document();
@@ -51,17 +42,6 @@ public class DdRepository {
     }
 
 
-    public DdModelerOutput getPageModel(String workspaceId){
-        DdModelerOutput ddModelerOutput = null;
-        Document document = mongoRepository.getById(WORKSPACE_COLLECTION_NAME, workspaceId);
-        if(document.containsKey(PAGE_MODEL_FIELD)){
-            Document modelerDocument = (Document) document.get(PAGE_MODEL_FIELD);
-            String quality = modelerDocument.getString("quality");
-            String model = modelerDocument.getString("model");
-            ddModelerOutput = new DdModelerOutput(workspaceId, quality, model);
-        }
-        return  ddModelerOutput;
-    }
 
 
     public void saveProgress(DdTrainerOutputProgress ddTrainerOutputProgress) {

@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler;
+package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.input;
 
 /**
  * Created by tomas on 28/09/16.

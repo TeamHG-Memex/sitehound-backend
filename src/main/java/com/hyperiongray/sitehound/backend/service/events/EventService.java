@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.service.events;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.modeler.DdModelerProducer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerInput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.input.DdModelerInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStop;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;

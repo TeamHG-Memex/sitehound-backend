@@ -1,11 +1,12 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.input;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStop;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd.DdModelerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ import java.util.List;
 @Service
 public class DdTrainerInputService {
 
-
     @Autowired private KeywordsRepository keywordsRepository;
     @Autowired private DdRepository ddRepository;
+    @Autowired private DdModelerRepository ddModelerRepository;
 
     public DdTrainerInputStart getDdTrainerInputStart(EventInput eventInput) throws IOException {
         DdTrainerInputStart ddTrainerInputStart = new DdTrainerInputStart();
@@ -33,7 +34,7 @@ public class DdTrainerInputService {
 
         List<String> seeds = keywordsRepository.getAllUrls(eventInput.getWorkspaceId());
 
-        DdModelerOutput ddModelerOutput = ddRepository.getPageModel(eventInput.getWorkspaceId());
+        DdModelerOutput ddModelerOutput = ddModelerRepository.getPageModel(eventInput.getWorkspaceId());
 
         ddTrainerInputStart.setSeeds(seeds);
         ddTrainerInputStart.setPage_model(ddModelerOutput.getModel());

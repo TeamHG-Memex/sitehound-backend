@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input;
 
+import com.hyperiongray.framework.kafka.dto.KafkaDto;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Created by tomas on 29/09/16.
  */
-public class DdTrainerInputStart{
+public class DdTrainerInputStart  extends KafkaDto {
 
     private String id;
     private String workspaceId;
