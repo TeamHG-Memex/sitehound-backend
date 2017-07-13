@@ -1,9 +1,9 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.translator;
 
+import com.google.common.collect.Lists;
 import com.hyperiongray.sitehound.backend.Configuration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
-import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by tomas on 22/06/17.
