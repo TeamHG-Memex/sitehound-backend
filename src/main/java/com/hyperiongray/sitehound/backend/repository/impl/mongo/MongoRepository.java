@@ -37,7 +37,7 @@ public class MongoRepository{
 	@Value( "${mongo.port}" ) private Integer port;
 	@Value( "${mongo.db}" ) private String db;
 
-		private MongoClient mongoClient;
+	private MongoClient mongoClient;
 
 	public MongoDatabase getDatabase(){
 		return database;

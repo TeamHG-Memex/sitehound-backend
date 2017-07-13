@@ -29,6 +29,9 @@ public class DdModelerInputService {
     public DdModelerInput getDdModelerInput(String workspaceId) throws IOException {
         LOGGER.info("about the build DdModelerInput for workspace: " + workspaceId);
         LOGGER.info("compression is: " + compressHtml);
+        LOGGER.info("deleting existing model: " + compressHtml);
+
+
         List<TrainedCrawledUrl> trainedDocuments = crawledIndexService.getTrainedDocuments(workspaceId);
         DdModelerInput ddModelerInput = translate(workspaceId, trainedDocuments);
         return ddModelerInput;
