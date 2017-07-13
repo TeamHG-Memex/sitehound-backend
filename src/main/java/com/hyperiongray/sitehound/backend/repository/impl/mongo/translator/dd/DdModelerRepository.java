@@ -30,19 +30,16 @@ public class DdModelerRepository {
     @Autowired private CrawlJobRepository crawlJobRepository;
 
     public static final String PAGE_MODEL_FIELD = "page_model";
-    private static final String PAGE_MODEL_PROGRESS_FIELD = PAGE_MODEL_FIELD + ".progress";
 
     public void savePageModel(DdModelerOutput ddModelerOutput){
         LOGGER.info("About to savePageModel:" + ddModelerOutput.getId());
-
-
-        LOGGER.info("About save ddModelerProgress:" + ddModelerOutput.getId());
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
         Bson filter = Filters.eq("_id", new ObjectId(ddModelerOutput.getId()));
         Bson updateQuality = Updates.set(PAGE_MODEL_FIELD + ".quality", ddModelerOutput.getQuality());
         Bson updatesModel = Updates.set(PAGE_MODEL_FIELD + ".model", ddModelerOutput.getModel());
         Bson combinedUpdate = combine(updateQuality, updatesModel);
         collection.findOneAndUpdate(filter, combinedUpdate);
+        LOGGER.info("done saving DdModelerOutput");
     }
 
     public void deletePageModel(String workspaceId){
@@ -71,11 +68,12 @@ public class DdModelerRepository {
 
 
     public void saveProgress(DdModelerProgress ddModelerProgress) {
-        LOGGER.info("About save ddModelerProgress:" + ddModelerProgress.getId());
+        LOGGER.info("About to save ddModelerProgress:" + ddModelerProgress.getId());
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
         Bson filter = Filters.eq("_id", new ObjectId(ddModelerProgress.getId()));
         Bson updates = Updates.set(PAGE_MODEL_FIELD + ".progress", ddModelerProgress.getPercentageDone());
         collection.findOneAndUpdate(filter, updates);
+        LOGGER.info("done saving ddModelerProgress");
     }
 
 
@@ -85,7 +83,7 @@ public class DdModelerRepository {
         Document document = mongoRepository.getById(WORKSPACE_COLLECTION_NAME, workspaceId);
         if(document.containsKey(PAGE_MODEL_FIELD)){
             Document modelerDocument = (Document) document.get(PAGE_MODEL_FIELD);
-            String modelerProgress = modelerDocument.getString("progress");
+            Double modelerProgress = modelerDocument.getDouble("progress");
             ddModelerProgress.setPercentageDone(modelerProgress);
         }
         LOGGER.info("getting save DdModelerProgress:" + ddModelerProgress);

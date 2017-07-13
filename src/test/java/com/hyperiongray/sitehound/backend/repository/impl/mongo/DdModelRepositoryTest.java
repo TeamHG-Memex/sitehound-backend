@@ -28,7 +28,7 @@ public class DdModelRepositoryTest {
 
 
     @Test
-    @Ignore
+//    @Ignore
     public void savePageModel() throws Exception {
         DdModelerOutput ddModelerOutput = new DdModelerOutput();
         ddModelerOutput.setId(workspaceId);
@@ -53,11 +53,11 @@ public class DdModelRepositoryTest {
     }
 
     @Test
-    @Ignore
+//    @Ignore
     public void saveProgress() throws Exception {
         DdModelerProgress ddModelerProgress = new DdModelerProgress();
         ddModelerProgress.setId(workspaceId);
-        ddModelerProgress.setPercentageDone("98.13");
+        ddModelerProgress.setPercentageDone(98.13);
         ddModelerRepository.saveProgress(ddModelerProgress);
     }
 
@@ -65,7 +65,7 @@ public class DdModelRepositoryTest {
     @Ignore
     public void getProgress(){
         DdModelerProgress progress = ddModelerRepository.getProgress(workspaceId);
-        Assert.assertEquals(progress.getPercentageDone(), "98.13");
+        Assert.assertEquals(progress.getPercentageDone(), Double.valueOf(98.13));
     }
 
 
@@ -101,7 +101,7 @@ public class DdModelRepositoryTest {
 
         DdModelerProgress ddModelerProgress = new DdModelerProgress();
         ddModelerProgress.setId(workspaceId);
-        ddModelerProgress.setPercentageDone("98.13");
+        ddModelerProgress.setPercentageDone(98.13);
         ddModelerRepository.saveProgress(ddModelerProgress);
 
         DdModelerProgress progress = ddModelerRepository.getProgress(workspaceId);

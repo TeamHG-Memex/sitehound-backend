@@ -9,7 +9,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class DdModelerProgress  extends KafkaDto {
 
     private String id;
-    private String percentageDone;
+
+    private Double percentageDone;
 
     public String getId() {
         return id;
@@ -20,11 +21,11 @@ public class DdModelerProgress  extends KafkaDto {
     }
 
     @JsonProperty("percentage_done")
-    public String getPercentageDone() {
+    public Double getPercentageDone() {
         return percentageDone;
     }
 
-    public void setPercentageDone(String percentageDone) {
+    public void setPercentageDone(Double percentageDone) {
         this.percentageDone = percentageDone;
     }
 
