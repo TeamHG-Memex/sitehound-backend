@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.Configuration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd.DdModelerRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerRepository;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

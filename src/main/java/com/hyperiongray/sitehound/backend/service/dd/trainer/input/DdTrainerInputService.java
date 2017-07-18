@@ -6,7 +6,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd.DdModelerRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

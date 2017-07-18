@@ -30,7 +30,7 @@ public class DdCrawlerInputProducer {
         String message = jsonMapper.toString(ddCrawlerInputStartDto);
         localQueueProducer.send(inputQueue, message);
         LOGGER.info("Sent "  + inputQueue );
-        LOGGER.debug("Sent "  + inputQueue +" with message:" + message);
+        LOGGER.debug("Sent "  + inputQueue +" with message length:" + message.length());
     }
 
     public void submit(DdCrawlerInputStopDto ddCrawlerInputStopDto) throws IOException {

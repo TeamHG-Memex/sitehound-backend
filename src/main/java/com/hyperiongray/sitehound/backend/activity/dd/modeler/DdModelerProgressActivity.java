@@ -2,7 +2,6 @@ package com.hyperiongray.sitehound.backend.activity.dd.modeler;
 
 import com.hyperiongray.framework.kafka.service.Activity;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.output.DdModelerProgressBrokerService;
-import com.hyperiongray.sitehound.backend.service.dd.trainer.output.DdTrainerOutputProgressBrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

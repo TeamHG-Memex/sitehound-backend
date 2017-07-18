@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.modeler.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd.DdModelerRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;

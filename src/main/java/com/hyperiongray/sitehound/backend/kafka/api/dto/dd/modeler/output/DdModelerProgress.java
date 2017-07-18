@@ -10,6 +10,7 @@ public class DdModelerProgress  extends KafkaDto {
 
     private String id;
 
+    @JsonProperty("percentage_done")
     private Double percentageDone;
 
     public String getId() {
@@ -20,7 +21,6 @@ public class DdModelerProgress  extends KafkaDto {
         this.id = id;
     }
 
-    @JsonProperty("percentage_done")
     public Double getPercentageDone() {
         return percentageDone;
     }

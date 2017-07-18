@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputModel;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import java.util.concurrent.Semaphore;
 @Service
 public class DdTrainerOutputModelBrokerService implements BrokerService {
 
-    @Autowired private DdRepository ddRepository;
+    @Autowired private DdTrainerRepository ddTrainerRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputModelBrokerService.class);
 
@@ -31,7 +31,7 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
             JsonMapper<DdTrainerOutputModel> jsonMapper= new JsonMapper();
             DdTrainerOutputModel ddTrainerOutputModel = jsonMapper.toObject(jsonInput, DdTrainerOutputModel.class);
 
-            ddRepository.saveLinkModel(ddTrainerOutputModel);
+            ddTrainerRepository.saveLinkModel(ddTrainerOutputModel);
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

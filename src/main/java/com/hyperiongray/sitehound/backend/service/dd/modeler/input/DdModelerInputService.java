@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.service.dd.modeler.input;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.input.DdModelerInput;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd.DdModelerRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerRepository;
 import com.hyperiongray.sitehound.backend.service.CompressionService;
 import com.hyperiongray.sitehound.backend.service.crawledindex.CrawledIndexService;
 import org.slf4j.Logger;

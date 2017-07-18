@@ -89,4 +89,17 @@ public class DdCrawlerInputStartDto extends KafkaDto {
         this.hints = hints;
     }
 
+    @Override
+    public String toString() {
+        return "DdCrawlerInputStartDto{" +
+                "id='" + id + '\'' +
+                ", workspaceId='" + workspaceId + '\'' +
+                ", linkModel length='" + linkModel.length() + '\'' +
+                ", pageModel length='" + pageModel.length() + '\'' +
+                ", seeds=" + seeds +
+                ", hints=" + hints +
+                ", broadness='" + broadness + '\'' +
+                ", pageLimit=" + pageLimit +
+                '}';
+    }
 }

@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.dd;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
@@ -27,7 +27,6 @@ public class DdModelerRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdModelerRepository.class);
 
     @Autowired private MongoRepository mongoRepository;
-    @Autowired private CrawlJobRepository crawlJobRepository;
 
     public static final String PAGE_MODEL_FIELD = "page_model";
 
@@ -48,7 +47,7 @@ public class DdModelerRepository {
         Bson filter = Filters.eq("_id", new ObjectId(workspaceId));
         Bson updateQuality = Updates.unset(PAGE_MODEL_FIELD + ".quality");
         Bson updatesModel = Updates.unset(PAGE_MODEL_FIELD + ".model");
-        Bson updatesProgress = Updates.unset(PAGE_MODEL_FIELD + ".progress");
+        Bson updatesProgress = Updates.unset(PAGE_MODEL_FIELD + ".percentage_done");
         Bson combinedUpdate = combine(updateQuality, updatesModel, updatesProgress);
         collection.findOneAndUpdate(filter, combinedUpdate);
     }
@@ -71,7 +70,7 @@ public class DdModelerRepository {
         LOGGER.info("About to save ddModelerProgress:" + ddModelerProgress.getId());
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
         Bson filter = Filters.eq("_id", new ObjectId(ddModelerProgress.getId()));
-        Bson updates = Updates.set(PAGE_MODEL_FIELD + ".progress", ddModelerProgress.getPercentageDone());
+        Bson updates = Updates.set(PAGE_MODEL_FIELD + ".percentage_done", ddModelerProgress.getPercentageDone());
         collection.findOneAndUpdate(filter, updates);
         LOGGER.info("done saving ddModelerProgress");
     }
@@ -83,7 +82,7 @@ public class DdModelerRepository {
         Document document = mongoRepository.getById(WORKSPACE_COLLECTION_NAME, workspaceId);
         if(document.containsKey(PAGE_MODEL_FIELD)){
             Document modelerDocument = (Document) document.get(PAGE_MODEL_FIELD);
-            Double modelerProgress = modelerDocument.getDouble("progress");
+            Double modelerProgress = modelerDocument.getDouble("percentage_done");
             ddModelerProgress.setPercentageDone(modelerProgress);
         }
         LOGGER.info("getting save DdModelerProgress:" + ddModelerProgress);
