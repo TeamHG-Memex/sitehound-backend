@@ -38,4 +38,13 @@ public class DdTrainerOutputProgress extends KafkaDto {
     public void setPercentageDone(Double percentageDone) {
         this.percentageDone = percentageDone;
     }
+
+    @Override
+    public String toString() {
+        return "DdTrainerOutputProgress{" +
+                "id='" + id + '\'' +
+                ", progress='" + progress + '\'' +
+                ", percentageDone=" + percentageDone +
+                '}';
+    }
 }

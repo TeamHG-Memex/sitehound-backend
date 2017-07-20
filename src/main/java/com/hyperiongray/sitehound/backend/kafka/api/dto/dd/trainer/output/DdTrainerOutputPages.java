@@ -32,4 +32,12 @@ public class DdTrainerOutputPages extends KafkaDto {
     public void setPage_sample(List<PageSample> page_sample) {
         this.page_sample = page_sample;
     }
+
+    @Override
+    public String toString() {
+        return "DdTrainerOutputPages{" +
+                "id='" + id + '\'' +
+                ", page_sample=" + page_sample +
+                '}';
+    }
 }

@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.output;
 
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
@@ -18,7 +19,7 @@ import java.util.concurrent.Semaphore;
 public class DdTrainerOutputProgressBrokerService implements BrokerService {
 
     @Autowired private DdTrainerRepository ddTrainerRepository;
-
+    @Autowired private CrawlJobRepository crawlJobRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputProgressBrokerService.class);
 
@@ -31,6 +32,7 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
             JsonMapper<DdTrainerOutputProgress> jsonMapper= new JsonMapper();
             DdTrainerOutputProgress ddTrainerOutputProgress = jsonMapper.toObject(jsonInput, DdTrainerOutputProgress.class);
             ddTrainerRepository.saveProgress(ddTrainerOutputProgress);
+            crawlJobRepository.saveProgress(ddTrainerOutputProgress.getId(), ddTrainerOutputProgress.getPercentageDone());
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

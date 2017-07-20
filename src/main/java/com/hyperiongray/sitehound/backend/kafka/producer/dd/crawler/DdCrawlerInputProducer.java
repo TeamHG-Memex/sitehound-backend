@@ -29,15 +29,15 @@ public class DdCrawlerInputProducer {
     public void submit(DdCrawlerInputStartDto ddCrawlerInputStartDto) throws IOException {
         String message = jsonMapper.toString(ddCrawlerInputStartDto);
         localQueueProducer.send(inputQueue, message);
-        LOGGER.info("Sent "  + inputQueue );
+        LOGGER.info("Sent "  + inputQueue + " With ddCrawlerInputStartDto: " + ddCrawlerInputStartDto);
         LOGGER.debug("Sent "  + inputQueue +" with message length:" + message.length());
     }
 
     public void submit(DdCrawlerInputStopDto ddCrawlerInputStopDto) throws IOException {
         String message = jsonMapper.toString(ddCrawlerInputStopDto);
         localQueueProducer.send(inputQueue, message);
-        LOGGER.info("Sent "  + inputQueue );
-        LOGGER.debug("Sent "  + inputQueue +" with message:" + message);
+        LOGGER.info("Sent "  + inputQueue + " with ddCrawlerInputStopDto: " + ddCrawlerInputStopDto);
+        LOGGER.debug("Sent "  + inputQueue +" with message length:" + message.length());
     }
 
 }

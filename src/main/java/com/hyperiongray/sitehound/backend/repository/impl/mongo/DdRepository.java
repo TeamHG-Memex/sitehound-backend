@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerRepository.PAGE_MODEL_FIELD;
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository.PAGE_MODEL_FIELD;
 
 /**
  * Created by tomas on 29/09/16.
@@ -29,40 +29,39 @@ public class DdRepository {
     private static final String TRAINER_PROGRESS_FIELD = "trainer_progress";
 
 
-
-
     public void saveProgress(DdCrawlerOutputProgress ddCrawlerOutputProgress) {
         LOGGER.info("About to crawler saveProgress:" + ddCrawlerOutputProgress.getId());
         Document document = new Document();
-        document.put("crawler_progress", ddCrawlerOutputProgress.getProgress());
+        document.put("progress", ddCrawlerOutputProgress.getProgress());
+        document.put("percentageDone", ddCrawlerOutputProgress.getPercentageDone());
         String workspaceId = crawlJobRepository.getWorkspaceId(ddCrawlerOutputProgress.getId());
         mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, workspaceId, "dd_crawler", document);
     }
 
-
-    public Map<String, String> getModels(String workspaceId){
-
-        Document document = mongoRepository.getById(WORKSPACE_COLLECTION_NAME, workspaceId);
-        Map<String, String> keyValues = new HashMap<>();
-
-        if(document.containsKey(PAGE_MODEL_FIELD)) {
-            Document modelerDocument = (Document) document.get(PAGE_MODEL_FIELD);
-            String page_model = modelerDocument.getString("model");
-            keyValues.put("page_model", page_model);
-        }
-        else{
-            throw new IllegalStateException(PAGE_MODEL_FIELD + "was empty for workspaceId" + workspaceId);
-        }
-
-        if(document.containsKey(LINK_MODEL_FIELD)) {
-            Document modelerDocument = (Document) document.get(LINK_MODEL_FIELD);
-            String link_model = modelerDocument.getString("model");
-            keyValues.put("link_model", link_model);
-        }
-        else{
-            throw new IllegalStateException(LINK_MODEL_FIELD + "was empty for workspaceId" + workspaceId);
-        }
-
-        return keyValues;
-    }
+//
+//    public Map<String, String> getModels(String workspaceId){
+//
+//        Document document = mongoRepository.getById(WORKSPACE_COLLECTION_NAME, workspaceId);
+//        Map<String, String> keyValues = new HashMap<>();
+//
+//        if(document.containsKey(PAGE_MODEL_FIELD)) {
+//            Document modelerDocument = (Document) document.get(PAGE_MODEL_FIELD);
+//            String page_model = modelerDocument.getString("model");
+//            keyValues.put("page_model", page_model);
+//        }
+//        else{
+//            throw new IllegalStateException(PAGE_MODEL_FIELD + "was empty for workspaceId" + workspaceId);
+//        }
+//
+//        if(document.containsKey(LINK_MODEL_FIELD)) {
+//            Document modelerDocument = (Document) document.get(LINK_MODEL_FIELD);
+//            String link_model = modelerDocument.getString("model");
+//            keyValues.put("link_model", link_model);
+//        }
+//        else{
+//            throw new IllegalStateException(LINK_MODEL_FIELD + "was empty for workspaceId" + workspaceId);
+//        }
+//
+//        return keyValues;
+//    }
 }

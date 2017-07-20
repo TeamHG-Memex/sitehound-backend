@@ -25,4 +25,12 @@ public class DdTrainerInputStop extends KafkaDto {
 //    public void setStop(Boolean stop) {
 //        this.stop = stop;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "DdTrainerInputStop{" +
+                "id='" + id + '\'' +
+                '}';
+    }
 }

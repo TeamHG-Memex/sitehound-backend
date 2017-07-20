@@ -1,6 +1,8 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputModel;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
@@ -16,22 +18,26 @@ import java.util.concurrent.Semaphore;
  */
 @Service
 public class DdTrainerOutputModelBrokerService implements BrokerService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputModelBrokerService.class);
 
     @Autowired private DdTrainerRepository ddTrainerRepository;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputModelBrokerService.class);
+    @Autowired private TrainerModelRepository trainerModelRepository;
+    @Autowired private CrawlJobRepository crawlJobRepository;
 
     @Override
     public void process(String jsonInput, Semaphore semaphore){
 
         try{
-
             LOGGER.info("DdTrainerOutputModelBrokerService consumer Permits:" + semaphore.availablePermits());
-            LOGGER.debug("Receiving response: " + jsonInput);
+            LOGGER.debug("Receiving response size: " + jsonInput.length());
             JsonMapper<DdTrainerOutputModel> jsonMapper= new JsonMapper();
             DdTrainerOutputModel ddTrainerOutputModel = jsonMapper.toObject(jsonInput, DdTrainerOutputModel.class);
+            LOGGER.info("DdTrainerOutputModelBrokerService from ddTrainerOutputModel: " + ddTrainerOutputModel +" and semaphores: " + semaphore.availablePermits());
 
-            ddTrainerRepository.saveLinkModel(ddTrainerOutputModel);
+//            ddTrainerRepository.saveLinkModel(ddTrainerOutputModel);
+            String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputModel.getId());
+            ddTrainerRepository.saveModelProgress(ddTrainerOutputModel.getId());
+            trainerModelRepository.save(workspaceId, ddTrainerOutputModel);
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

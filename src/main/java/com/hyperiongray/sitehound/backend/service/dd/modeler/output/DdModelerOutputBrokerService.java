@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.modeler.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -18,25 +16,20 @@ import java.util.concurrent.Semaphore;
  */
 @Service
 public class DdModelerOutputBrokerService implements BrokerService {
-
-    @Autowired private DdModelerRepository ddModelerRepository;
-
-    private JsonMapper jsonMapper = new JsonMapper();
-    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
-
     private static final Logger LOGGER = LoggerFactory.getLogger(DdModelerOutputBrokerService.class);
 
+    @Autowired private ModelerModelRepository modelerModelRepository;
 
     @Override
     public void process(String jsonInput, Semaphore semaphore){
 
         try{
-
             LOGGER.info("DdModelerOutputBrokerService consumer Permits:" + semaphore.availablePermits());
-            LOGGER.debug("Receiving response from events: " + jsonInput);
+            LOGGER.debug("Receiving response from DdModelerOutputBrokerService size: " + jsonInput.length());
             JsonMapper<DdModelerOutput> jsonMapper= new JsonMapper();
             DdModelerOutput ddModelerOutput = jsonMapper.toObject(jsonInput, DdModelerOutput.class);
-            dispatch(ddModelerOutput);
+            LOGGER.info("Receiving response from DdModelerOutputBrokerService ddModelerOutput: " + ddModelerOutput);
+            modelerModelRepository.save(ddModelerOutput);
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
@@ -49,8 +42,4 @@ public class DdModelerOutputBrokerService implements BrokerService {
     }
 
 
-    public void dispatch(DdModelerOutput ddModelerOutput){
-        ddModelerRepository.savePageModel(ddModelerOutput);
-
-    }
 }

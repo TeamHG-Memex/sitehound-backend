@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.modeler.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.util.concurrent.Semaphore;
 public class DdModelerProgressBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdModelerProgressBrokerService.class);
 
-    @Autowired private DdModelerRepository ddModelerRepository;
+    @Autowired private DdModelerProgressRepository ddModelerProgressRepository;
 
     @Override
     public void process(String jsonInput, Semaphore semaphore){
@@ -28,7 +28,7 @@ public class DdModelerProgressBrokerService implements BrokerService {
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdModelerProgress> jsonMapper= new JsonMapper();
             DdModelerProgress ddModelerProgress = jsonMapper.toObject(jsonInput, DdModelerProgress.class);
-            ddModelerRepository.saveProgress(ddModelerProgress);
+            ddModelerProgressRepository.saveProgress(ddModelerProgress);
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

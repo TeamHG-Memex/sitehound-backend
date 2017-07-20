@@ -25,4 +25,12 @@ public class DdTrainerOutputModel extends KafkaDto {
     public void setLink_model(String link_model) {
         this.link_model = link_model;
     }
+
+    @Override
+    public String toString() {
+        return "DdTrainerOutputModel{" +
+                "id='" + id + '\'' +
+                ", link_model='" + (link_model!=null? link_model.length():"") + '\'' +
+                '}';
+    }
 }

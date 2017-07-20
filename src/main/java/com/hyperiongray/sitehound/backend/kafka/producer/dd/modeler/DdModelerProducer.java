@@ -28,7 +28,8 @@ public class DdModelerProducer {
     public void submit(DdModelerInput ddModelerInput) throws IOException {
         String message = jsonMapper.toString(ddModelerInput);
         localQueueProducer.send(inputQueue, message);
-        LOGGER.info("Sent to dd-modeler: "  + inputQueue +" with message length:" + message.length());
+        LOGGER.info("Sent to dd-modeler: "  + inputQueue +" with message:" + ddModelerInput);
+        LOGGER.debug("Sent to dd-modeler: "  + inputQueue +" with message length:" + message.length());
     }
 
 }

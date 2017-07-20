@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.crawler.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
@@ -18,6 +19,7 @@ import java.util.concurrent.Semaphore;
 public class DdCrawlerOutputProgressBrokerService implements BrokerService {
 
     @Autowired private DdRepository ddRepository;
+    @Autowired private CrawlJobRepository crawlJobRepository;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DdCrawlerOutputProgressBrokerService.class);
@@ -26,11 +28,14 @@ public class DdCrawlerOutputProgressBrokerService implements BrokerService {
     public void process(String jsonInput, Semaphore semaphore){
 
         try{
-            LOGGER.info("DdCrawlerOutputProgressBrokerService consumer Permits:" + semaphore.availablePermits());
-            LOGGER.debug("Receiving response: " + jsonInput);
+            LOGGER.debug("DdCrawlerOutputProgressBrokerService consumer Permits:" + semaphore.availablePermits());
+            LOGGER.debug("Receiving response size: " + jsonInput.length());
             JsonMapper<DdCrawlerOutputProgress> jsonMapper= new JsonMapper();
             DdCrawlerOutputProgress ddCrawlerOutputProgress = jsonMapper.toObject(jsonInput, DdCrawlerOutputProgress.class);
+            LOGGER.debug("DdCrawlerOutputProgressBrokerService received ddCrawlerOutputProgress: " + ddCrawlerOutputProgress);
+
             ddRepository.saveProgress(ddCrawlerOutputProgress);
+            crawlJobRepository.saveProgress(ddCrawlerOutputProgress.getId(), ddCrawlerOutputProgress.getPercentageDone());
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

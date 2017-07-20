@@ -54,4 +54,13 @@ public class DdModelerOutput extends KafkaDto {
     public void setModel(String model) {
         this.model = model;
     }
+
+    @Override
+    public String toString() {
+        return "DdModelerOutput{" +
+                "id='" + id + '\'' +
+                ", quality='" + quality + '\'' +
+                ", model='" + (model!=null? model.length(): "") + '\'' +
+                '}';
+    }
 }

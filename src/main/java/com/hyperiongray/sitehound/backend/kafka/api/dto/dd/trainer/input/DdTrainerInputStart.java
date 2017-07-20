@@ -3,6 +3,7 @@ package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input;
 import com.hyperiongray.framework.kafka.dto.KafkaDto;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class DdTrainerInputStart  extends KafkaDto {
     private String id;
     private String workspaceId;
     private String page_model;
-    private List<String> seeds;
+    private List<String> seeds = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -48,4 +49,13 @@ public class DdTrainerInputStart  extends KafkaDto {
         this.seeds = seeds;
     }
 
+    @Override
+    public String toString() {
+        return "DdTrainerInputStart{" +
+                "id='" + id + '\'' +
+                ", workspaceId='" + workspaceId + '\'' +
+                ", page_model='" + (page_model!=null?page_model.length() : "") + '\'' +
+                ", seeds=" + (seeds!=null? seeds.size(): 0) +
+                '}';
+    }
 }

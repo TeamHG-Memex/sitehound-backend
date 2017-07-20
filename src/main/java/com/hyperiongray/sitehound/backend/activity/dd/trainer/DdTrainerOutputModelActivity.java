@@ -31,7 +31,7 @@ public class DdTrainerOutputModelActivity implements Activity {
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
-        LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
+        LOGGER.trace("received data:" + data + ", partition:" + partition + ", topic:" + topic);
         ddTrainerOutputModelBrokerService.process(data, new Semaphore(10000));
     }
 

@@ -100,5 +100,22 @@ public class DdModelerInput extends KafkaDto{
         public void setRelevant(Boolean relevant) {
             this.relevant = relevant;
         }
+
+        @Override
+        public String toString() {
+            return "Page{" +
+                    "url='" + url + '\'' +
+                    ", html='" + html + '\'' +
+                    ", relevant=" + relevant +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "DdModelerInput{" +
+                "id='" + id + '\'' +
+                ", pages size=" + (pages!=null? pages.size():0) +
+                '}';
     }
 }
