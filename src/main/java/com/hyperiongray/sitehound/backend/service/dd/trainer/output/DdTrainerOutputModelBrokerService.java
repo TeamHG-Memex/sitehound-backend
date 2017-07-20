@@ -6,6 +6,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobReposito
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,10 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
             DdTrainerOutputModel ddTrainerOutputModel = jsonMapper.toObject(jsonInput, DdTrainerOutputModel.class);
             LOGGER.info("DdTrainerOutputModelBrokerService from ddTrainerOutputModel: " + ddTrainerOutputModel +" and semaphores: " + semaphore.availablePermits());
 
-//            ddTrainerRepository.saveLinkModel(ddTrainerOutputModel);
             String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputModel.getId());
-            ddTrainerRepository.saveModelProgress(ddTrainerOutputModel.getId());
             trainerModelRepository.save(workspaceId, ddTrainerOutputModel);
+            ddTrainerRepository.saveModelProgress(ddTrainerOutputModel.getId());
+            crawlJobRepository.updateJobStatus(ddTrainerOutputModel.getId(), Constants.JobStatus.FINISHED);
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
