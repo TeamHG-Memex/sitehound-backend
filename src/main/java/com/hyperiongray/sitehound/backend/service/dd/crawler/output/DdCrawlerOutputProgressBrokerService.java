@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.service.dd.crawler.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.util.concurrent.Semaphore;
 @Service
 public class DdCrawlerOutputProgressBrokerService implements BrokerService {
 
-    @Autowired private DdRepository ddRepository;
+    @Autowired private DdCrawlerRepository ddCrawlerRepository;
     @Autowired private CrawlJobRepository crawlJobRepository;
 
 
@@ -34,7 +34,7 @@ public class DdCrawlerOutputProgressBrokerService implements BrokerService {
             DdCrawlerOutputProgress ddCrawlerOutputProgress = jsonMapper.toObject(jsonInput, DdCrawlerOutputProgress.class);
             LOGGER.debug("DdCrawlerOutputProgressBrokerService received ddCrawlerOutputProgress: " + ddCrawlerOutputProgress);
 
-            ddRepository.saveProgress(ddCrawlerOutputProgress);
+            ddCrawlerRepository.saveProgress(ddCrawlerOutputProgress);
             crawlJobRepository.saveProgress(ddCrawlerOutputProgress.getId(), ddCrawlerOutputProgress.getPercentageDone());
         }
         catch(Exception e){

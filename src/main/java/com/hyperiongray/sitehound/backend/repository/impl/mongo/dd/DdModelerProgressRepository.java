@@ -1,6 +1,5 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.client.MongoCollection;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import static com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository.WORKSPACE_COLLECTION_NAME;
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository.WORKSPACE_COLLECTION_NAME;
 import static com.mongodb.client.model.Updates.combine;
 
 

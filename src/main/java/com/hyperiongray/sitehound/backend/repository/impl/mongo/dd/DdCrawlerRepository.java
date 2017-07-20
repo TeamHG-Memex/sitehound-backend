@@ -1,24 +1,21 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository.PAGE_MODEL_FIELD;
-
 /**
  * Created by tomas on 29/09/16.
  */
 
 @Repository
-public class DdRepository {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DdRepository.class);
+public class DdCrawlerRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DdCrawlerRepository.class);
 
     @Autowired private CrawlJobRepository crawlJobRepository;
     @Autowired private MongoRepository mongoRepository;

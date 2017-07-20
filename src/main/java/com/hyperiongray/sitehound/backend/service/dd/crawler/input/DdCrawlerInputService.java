@@ -10,14 +10,13 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.Mode
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.BroadCrawlRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by tomas on 2/10/16.
@@ -25,7 +24,7 @@ import java.util.Map;
 @Service
 public class DdCrawlerInputService {
 
-    @Autowired private DdRepository ddRepository;
+    @Autowired private DdCrawlerRepository ddCrawlerRepository;
     @Autowired private KeywordsRepository keywordsRepository;
     @Autowired private BroadCrawlRepository broadCrawlRepository;
 
