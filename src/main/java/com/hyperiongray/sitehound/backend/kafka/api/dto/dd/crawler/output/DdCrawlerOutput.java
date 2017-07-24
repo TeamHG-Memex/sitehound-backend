@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output;
 
+import com.hyperiongray.framework.kafka.dto.KafkaDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by tomas on 3/10/16.
  */
 
-public class DdCrawlerOutput {
+public class DdCrawlerOutput  extends KafkaDto {
     private String id;
 
     private List<PageSample> page_sample;

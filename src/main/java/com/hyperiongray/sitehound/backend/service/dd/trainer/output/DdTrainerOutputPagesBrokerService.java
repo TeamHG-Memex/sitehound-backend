@@ -5,7 +5,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputPages;
 import com.hyperiongray.sitehound.backend.kafka.producer.AquariumProducer;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
@@ -24,7 +24,7 @@ import java.util.concurrent.Semaphore;
 public class DdTrainerOutputPagesBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputPagesBrokerService.class);
 
-    @Autowired private DdRepository ddRepository;
+    @Autowired private DdCrawlerRepository ddCrawlerRepository;
 
     @Autowired private AquariumProducer producer;
     @Autowired private MetadataBuilder metadataBuilder;

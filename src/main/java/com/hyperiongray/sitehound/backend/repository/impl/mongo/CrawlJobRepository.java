@@ -1,9 +1,12 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputProgress;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+
+import static com.mongodb.client.model.Updates.combine;
 
 /**
  * Created by tomas on 11/16/15.
@@ -73,4 +78,12 @@ public class CrawlJobRepository{
 		return iterable.iterator().next().getString("workspaceId");
 	}
 
+	public void saveProgress(String jobId, Double percentageDone) {
+//		String jobId = ddTrainerOutputProgress.getId();
+		LOGGER.info("About to update crawlJob:" + jobId);
+		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
+		Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
+		Bson updatesModel = Updates.set("percentage_done",percentageDone);
+		collection.findOneAndUpdate(filter, updatesModel);
+	}
 }

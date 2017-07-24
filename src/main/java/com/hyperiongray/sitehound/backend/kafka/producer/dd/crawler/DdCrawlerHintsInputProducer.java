@@ -29,8 +29,8 @@ public class DdCrawlerHintsInputProducer {
     public void submit(DdCrawlerHintsInputDto ddCrawlerHintsInputDto) throws IOException {
         String message = jsonMapper.toString(ddCrawlerHintsInputDto);
         localQueueProducer.send(inputQueue, message);
-        LOGGER.info("Sent "  + inputQueue );
-        LOGGER.debug("Sent "  + inputQueue +" with message:" + message);
+        LOGGER.info("Sent "  + inputQueue + " with ddCrawlerHintsInputDto: " +  ddCrawlerHintsInputDto);
+        LOGGER.debug("Sent "  + inputQueue +" with message length: " + message.length());
     }
 
 }

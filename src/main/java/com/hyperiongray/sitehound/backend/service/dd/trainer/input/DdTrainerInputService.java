@@ -1,11 +1,15 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.input;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStop;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +23,12 @@ import java.util.List;
 @Service
 public class DdTrainerInputService {
 
-
     @Autowired private KeywordsRepository keywordsRepository;
-    @Autowired private DdRepository ddRepository;
+    @Autowired private DdCrawlerRepository ddCrawlerRepository;
+    @Autowired private DdModelerProgressRepository ddModelerRepository;
+    @Autowired private ModelerModelRepository modelerModelRepository;
+    @Autowired private DdTrainerRepository ddTrainerRepository;
+    @Autowired private TrainerModelRepository trainerModelRepository;
 
     public DdTrainerInputStart getDdTrainerInputStart(EventInput eventInput) throws IOException {
         DdTrainerInputStart ddTrainerInputStart = new DdTrainerInputStart();
@@ -31,12 +38,16 @@ public class DdTrainerInputService {
         ddTrainerInputStart.setId(ddTrainerInputStartArgs.getJobId());
         ddTrainerInputStart.setWorkspaceId(eventInput.getWorkspaceId());
 
+        // initialize
+        ddTrainerRepository.deleteProgress(eventInput.getWorkspaceId());
+        trainerModelRepository.delete(eventInput.getWorkspaceId());
+
         List<String> seeds = keywordsRepository.getAllUrls(eventInput.getWorkspaceId());
-
-        DdModelerOutput ddModelerOutput = ddRepository.getPageModel(eventInput.getWorkspaceId());
-
         ddTrainerInputStart.setSeeds(seeds);
+
+        DdModelerOutput ddModelerOutput = modelerModelRepository.get(eventInput.getWorkspaceId());
         ddTrainerInputStart.setPage_model(ddModelerOutput.getModel());
+
         return ddTrainerInputStart;
 
     }

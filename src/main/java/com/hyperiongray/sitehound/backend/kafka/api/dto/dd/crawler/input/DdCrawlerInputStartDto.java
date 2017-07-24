@@ -3,6 +3,7 @@ package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input;
 import com.hyperiongray.framework.kafka.dto.KafkaDto;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ public class DdCrawlerInputStartDto extends KafkaDto {
     private String workspaceId;
     private String linkModel;
     private String pageModel;
-    private List<String> seeds;
-    private List<String> hints;
+    private List<String> seeds = new LinkedList<>();
+    private List<String> hints = new LinkedList<>();
     private String broadness;
     private Integer pageLimit;
 
@@ -89,4 +90,17 @@ public class DdCrawlerInputStartDto extends KafkaDto {
         this.hints = hints;
     }
 
+    @Override
+    public String toString() {
+        return "DdCrawlerInputStartDto{" +
+                "id='" + id + '\'' +
+                ", workspaceId='" + workspaceId + '\'' +
+                ", linkModel length='" + linkModel.length() + '\'' +
+                ", pageModel length='" + pageModel.length() + '\'' +
+                ", seeds length=" + (seeds!=null? seeds.size():0) +
+                ", hints length=" + (hints!=null? hints.size():0) +
+                ", broadness='" + broadness + '\'' +
+                ", pageLimit=" + pageLimit +
+                '}';
+    }
 }

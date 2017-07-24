@@ -29,15 +29,16 @@ public class DdTrainerInputProducer {
     public void submit(DdTrainerInputStart ddTrainerInputStart) throws IOException {
         String message = jsonMapper.toString(ddTrainerInputStart);
         localQueueProducer.send(inputQueue, message);
-        LOGGER.info("Sent "  + inputQueue );
-        LOGGER.debug("Sent "  + inputQueue +" with message:" + message);
+        LOGGER.info("Sent "  + inputQueue + " with  ddTrainerInputStart: " + ddTrainerInputStart);
+        LOGGER.debug("Sent "  + inputQueue +" with message (size):" + message.length());
     }
 
     public void submit(DdTrainerInputStop ddTrainerInputStop) throws IOException {
+//        LOGGER.info("Sent "  + inputQueue );
         String message = jsonMapper.toString(ddTrainerInputStop);
         localQueueProducer.send(inputQueue, message);
-        LOGGER.info("Sent "  + inputQueue );
-        LOGGER.debug("Sent "  + inputQueue +" with message:" + message);
+        LOGGER.info("Sent "  + inputQueue +" with message:" + ddTrainerInputStop);
+        LOGGER.debug("Sent "  + inputQueue +" with message:" + message.length());
     }
 
 }

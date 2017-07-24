@@ -1,20 +1,17 @@
 package com.hyperiongray.sitehound.backend.kafka.dispatcher;
 
 import com.hyperiongray.framework.kafka.service.KafkaListenerProcessor;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
-import com.hyperiongray.sitehound.backend.kafka.submitter.AquariumTaskSubmitter;
-import com.hyperiongray.sitehound.backend.model.CrawlJob;
-import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.service.events.EventService;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
+import com.hyperiongray.sitehound.backend.kafka.submitter.AquariumTaskSubmitter;
 import com.hyperiongray.sitehound.backend.kafka.submitter.TaskSubmitter;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
-import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.twitter.TwitterCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.events.EventService;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.ScorerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

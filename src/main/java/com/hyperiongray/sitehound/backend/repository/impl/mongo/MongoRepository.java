@@ -13,10 +13,12 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
+import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import static com.mongodb.client.model.Filters.in;
  */
 @Repository
 public class MongoRepository{
+	private static final Logger LOGGER = LoggerFactory.getLogger(MongoRepository.class);
 
 	protected static final String SEED_URLS_COLLECTION_NAME ="seed_urls";
 	protected static final String BROAD_CRAWLER_COLLECTION_NAME ="broad_crawler";
@@ -37,37 +40,21 @@ public class MongoRepository{
 	@Value( "${mongo.port}" ) private Integer port;
 	@Value( "${mongo.db}" ) private String db;
 
-		private MongoClient mongoClient;
+	@Autowired
+	private MongoClient mongoClient;
+
+	@Bean
+	public MongoClient mongo() throws UnknownHostException {
+		MongoClient mongoClient = new MongoClient(host, port);
+		return mongoClient;
+	}
 
 	public MongoDatabase getDatabase(){
-		return database;
+		return  mongoClient.getDatabase(db);
 	}
-
-	private MongoDatabase database;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(MongoRepository.class);
-
-	@PostConstruct
-	public void postconstruct(){
-		mongoClient = new MongoClient(host, port);
-		database = mongoClient.getDatabase(db);
-	}
-
-	/*
-	public FindIterable<Document> find(String collectionName, String workspaceId, String url){
-		MongoCollection<Document> collection = database.getCollection(collectionName);
-		FindIterable<Document> iterable = collection.find(new Document("url", url));
-		return iterable;
-	}
-	public FindIterable<Document> find(String collectionName, String workspaceId, Document query){
-		MongoCollection<Document> collection = database.getCollection(collectionName);
-		FindIterable<Document> iterable = collection.find(query);
-		return iterable;
-	}
-	*/
 
 	public FindIterable<Document> find(String collectionName, String workspaceId, Bson filter){
-		MongoCollection<Document> collection = database.getCollection(collectionName);
+		MongoCollection<Document> collection = getDatabase().getCollection(collectionName);
 		FindIterable<Document> iterable;
 		if(filter==null){
 			iterable=collection.find(new Document("workspaceId", workspaceId));
@@ -81,7 +68,7 @@ public class MongoRepository{
 
 	public boolean exists(String collectionName, String workspaceId, String url){
 		LOGGER.info("exist? collectionName:" + collectionName + ", url: " +url);
-		MongoCollection<Document> collection = database.getCollection(collectionName);
+		MongoCollection<Document> collection = getDatabase().getCollection(collectionName);
 		FindIterable<Document> iterable = collection.find(new Document("url", url).append("workspaceId", workspaceId));
 		return iterable.iterator().hasNext();
 	}
@@ -94,7 +81,7 @@ public class MongoRepository{
 	 */
 	public List<String> filterByUrl(String collectionName, String workspaceId, List<String> urls){
 		LOGGER.info("filterByUrl collectionName:" + collectionName + ", url: " +urls.size());
-		MongoCollection<Document> collection = database.getCollection(collectionName);
+		MongoCollection<Document> collection = getDatabase().getCollection(collectionName);
 		Bson urlFilter1=in("url", urls);
 		Bson urlFilter2=new Document("workspaceId", workspaceId);
 		Bson urlFilter = and(urlFilter1, urlFilter2);
@@ -112,7 +99,7 @@ public class MongoRepository{
 		LOGGER.info("inserting collectionName:" + collectionName);
 
 		try{
-			MongoCollection<Document> collection = database.getCollection(collectionName);
+			MongoCollection<Document> collection = getDatabase().getCollection(collectionName);
 			Document document = new Document();
 			document.putAll(fields);
 			document.put("workspaceId", workspaceId);
@@ -128,30 +115,18 @@ public class MongoRepository{
 			throw (new RuntimeException("FAILED TO SAVE", e));
 		}
 	}
-//
-//	public void updateFieldsInDocument(String collectionName, String objectId, String key, Map<String, Object> fields){
-//		LOGGER.info("saving dd_modeler:" + collectionName);
-//		MongoCollection<Document> collection = database.getCollection(collectionName);
-//		Document document = new Document();
-//		document.putAll(fields);
-//		Bson filter = Filters.eq("_id", new ObjectId(objectId));
-//		Bson updates = Updates.set("dd_modeler", document);
-//		collection.findOneAndUpdate(filter, updates);
-//	}
+
 
 	public void updateFieldsInDocument(String collectionName, String objectId, String key, Document document){
 		LOGGER.info("updating field : " + key + " in: "+ collectionName);
-		MongoCollection<Document> collection = database.getCollection(collectionName);
-//		Document document = new Document();
-//		document.putAll(fields);
+		MongoCollection<Document> collection = getDatabase().getCollection(collectionName);
 		Bson filter = Filters.eq("_id", new ObjectId(objectId));
-//		Bson updates = Updates.set("dd_modeler", document);
 		Bson updates = Updates.set(key, document);
 		collection.findOneAndUpdate(filter, updates);
 	}
 
 	public Document getById(String collectionName, String objectId){
-		MongoCollection<Document> collection = database.getCollection(collectionName);
+		MongoCollection<Document> collection = getDatabase().getCollection(collectionName);
 		Bson filter = Filters.eq("_id", new ObjectId(objectId));
 		FindIterable<Document> iterables = collection.find(filter);
 		if(iterables.iterator().hasNext()){

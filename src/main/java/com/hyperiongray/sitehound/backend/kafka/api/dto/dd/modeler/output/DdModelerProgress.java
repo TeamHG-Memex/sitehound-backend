@@ -1,20 +1,17 @@
-package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output;
+package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output;
 
 import com.hyperiongray.framework.kafka.dto.KafkaDto;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * Created by tomas on 2/10/16.
+ * Created by tomas on 12/07/17.
  */
-public class DdCrawlerOutputProgress  extends KafkaDto {
+public class DdModelerProgress  extends KafkaDto {
 
     private String id;
 
-    private String progress;
-
     @JsonProperty("percentage_done")
     private Double percentageDone;
-
 
     public String getId() {
         return id;
@@ -22,14 +19,6 @@ public class DdCrawlerOutputProgress  extends KafkaDto {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getProgress() {
-        return progress;
-    }
-
-    public void setProgress(String progress) {
-        this.progress = progress;
     }
 
     public Double getPercentageDone() {
@@ -43,10 +32,9 @@ public class DdCrawlerOutputProgress  extends KafkaDto {
 
     @Override
     public String toString() {
-        return "DdCrawlerOutputProgress{" +
+        return "DdModelerProgress{" +
                 "id='" + id + '\'' +
-                ", progress='" + progress + '\'' +
-                ", percentageDone=" + percentageDone +
+                ", percentageDone='" + percentageDone + '\'' +
                 '}';
     }
 }

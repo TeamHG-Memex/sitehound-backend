@@ -3,17 +3,20 @@ package com.hyperiongray.sitehound.backend.service.dd.crawler.input;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.event.DdCrawlerInputStartArgs;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputModel;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.BroadCrawlRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by tomas on 2/10/16.
@@ -21,9 +24,13 @@ import java.util.Map;
 @Service
 public class DdCrawlerInputService {
 
-    @Autowired private DdRepository ddRepository;
+    @Autowired private DdCrawlerRepository ddCrawlerRepository;
     @Autowired private KeywordsRepository keywordsRepository;
     @Autowired private BroadCrawlRepository broadCrawlRepository;
+
+    @Autowired private ModelerModelRepository modelerModelRepository;
+    @Autowired private TrainerModelRepository trainerModelRepository;
+
 
     private JsonMapper<DdCrawlerInputStartArgs> jsonMapperDdCrawlerInputStartArgs = new JsonMapper();
 
@@ -39,9 +46,13 @@ public class DdCrawlerInputService {
         ddCrawlerInputStartDto.setPageLimit(eventInputStartArgs.getnResults());
 
 
-        Map<String, String> models = ddRepository.getModels(eventInput.getWorkspaceId());
-        ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
-        ddCrawlerInputStartDto.setLinkModel(models.get("link_model"));
+//        Map<String, String> models = ddRepository.getModels(eventInput.getWorkspaceId());
+//        ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
+//        ddCrawlerInputStartDto.setLinkModel(models.get("link_model"));
+        DdModelerOutput ddModelerOutput = modelerModelRepository.get(eventInput.getWorkspaceId());
+        DdTrainerOutputModel ddTrainerOutputModel = trainerModelRepository.get(eventInput.getWorkspaceId());
+        ddCrawlerInputStartDto.setPageModel(ddModelerOutput.getModel());
+        ddCrawlerInputStartDto.setLinkModel(ddTrainerOutputModel.getLink_model());
 
         List<String> seeds = keywordsRepository.getRelevantTrainedUrls(eventInput.getWorkspaceId());
         ddCrawlerInputStartDto.setSeeds(seeds);

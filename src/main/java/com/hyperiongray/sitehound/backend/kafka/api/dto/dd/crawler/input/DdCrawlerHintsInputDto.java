@@ -36,4 +36,13 @@ public class DdCrawlerHintsInputDto extends KafkaDto {
     public void setPinned(boolean pinned) {
         this.pinned = pinned;
     }
+
+    @Override
+    public String toString() {
+        return "DdCrawlerHintsInputDto{" +
+                "workspaceId='" + workspaceId + '\'' +
+                ", url='" + url + '\'' +
+                ", pinned=" + pinned +
+                '}';
+    }
 }

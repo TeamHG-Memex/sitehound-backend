@@ -1,9 +1,10 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.output;
 
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputProgress;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ import java.util.concurrent.Semaphore;
 @Service
 public class DdTrainerOutputProgressBrokerService implements BrokerService {
 
-    @Autowired private DdRepository ddRepository;
-
+    @Autowired private DdTrainerRepository ddTrainerRepository;
+    @Autowired private CrawlJobRepository crawlJobRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputProgressBrokerService.class);
 
@@ -30,7 +31,8 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdTrainerOutputProgress> jsonMapper= new JsonMapper();
             DdTrainerOutputProgress ddTrainerOutputProgress = jsonMapper.toObject(jsonInput, DdTrainerOutputProgress.class);
-            ddRepository.saveProgress(ddTrainerOutputProgress);
+            ddTrainerRepository.saveProgress(ddTrainerOutputProgress);
+            crawlJobRepository.saveProgress(ddTrainerOutputProgress.getId(), ddTrainerOutputProgress.getPercentageDone());
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

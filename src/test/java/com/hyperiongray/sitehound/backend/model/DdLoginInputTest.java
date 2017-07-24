@@ -1,9 +1,8 @@
 package com.hyperiongray.sitehound.backend.model;
 
 import com.beust.jcommander.internal.Maps;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

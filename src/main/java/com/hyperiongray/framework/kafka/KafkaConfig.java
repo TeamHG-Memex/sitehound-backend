@@ -41,7 +41,7 @@ public class KafkaConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
-        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "90000");
+        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "60000");
 //        props.put(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG, "16000");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -63,6 +63,7 @@ public class KafkaConfig {
     public ConsumerFactory<Integer, String> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }
+
     @Bean
     ConcurrentKafkaListenerContainerFactory<Integer, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Integer, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
@@ -70,7 +71,7 @@ public class KafkaConfig {
         factory.setConcurrency(1);                              //TURBO!!!!
         factory.getContainerProperties().setPollTimeout(3000);
 //        factory.getContainerProperties().setPollTimeout(1000);
-        factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.RECORD);
+//        factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.RECORD);
         return factory;
     }
 
