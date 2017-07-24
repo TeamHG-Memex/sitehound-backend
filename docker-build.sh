@@ -1,4 +1,4 @@
-sitehound_backend_version=5.0.15
+sitehound_backend_version=5.0.18
 docker build --tag hyperiongray/sitehound-backend:$sitehound_backend_version .
 docker push hyperiongray/sitehound-backend:$sitehound_backend_version
 
