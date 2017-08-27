@@ -57,5 +57,19 @@ public class MetadataBuilder{
 		return metadata;
 	}
 
+	public Metadata buildFromDeepcrawlerOutput(String jobId){
+		Metadata metadata = new Metadata();
+		metadata.setCrawlType(Constants.CrawlType.DEEPCRAWL);
+		metadata.setSource("DD");
+		metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
+		metadata.setWorkspace(crawlJobRepository.getWorkspaceId(jobId));
+		metadata.setTimestamp(System.currentTimeMillis());
+		metadata.setCallbackQueue("");
+		metadata.setJobId(jobId);
+		metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
+		metadata.setnResults(1000);
+		return metadata;
+	}
+
 
 }

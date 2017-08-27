@@ -2,6 +2,7 @@ package com.hyperiongray.sitehound.backend.service;
 
 import com.hyperiongray.sitehound.backend.repository.CrawledIndexRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.BroadCrawlContextDto;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.DeepCrawlContextDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.TrainingCrawlContextDto;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.GenericCrawlMongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.BroadCrawlContextDtoTranslator;
@@ -20,15 +21,9 @@ public class CrawlResultService{
 
 	@Autowired private CrawledIndexRepository analyzedCrawlResultDtoIndexRepository;
 	@Autowired private GenericCrawlMongoRepository genericCrawlMongoRepository;
-//	@Autowired private AquariumResultTranslator aquariumResultTranslator;
 	@Autowired private TrainingCrawlContextDtoTranslator trainingCrawlContextDtoTranslator;
 	@Autowired private BroadCrawlContextDtoTranslator broadCrawlContextDtoTranslator;
 
-//	@Deprecated
-//	public void save(AquariumInput aquariumInput, AquariumInternal aquariumInternal, NlpOutput nlpOutput){
-//		Map<String, Object> document = aquariumResultTranslator.translateToDocument(aquariumInput, aquariumInternal, nlpOutput);
-//		genericCrawlMongoRepository.save(aquariumInput.getMetadata().getCrawlType(), aquariumInput.getMetadata().getWorkspace(), document);
-//	}
 
 	public void save(BroadCrawlContextDto broadCrawlContextDto) throws IOException{
 
@@ -53,4 +48,14 @@ public class CrawlResultService{
 	}
 
 
+	public void save(DeepCrawlContextDto deepCrawlContextDto) throws IOException {
+		// update ES index
+		String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(deepCrawlContextDto.getCrawlRequestDto().getUrl(), deepCrawlContextDto.getCrawlRequestDto().getWorkspace(), deepCrawlContextDto.getCrawlRequestDto().getCrawlEntityType(), deepCrawlContextDto.getAnalyzedCrawlResultDto());
+
+		// update mongo index
+		Map<String, Object> document = broadCrawlContextDtoTranslator.translate(deepCrawlContextDto);
+		document.put("hashKey", hashKey);
+		genericCrawlMongoRepository.save(deepCrawlContextDto.getCrawlType(), deepCrawlContextDto.getCrawlRequestDto().getWorkspace(), document);
+
+	}
 }

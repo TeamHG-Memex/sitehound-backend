@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import static com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository.WORKSPACE_COLLECTION_NAME;
-import static com.mongodb.client.model.Updates.combine;
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository.WORKSPACE_COLLECTION_NAME;
 
 
 /**
@@ -23,48 +22,10 @@ import static com.mongodb.client.model.Updates.combine;
 @Repository
 public class DdModelerProgressRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdModelerProgressRepository.class);
+    private static final String PAGE_MODEL_FIELD = "page_model";
 
     @Autowired private MongoRepository mongoRepository;
 
-    public static final String PAGE_MODEL_FIELD = "page_model";
-
-//    @Deprecated
-//    public void savePageModel(DdModelerOutput ddModelerOutput){
-//        LOGGER.info("About to savePageModel:" + ddModelerOutput.getId());
-//        MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
-//        Bson filter = Filters.eq("_id", new ObjectId(ddModelerOutput.getId()));
-//        Bson updateQuality = Updates.set(PAGE_MODEL_FIELD + ".quality", ddModelerOutput.getQuality());
-//        Bson updatesModel = Updates.set(PAGE_MODEL_FIELD + ".model", ddModelerOutput.getModel());
-//        Bson combinedUpdate = combine(updateQuality, updatesModel);
-//        collection.findOneAndUpdate(filter, combinedUpdate);
-//        LOGGER.info("done saving DdModelerOutput");
-//    }
-
-//    @Deprecated
-//    public void deletePageModel(String workspaceId){
-//        LOGGER.info("About to delete ddModelerProgress modeler from :" + workspaceId);
-//        MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
-//        Bson filter = Filters.eq("_id", new ObjectId(workspaceId));
-//        Bson updateQuality = Updates.unset(PAGE_MODEL_FIELD + ".quality");
-//        Bson updatesModel = Updates.unset(PAGE_MODEL_FIELD + ".model");
-//        Bson updatesProgress = Updates.unset(PAGE_MODEL_FIELD + ".percentage_done");
-//        Bson combinedUpdate = combine(updateQuality, updatesModel, updatesProgress);
-//        collection.findOneAndUpdate(filter, combinedUpdate);
-//    }
-
-
-//    @Deprecated
-//    public DdModelerOutput getPageModel(String workspaceId){
-//        DdModelerOutput ddModelerOutput = null;
-//        Document document = mongoRepository.getById(WORKSPACE_COLLECTION_NAME, workspaceId);
-//        if(document.containsKey(PAGE_MODEL_FIELD)){
-//            Document modelerDocument = (Document) document.get(PAGE_MODEL_FIELD);
-//            String quality = modelerDocument.getString("quality");
-//            String model = modelerDocument.getString("model");
-//            ddModelerOutput = new DdModelerOutput(workspaceId, quality, model);
-//        }
-//        return  ddModelerOutput;
-//    }
 
 
     public void saveProgress(DdModelerProgress ddModelerProgress) {

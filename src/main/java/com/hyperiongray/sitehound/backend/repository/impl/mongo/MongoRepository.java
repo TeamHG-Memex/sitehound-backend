@@ -33,8 +33,10 @@ import static com.mongodb.client.model.Filters.in;
 public class MongoRepository{
 	private static final Logger LOGGER = LoggerFactory.getLogger(MongoRepository.class);
 
-	protected static final String SEED_URLS_COLLECTION_NAME ="seed_urls";
-	protected static final String BROAD_CRAWLER_COLLECTION_NAME ="broad_crawler";
+	public static final String WORKSPACE_COLLECTION_NAME="workspace";
+	public static final String SEED_URLS_COLLECTION_NAME="seed_urls";
+	public static final String BROAD_CRAWLER_COLLECTION_NAME="broad_crawler";
+	public static final String DEEP_CRAWLER_COLLECTION_NAME="deep_crawler";
 
 	@Value( "${mongo.host}" ) private String host;
 	@Value( "${mongo.port}" ) private Integer port;
@@ -43,7 +45,7 @@ public class MongoRepository{
 	@Autowired
 	private MongoClient mongoClient;
 
-	@Bean
+    @Bean
 	public MongoClient mongo() throws UnknownHostException {
 		MongoClient mongoClient = new MongoClient(host, port);
 		return mongoClient;

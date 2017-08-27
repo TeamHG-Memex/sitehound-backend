@@ -56,6 +56,9 @@ public class GenericCrawlMongoRepository{
 		else if(crawlType == Constants.CrawlType.BROADCRAWL){
 			collection = mongoRepository.BROAD_CRAWLER_COLLECTION_NAME;
 		}
+		else if(crawlType == Constants.CrawlType.DEEPCRAWL){
+			collection = mongoRepository.DEEP_CRAWLER_COLLECTION_NAME;
+		}
 		else{
 			throw new RuntimeException("Unsupported CrawlType!");
 		}

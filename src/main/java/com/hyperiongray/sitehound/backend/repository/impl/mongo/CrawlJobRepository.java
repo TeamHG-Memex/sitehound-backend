@@ -32,7 +32,7 @@ public class CrawlJobRepository{
 	@Autowired
 	private MongoRepository mongoRepository;
 
-	private static final String CRAWL_JOB_COLLECTION_NAME = "crawl_job";
+	public static final String CRAWL_JOB_COLLECTION_NAME = "crawl_job";
 	private ConcurrentHashMap<String, String> cacheMap = new ConcurrentHashMap<>(50);
 
 

@@ -26,6 +26,7 @@ import java.net.URI;
  */
 @Service
 public class AnalyzedCrawlRequestFactory{
+	private static final Logger LOGGER = LoggerFactory.getLogger(AnalyzedCrawlRequestFactory.class);
 
 	@Value( "${classifier.enabled}" ) private boolean classifierEnabled;
 
@@ -39,24 +40,17 @@ public class AnalyzedCrawlRequestFactory{
 
 
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AnalyzedCrawlRequestFactory.class);
 
 	public AnalyzedCrawlResultDto build(CrawlResultDto crawlResultDto) throws Exception{
 
 		AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
 
-//		Document cleanHtmlDocument = parserService.clean(Jsoup.parse(aquariumInternal.getHtml()));
+		/*
 		Document cleanHtmlDocument = parserService.clean(Jsoup.parse(crawlResultDto.getHtml()));
 
-//		nlpOutput.setHtmlAsText(cleanHtmlDocument.text());
-//		analyzedCrawlResultDto.setText(cleanHtmlDocument.text());
-
-
-//		String cleanBody = Jsoup.clean(aquariumInternal.getHtml(), Whitelist.relaxed());
 		String cleanBody = Jsoup.clean(crawlResultDto.getHtml(), Whitelist.relaxed());
 		TikaOutput tikaOutput=tikaService.parseHtml(cleanBody);
 
-//		nlpOutput.setLinks(tikaOutput.getLinks());
 		analyzedCrawlResultDto.setLinks(tikaOutput.getLinks());
 
 		if(classifierEnabled){
@@ -80,7 +74,7 @@ public class AnalyzedCrawlRequestFactory{
 		analyzedCrawlResultDto.setText(stringify);
 		analyzedCrawlResultDto.setLanguage(languageService.identifyLanguage(stringify));
 		analyzedCrawlResultDto.setWords(wordCounter.getMostFrequentWords(stringify));
-
+		*/
 		return analyzedCrawlResultDto;
 	}
 }

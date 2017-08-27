@@ -21,10 +21,10 @@ public class Constants {
 	}
 
 	/**
-	 *	Which type of crawl (keywords or broadcrawl)
+	 *	Which type of crawl
 	 */
 	public enum CrawlType {
-		KEYWORDS, BROADCRAWL
+		KEYWORDS, BROADCRAWL, DEEPCRAWL
 	}
 
 	public enum CrawlerResult{
