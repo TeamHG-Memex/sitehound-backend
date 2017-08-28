@@ -37,6 +37,7 @@ public class MongoRepository{
 	public static final String SEED_URLS_COLLECTION_NAME="seed_urls";
 	public static final String BROAD_CRAWLER_COLLECTION_NAME="broad_crawler";
 	public static final String DEEP_CRAWLER_COLLECTION_NAME="deep_crawler";
+	public static final String DEEP_CRAWLER_DOMAINS_COLLECTION_NAME="deep_crawler_domains";
 
 	@Value( "${mongo.host}" ) private String host;
 	@Value( "${mongo.port}" ) private Integer port;
@@ -95,6 +96,25 @@ public class MongoRepository{
 			filterResults.add(next.get("url").toString());
 		}
 		return filterResults;
+	}
+
+	public void insert(String collectionName, Map<String, Object> fields){
+		LOGGER.info("inserting collectionName:" + collectionName);
+		try{
+			MongoCollection<Document> collection = getDatabase().getCollection(collectionName);
+			Document document = new Document();
+			document.putAll(fields);
+			collection.insertOne(document);
+			LOGGER.info("inserted collectionName:" + collectionName );
+		}
+		catch(MongoWriteException mwe){
+			LOGGER.warn("URL already existed" + fields);
+//			throw (mwe);
+		}
+		catch(Exception e){
+			LOGGER.error("Failed to save: collectionName: " + collectionName+ " fields: " +  fields, e);
+			throw (new RuntimeException("FAILED TO SAVE", e));
+		}
 	}
 
 	public void insert(String collectionName, String workspaceId, Map<String, Object> fields){

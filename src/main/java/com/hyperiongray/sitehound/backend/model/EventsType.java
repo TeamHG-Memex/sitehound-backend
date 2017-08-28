@@ -10,6 +10,7 @@ public enum EventsType {
     DD_MODELER("dd-modeler"),
     DD_TRAINER("dd-trainer"),
     DD_CRAWLER("dd-crawler"),
+    DD_DEEPCRAWLER("dd-deepcrawler"),
     BOOKMARK("bookmark"),
     JOB("job");
 

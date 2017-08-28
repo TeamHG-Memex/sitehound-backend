@@ -24,7 +24,7 @@ public class DdDeepcrawlerProgressActivity implements Activity {
     @Autowired
     private DdDeepcrawlerProgressBrokerService ddDeepcrawlerProgressBrokerService;
 
-    @KafkaListener(topics= "dd-deepcrawler-progress")
+    @KafkaListener(topics= "dd-deepcrawler-output-progress")
     public void listen(@Payload String data,
 //                       @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) Integer key,
                        @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,

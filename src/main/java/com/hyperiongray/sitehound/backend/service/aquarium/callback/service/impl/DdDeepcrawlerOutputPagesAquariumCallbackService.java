@@ -9,6 +9,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translat
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlRequestTranslator;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlResultTranslator;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.GenericCrawlMongoRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdDeepcrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.CrawlResultService;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import org.slf4j.Logger;
@@ -22,8 +23,8 @@ import java.util.Map;
  * Created by tomas on 3/10/16.
  */
 @Service
-public class DdDeepcrawlerOutputAquariumCallbackService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerOutputAquariumCallbackService.class);
+public class DdDeepcrawlerOutputPagesAquariumCallbackService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerOutputPagesAquariumCallbackService.class);
 
     @Autowired private CrawlRequestTranslator crawlRequestTranslator;
     @Autowired private CrawlResultTranslator crawlResultTranslator;
@@ -31,6 +32,8 @@ public class DdDeepcrawlerOutputAquariumCallbackService {
     @Autowired private CrawlResultService crawlResultService;
     @Autowired private CrawledIndexRepository analyzedCrawlResultDtoIndexRepository;
     @Autowired private GenericCrawlMongoRepository genericCrawlMongoRepository;
+    @Autowired private DdDeepcrawlerRepository ddDeepcrawlerRepository;
+
 
     public void process(CrawlJob crawlJob, DeepcrawlerPageRequest deepcrawlerPageRequest, AquariumInternal aquariumInternal){
 
@@ -50,12 +53,13 @@ public class DdDeepcrawlerOutputAquariumCallbackService {
             document.put("workspaceId", crawlJob.getWorkspaceId());
             document.put("jobId", crawlJob.getJobId());
             document.put("timestamp", crawlResultDto.getTimestamp());
-            document.put("provider", crawlJob.getProvider().toString());
-            document.put("crawlEntityType", crawlJob.getCrawlEntityType().toString());
+//            document.put("provider", crawlJob.getProvider().toString());
+//            document.put("crawlEntityType", crawlJob.getCrawlEntityType().toString());
             document.put("title", crawlResultDto.getTitle());
             document.put("url", deepcrawlerPageRequest.getUrl().toLowerCase());
             document.put("domain", deepcrawlerPageRequest.getDomain());
-            document.put("isHome", deepcrawlerPageRequest.getIsHome());
+//            document.put("isHome", deepcrawlerPageRequest.getIsHome());
+            document.put("hashKey", hashKey);
 
 //        document.put("host", crawlContextDto.getAnalyzedCrawlResultDto().getCrawlResultDto().getHost().toLowerCase());
 //        document.put("language", crawlContextDto.getAnalyzedCrawlResultDto().getLanguage()); // this is also stored in Elasticsearch
@@ -63,9 +67,13 @@ public class DdDeepcrawlerOutputAquariumCallbackService {
 //        document.put("words", crawlContextDto.getAnalyzedCrawlResultDto().getWords());  // this is also stored in Elasticsearch
 
 
-            document.put("hashKey", hashKey);
-            genericCrawlMongoRepository.save(crawlJob.getCrawlType(), crawlJob.getWorkspaceId(), document);
-
+//            genericCrawlMongoRepository.save(crawlJob.getCrawlType(), crawlJob.getWorkspaceId(), document);
+            if(deepcrawlerPageRequest.getIsHome()) {
+                ddDeepcrawlerRepository.saveDomains(document);
+            }
+            else{
+                ddDeepcrawlerRepository.savePages(document);
+            }
 //            crawlResultService.save(deepCrawlContextDto);
 
         }catch(Exception e){

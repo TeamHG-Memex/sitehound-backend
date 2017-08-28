@@ -47,15 +47,15 @@ public class CrawlResultService{
 		genericCrawlMongoRepository.save(trainingCrawlContextDto.getCrawlType(), trainingCrawlContextDto.getCrawlRequestDto().getWorkspace(), document);
 	}
 
-
-	public void save(DeepCrawlContextDto deepCrawlContextDto) throws IOException {
-		// update ES index
-		String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(deepCrawlContextDto.getCrawlRequestDto().getUrl(), deepCrawlContextDto.getCrawlRequestDto().getWorkspace(), deepCrawlContextDto.getCrawlRequestDto().getCrawlEntityType(), deepCrawlContextDto.getAnalyzedCrawlResultDto());
-
-		// update mongo index
-		Map<String, Object> document = broadCrawlContextDtoTranslator.translate(deepCrawlContextDto);
-		document.put("hashKey", hashKey);
-		genericCrawlMongoRepository.save(deepCrawlContextDto.getCrawlType(), deepCrawlContextDto.getCrawlRequestDto().getWorkspace(), document);
-
-	}
+//
+//	public void save(DeepCrawlContextDto deepCrawlContextDto) throws IOException {
+//		// update ES index
+//		String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(deepCrawlContextDto.getCrawlRequestDto().getUrl(), deepCrawlContextDto.getCrawlRequestDto().getWorkspace(), deepCrawlContextDto.getCrawlRequestDto().getCrawlEntityType(), deepCrawlContextDto.getAnalyzedCrawlResultDto());
+//
+//		// update mongo index
+//		Map<String, Object> document = broadCrawlContextDtoTranslator.translate(deepCrawlContextDto);
+//		document.put("hashKey", hashKey);
+//		genericCrawlMongoRepository.save(deepCrawlContextDto.getCrawlType(), deepCrawlContextDto.getCrawlRequestDto().getWorkspace(), document);
+//
+//	}
 }

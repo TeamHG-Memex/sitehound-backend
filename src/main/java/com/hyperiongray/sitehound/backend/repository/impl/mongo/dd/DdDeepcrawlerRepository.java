@@ -19,8 +19,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import static com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository.CRAWL_JOB_COLLECTION_NAME;
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository.DEEP_CRAWLER_COLLECTION_NAME;
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository.DEEP_CRAWLER_DOMAINS_COLLECTION_NAME;
 
 /**
  * Created by tomas on 27/08/17.
@@ -62,6 +65,14 @@ public class DdDeepcrawlerRepository {
         }
         document.put("domains", domains);
         return document;
+    }
+
+    public void saveDomains(Map<String, Object> fields){
+        mongoRepository.insert(DEEP_CRAWLER_DOMAINS_COLLECTION_NAME, fields);
+    }
+
+    public void savePages(Map<String, Object> fields){
+        mongoRepository.insert(DEEP_CRAWLER_COLLECTION_NAME, fields);
     }
 
 

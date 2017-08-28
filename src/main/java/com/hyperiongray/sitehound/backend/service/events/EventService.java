@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.events;
 
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.event.DdCrawlerInputStartArgs;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.modeler.DdModelerProducer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
@@ -11,6 +12,7 @@ import com.hyperiongray.sitehound.backend.kafka.producer.dd.crawler.DdCrawlerInp
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.trainer.DdTrainerInputProducer;
 import com.hyperiongray.sitehound.backend.model.EventsType;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.input.DdCrawlerHintsInputService;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.input.DdCrawlerInputService;
@@ -109,6 +111,13 @@ public class EventService {
                 }
                 break;
 
+            case DD_DEEPCRAWLER:
+                if (eventInput.getAction().toLowerCase().equals("finished")){
+//                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
+                    String jobId = getJobIdFromArgs(eventInput.getArguments());
+                    crawlJobRepository.updateJobStatus(jobId, Constants.JobStatus.FINISHED);
+                }
+                break;
             case BOOKMARK:
                 /// action is always "changed"
                 ddCrawlerHintsInputService.execute(eventInput);
@@ -124,6 +133,31 @@ public class EventService {
                 default:
                 throw new UnsupportedOperationException();
 
+        }
+    }
+
+    private String getJobIdFromArgs(String arguments){
+        JsonMapper<JobFinishedArgs> jsonMapper = new JsonMapper();
+
+        JobFinishedArgs jobFinishedArgs = null;
+        try {
+            jobFinishedArgs = jsonMapper.toObject(arguments, JobFinishedArgs.class);
+        } catch (IOException e) {
+            LOGGER.error("failed to deserialize:" + arguments);
+            e.printStackTrace();
+        }
+        return jobFinishedArgs.getJobId();
+    }
+
+    private static class JobFinishedArgs{
+        private String jobId;
+
+        public String getJobId() {
+            return jobId;
+        }
+
+        public void setJobId(String jobId) {
+            this.jobId = jobId;
         }
     }
 

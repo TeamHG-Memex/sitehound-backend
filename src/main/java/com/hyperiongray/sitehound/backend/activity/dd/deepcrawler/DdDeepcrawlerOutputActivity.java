@@ -24,7 +24,7 @@ public class DdDeepcrawlerOutputActivity implements Activity {
     @Autowired
     private DdDeepcrawlerOutputBrokerService ddDeepcrawlerOutputBrokerService;
 
-    @KafkaListener(topics= "dd-deepcrawler-output")
+    @KafkaListener(topics= "dd-deepcrawler-output-pages")
     public void listen(@Payload String data,
 //                       @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) Integer key,
                        @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,

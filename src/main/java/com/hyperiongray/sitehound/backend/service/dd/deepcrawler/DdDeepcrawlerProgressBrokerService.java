@@ -8,7 +8,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobReposito
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdDeepcrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputAquariumCallbackService;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputPagesAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DeepcrawlerOutputCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
@@ -29,7 +29,7 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
 
     @Autowired private CrawlJobRepository crawlJobRepository;
     @Autowired private DdDeepcrawlerRepository ddDeepcrawlerRepository;
-    @Autowired private DdDeepcrawlerOutputAquariumCallbackService ddDeepcrawlerOutputAquariumCallbackService;
+    @Autowired private DdDeepcrawlerOutputPagesAquariumCallbackService ddDeepcrawlerOutputPagesAquariumCallbackService;
     @Autowired private AquariumAsyncClient aquariumClient;
 
     @Override
@@ -47,7 +47,7 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
             if(!crawlJob.getHasProgress()){
                 for(Domain domain :ddDeepcrawlerProgress.getProgress().getDomains()){
                     DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(domain.getUrl(), domain.getDomain(), true);
-                    DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputAquariumCallbackService);
+                    DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
                     AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(domain.getUrl(), semaphore, callbackServiceWrapper);
                     aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
                 }

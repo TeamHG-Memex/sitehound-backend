@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputAquariumCallbackService;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputPagesAquariumCallbackService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +16,9 @@ public class DeepcrawlerOutputCallbackServiceWrapper extends BaseCallbackService
 
     private CrawlJob crawlJob;
     private DeepcrawlerPageRequest deepcrawlerPageRequest;
-    private final DdDeepcrawlerOutputAquariumCallbackService callbackService;
+    private final DdDeepcrawlerOutputPagesAquariumCallbackService callbackService;
 
-    public DeepcrawlerOutputCallbackServiceWrapper(CrawlJob crawlJob, DeepcrawlerPageRequest deepcrawlerPageRequest, DdDeepcrawlerOutputAquariumCallbackService callbackService) {
+    public DeepcrawlerOutputCallbackServiceWrapper(CrawlJob crawlJob, DeepcrawlerPageRequest deepcrawlerPageRequest, DdDeepcrawlerOutputPagesAquariumCallbackService callbackService) {
         this.crawlJob = crawlJob;
         this.deepcrawlerPageRequest = deepcrawlerPageRequest;
         this.callbackService = callbackService;
