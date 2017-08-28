@@ -64,9 +64,5 @@ public class DdDeepcrawlerRepository {
         return document;
     }
 
-    public void saveOutput(DdDeepcrawlerOutput ddDeepcrawlerOutput) {
 
-        System.out.println("TGOOD");
-
-    }
 }

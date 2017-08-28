@@ -73,8 +73,8 @@ public class DeepcrawlerProgressKafkaTemplateTests {
                 "\"pages_fetched\": 1468," +
                 "\"rpm\": 24000," +
                 "\"domains\": [" +
-                " {\"url\":\"http://example1.com\", \"domain\": \"example1.com\", \"pages_fetched\": 1234, \"finished\": false, \"rpm\":12000}," +
-                " {\"url\":\"http://example2.com\", \"domain\": \"example2.com\", \"pages_fetched\": 234, \"finished\": true, \"rpm\":12000}" +
+                " {\"url\":\"http://example.com\", \"domain\": \"example.com\", \"pages_fetched\": 1234, \"finished\": false, \"rpm\":12000}," +
+                " {\"url\":\"http://google.com\", \"domain\": \"google.com\", \"pages_fetched\": 234, \"finished\": true, \"rpm\":12000}" +
                 "]"+
                 "}" +
                 "}";
@@ -86,7 +86,7 @@ public class DeepcrawlerProgressKafkaTemplateTests {
         KafkaTemplate<Integer, String> template = new KafkaTemplate<>(pf);
         template.setDefaultTopic(TEMPLATE_TOPIC);
         template.sendDefault(input);
-//        Thread.sleep(10000L);
+        Thread.sleep(100000L);
 //        assertThat(records.poll(10, TimeUnit.SECONDS), hasValue(null));
     /*
         template.sendDefault(0, 2, "bar");
