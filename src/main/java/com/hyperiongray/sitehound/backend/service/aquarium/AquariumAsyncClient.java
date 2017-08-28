@@ -29,20 +29,17 @@ import java.util.concurrent.Executors;
  */
 @Service
 public class AquariumAsyncClient{
+    private static final Logger LOGGER = LoggerFactory.getLogger(AquariumAsyncClient.class);
 
     @Value( "${aquarium.host}" ) private String host;
     @Value( "${aquarium.url.path}" ) private String path;
     @Value( "${aquarium.threads}" ) private int threads;
-
     @Value( "${aquarium.user}" ) private String user;
     @Value( "${aquarium.password}" ) private String password;
-
 
     private FutureRequestExecutionService futureRequestExecutionService;
     private RequestConfig config;
     private ExecutorService executorService;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AquariumAsyncClient.class);
 
     @PostConstruct
     public void postConstruct(){
@@ -61,18 +58,12 @@ public class AquariumAsyncClient{
     }
 
     public void fetch(String targetUrl,  ResponseHandler<Content> handler, FutureCallback<Content> myCallback) throws IOException {
-
         LOGGER.debug("Getting Snapshot for: " + targetUrl);
         String url = host + path + targetUrl;
         HttpGet httpGet = new HttpGet(url);
         httpGet.setConfig(config);
         futureRequestExecutionService.execute(httpGet, HttpClientContext.create(), handler, myCallback);
-//        System.out.println(futureRequestExecutionService.metrics().toString());
         LOGGER.debug("Scheduled snapshot of: " + url);
-
-//        Request request=Request.Get(url).connectTimeout(90000).socketTimeout(90000);
-//        Async.newInstance().use(executorService).execute(request, handler, myCallback);
-
     }
 
 }

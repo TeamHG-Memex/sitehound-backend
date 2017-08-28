@@ -2,6 +2,7 @@ package com.hyperiongray.sitehound.backend.service.aquarium.callback.service.imp
 
 import com.google.common.collect.Maps;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
+import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
 import com.hyperiongray.sitehound.backend.repository.CrawledIndexRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.*;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.AnalyzedCrawlRequestFactory;
@@ -31,7 +32,7 @@ public class DdDeepcrawlerOutputAquariumCallbackService {
     @Autowired private CrawledIndexRepository analyzedCrawlResultDtoIndexRepository;
     @Autowired private GenericCrawlMongoRepository genericCrawlMongoRepository;
 
-    public void process(CrawlJob crawlJob, String url, AquariumInternal aquariumInternal, String domain){
+    public void process(CrawlJob crawlJob, DeepcrawlerPageRequest deepcrawlerPageRequest, AquariumInternal aquariumInternal){
 
         try{
             CrawlResultDto crawlResultDto = crawlResultTranslator.translateFromAquariumInternal(aquariumInternal);
@@ -41,7 +42,7 @@ public class DdDeepcrawlerOutputAquariumCallbackService {
 
 //            DeepCrawlContextDto deepCrawlContextDto = new DeepCrawlContextDto(crawlRequestDto, analyzedCrawlResultDto);
             // update ES index
-            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(url, crawlJob.getWorkspaceId(), crawlJob.getCrawlEntityType(), analyzedCrawlResultDto);
+            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(deepcrawlerPageRequest.getUrl(), crawlJob.getWorkspaceId(), crawlJob.getCrawlEntityType(), analyzedCrawlResultDto);
 
             // update mongo index
 //            Map<String, Object> document = translate(crawlRequestDto);
@@ -51,9 +52,11 @@ public class DdDeepcrawlerOutputAquariumCallbackService {
             document.put("timestamp", crawlResultDto.getTimestamp());
             document.put("provider", crawlJob.getProvider().toString());
             document.put("crawlEntityType", crawlJob.getCrawlEntityType().toString());
-            document.put("url", url.toLowerCase());
-            document.put("title", crawlResultDto.getTitle());  // this is also stored in Elasticsearch
-            document.put("domain", domain);  // this is also stored in Elasticsearch
+            document.put("title", crawlResultDto.getTitle());
+            document.put("url", deepcrawlerPageRequest.getUrl().toLowerCase());
+            document.put("domain", deepcrawlerPageRequest.getDomain());
+            document.put("isHome", deepcrawlerPageRequest.getIsHome());
+
 //        document.put("host", crawlContextDto.getAnalyzedCrawlResultDto().getCrawlResultDto().getHost().toLowerCase());
 //        document.put("language", crawlContextDto.getAnalyzedCrawlResultDto().getLanguage()); // this is also stored in Elasticsearch
 //        document.put("categories", crawlContextDto.getAnalyzedCrawlResultDto().getCategories());  // this is also stored in Elasticsearch
@@ -66,7 +69,7 @@ public class DdDeepcrawlerOutputAquariumCallbackService {
 //            crawlResultService.save(deepCrawlContextDto);
 
         }catch(Exception e){
-            LOGGER.error("Error Analyzing: " + url, e);
+            LOGGER.error("Error Analyzing: " + deepcrawlerPageRequest.getUrl(), e);
         }
     }
 

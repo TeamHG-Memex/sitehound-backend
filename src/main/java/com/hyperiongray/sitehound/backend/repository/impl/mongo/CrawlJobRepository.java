@@ -54,6 +54,7 @@ public class CrawlJobRepository{
 				.withCrawlStatus(Constants.CrawlStatus.valueOf(document.getString("status")))
 				.withTimestamp(document.getDouble("timestamp").longValue())
 				.withNResultsRequested(document.getInteger("nResultsRequested"))
+				.withProgress(document.containsKey("progress"))
 				.build();
 
 		return crawlJob;

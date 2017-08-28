@@ -19,8 +19,9 @@ public class CrawlJob{
 	private Constants.CrawlEntityType crawlEntityType;
 	private Constants.CrawlStatus crawlStatus;
 	private Integer nResultsRequested;
+	private Boolean hasProgress;
 
-	private CrawlJob(String workspaceId, String jobId, Constants.CrawlType crawlType, Constants.CrawlEntityType crawlEntityType, Constants.CrawlStatus crawlStatus, List<String> sources, Integer nResultsRequested, Constants.CrawlerProvider provider, Long timestamp){
+	private CrawlJob(String workspaceId, String jobId, Constants.CrawlType crawlType, Constants.CrawlEntityType crawlEntityType, Constants.CrawlStatus crawlStatus, List<String> sources, Integer nResultsRequested, Constants.CrawlerProvider provider, Long timestamp, Boolean hasProgress){
 		this.workspaceId=workspaceId;
 		this.jobId=jobId;
 		this.sources=sources;
@@ -30,6 +31,7 @@ public class CrawlJob{
 		this.crawlStatus =crawlStatus;
 		this.provider=provider;
 		this.timestamp=timestamp;
+		this.hasProgress = hasProgress;
 	}
 
 	public String getJobId(){
@@ -68,6 +70,9 @@ public class CrawlJob{
 		return crawlStatus;
 	}
 
+	public Boolean getHasProgress() {
+		return hasProgress;
+	}
 
 
 	public static class Builder{
@@ -80,6 +85,7 @@ public class CrawlJob{
 		private Constants.CrawlEntityType crawlEntityType;
 		private Constants.CrawlStatus crawlStatus;
 		private Integer nResultsRequested;
+		private Boolean hasProgress;
 
 
 		public Builder withWorkspaceId(String workspaceId){
@@ -122,6 +128,11 @@ public class CrawlJob{
 			return this;
 		}
 
+		public Builder withProgress(Boolean hasProgress){
+			this.hasProgress=hasProgress;
+			return this;
+		}
+
 		public CrawlJob build(){
 			Assert.assertNotNull(this.workspaceId);
 			Assert.assertNotNull(this.jobId);
@@ -131,7 +142,7 @@ public class CrawlJob{
 			Assert.assertNotNull(this.crawlStatus);
 			Assert.assertNotNull(this.nResultsRequested);
 			Assert.assertNotNull(this.timestamp);
-			return new CrawlJob(this.workspaceId, this.jobId, this.crawlType, this.crawlEntityType, this.crawlStatus, this.sources, this.nResultsRequested, Constants.CrawlerProvider.HH_JOOGLE, this.timestamp);
+			return new CrawlJob(this.workspaceId, this.jobId, this.crawlType, this.crawlEntityType, this.crawlStatus, this.sources, this.nResultsRequested, Constants.CrawlerProvider.HH_JOOGLE, this.timestamp, this.hasProgress);
 		}
 
 	}
