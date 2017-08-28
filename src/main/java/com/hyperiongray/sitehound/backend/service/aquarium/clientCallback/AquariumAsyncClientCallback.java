@@ -16,48 +16,43 @@ import java.util.concurrent.Semaphore;
  * Created by tomas on 9/20/15.
  */
 public class AquariumAsyncClientCallback implements FutureCallback<Content>{
+	private static final Logger LOGGER = LoggerFactory.getLogger(AquariumAsyncClientCallback.class);
 
-	private final AquariumInput aquariumInput;
+	private final String url;
 	private final Semaphore semaphore;
 	private final BaseCallbackServiceWrapper baseCallbackServiceWrapper;
 	private JsonMapper<AquariumInternal> aquariumInternalJsonMapper = new JsonMapper();
-//	private BaseAquariumCallbackService aquariumCallbackService;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AquariumAsyncClientCallback.class);
 
-	public AquariumAsyncClientCallback(AquariumInput aquariumInput, Semaphore semaphore, BaseCallbackServiceWrapper baseCallbackServiceWrapper){
-		this.aquariumInput=aquariumInput;
+	public AquariumAsyncClientCallback(String url, Semaphore semaphore, BaseCallbackServiceWrapper baseCallbackServiceWrapper){
+		this.url=url;
 		this.semaphore=semaphore;
-		this.baseCallbackServiceWrapper = baseCallbackServiceWrapper;
-//		this.aquariumCallbackService = aquariumCallbackService;
+		this.baseCallbackServiceWrapper=baseCallbackServiceWrapper;
 	}
 
 	public void completed(final Content content) {
-
 		try{
-			LOGGER.info("Aquarium response for: " + aquariumInput.getUrl() + aquariumInput);
+			LOGGER.info("Aquarium response for: " + url);
 			AquariumInternal aquariumInternal = aquariumInternalJsonMapper.toObject(content.asString(Charset.forName("UTF-8")), AquariumInternal.class);
-//			aquariumCallbackService.process(aquariumInput, aquariumInternal);
-			baseCallbackServiceWrapper.execute(aquariumInput, aquariumInternal);
+			baseCallbackServiceWrapper.execute(aquariumInternal);
 		}
 		catch(Exception e){
 			LOGGER.error("Error In Callback", e);
 		}
 		finally{
-			LOGGER.info("Aquarium finished and inserted: " + aquariumInput.getUrl());
+			LOGGER.info("Aquarium finished and inserted: " + url);
 			semaphore.release();
 			LOGGER.info("semaphores available permits: " + semaphore.availablePermits());
 		}
 	}
 
 	public void failed(final Exception ex) {
-		LOGGER.error("request failed: " + aquariumInput.getUrl(), ex);
+		LOGGER.error("request failed: " + url, ex);
 		semaphore.release();
 	}
 
-
 	public void cancelled() {
-		LOGGER.error("request cancelled: " + aquariumInput.getUrl());
+		LOGGER.error("request cancelled: " + url);
 		semaphore.release();
 	}
 }

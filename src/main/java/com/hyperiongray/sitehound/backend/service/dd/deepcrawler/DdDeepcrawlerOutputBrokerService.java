@@ -7,6 +7,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.Pa
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerAquariumCallbackService;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DeepcrawlerOutputCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DefaultCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
@@ -26,8 +27,6 @@ import java.util.concurrent.Semaphore;
 public class DdDeepcrawlerOutputBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerOutputBrokerService.class);
 
-//    @Autowired private DdDeepcrawlerRepository ddDeepcrawlerRepository;
-
     @Autowired private DdDeepcrawlerAquariumCallbackService ddDeepcrawlerAquariumCallbackService;
     @Autowired private AquariumAsyncClient aquariumClient;
     @Autowired private MetadataBuilder metadataBuilder;
@@ -45,11 +44,10 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
             for (PageSample pageSample : ddDeepcrawlerOutput.getPageSamples()){
                 AquariumInput aquariumInput = new AquariumInput(metadata);
                 aquariumInput.setUrl(pageSample.getUrl());
-                DefaultCallbackServiceWrapper defaultCallbackServiceWrapper = new DefaultCallbackServiceWrapper(ddDeepcrawlerAquariumCallbackService);
-                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput, semaphore, defaultCallbackServiceWrapper);
+                DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(aquariumInput, ddDeepcrawlerAquariumCallbackService, pageSample.getDomain());
+                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, callbackServiceWrapper);
                 aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
             }
-
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
@@ -58,7 +56,5 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
             LOGGER.info("DdDeepcrawlerOutputBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
             semaphore.release();
         }
-
     }
-
 }

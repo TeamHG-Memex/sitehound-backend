@@ -1,6 +1,5 @@
 package com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 
 
@@ -9,6 +8,6 @@ import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
  */
 public abstract class BaseCallbackServiceWrapper {
 
-    public abstract void execute(AquariumInput aquariumInput, AquariumInternal aquariumInternal);
+    public abstract void execute(AquariumInternal aquariumInternal);
 
 }

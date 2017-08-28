@@ -49,16 +49,16 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 
 		DefaultCallbackServiceWrapper callbackServiceWrapper;
 		if (aquariumInput.getMetadata().getCrawlType().equals(Constants.CrawlType.KEYWORDS)){
-			callbackServiceWrapper = new DefaultCallbackServiceWrapper(keywordsAquariumCallbackService);
+			callbackServiceWrapper = new DefaultCallbackServiceWrapper(aquariumInput, keywordsAquariumCallbackService);
 		}
 		else if(aquariumInput.getMetadata().getCrawlType().equals(Constants.CrawlType.BROADCRAWL)){
-			callbackServiceWrapper = new DefaultCallbackServiceWrapper(broadcrawlerAquariumCallbackService);
+			callbackServiceWrapper = new DefaultCallbackServiceWrapper(aquariumInput, broadcrawlerAquariumCallbackService);
 		}
 		else{
 			semaphore.release();
 			throw new UnsupportedOperationException();
 		}
-		AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput, semaphore, callbackServiceWrapper);
+		AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput.getUrl(), semaphore, callbackServiceWrapper);
 		aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
 		LOGGER.info("Aquarium requested (with semaphores :"+semaphore.availablePermits()+"): " + aquariumInput.getUrl());
 	}

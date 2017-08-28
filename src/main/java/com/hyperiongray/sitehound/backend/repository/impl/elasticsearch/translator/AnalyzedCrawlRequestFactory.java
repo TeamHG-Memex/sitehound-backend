@@ -39,13 +39,11 @@ public class AnalyzedCrawlRequestFactory{
 	@Autowired private ClassifierService classifierService;
 
 
-
-
+	@Deprecated
 	public AnalyzedCrawlResultDto build(CrawlResultDto crawlResultDto) throws Exception{
 
 		AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
 
-		/*
 		Document cleanHtmlDocument = parserService.clean(Jsoup.parse(crawlResultDto.getHtml()));
 
 		String cleanBody = Jsoup.clean(crawlResultDto.getHtml(), Whitelist.relaxed());
@@ -74,7 +72,6 @@ public class AnalyzedCrawlRequestFactory{
 		analyzedCrawlResultDto.setText(stringify);
 		analyzedCrawlResultDto.setLanguage(languageService.identifyLanguage(stringify));
 		analyzedCrawlResultDto.setWords(wordCounter.getMostFrequentWords(stringify));
-		*/
 		return analyzedCrawlResultDto;
 	}
 }

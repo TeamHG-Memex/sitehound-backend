@@ -30,7 +30,6 @@ public class BroadcrawlerAquariumCallbackService implements DefaultProcess{
     @Autowired private ScorerService scorerService;
     @Autowired private CrawlResultService crawlResultService;
 
-
     public void process(AquariumInput aquariumInput, AquariumInternal aquariumInternal){
 
         try{
@@ -38,26 +37,17 @@ public class BroadcrawlerAquariumCallbackService implements DefaultProcess{
             CrawlResultDto crawlResultDto = crawlResultTranslator.translateFromAquariumInternal(aquariumInternal);
             AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlRequestFactory.build(crawlResultDto);
 
-//            if(aquariumInput.getMetadata().getCrawlType()== Constants.CrawlType.BROADCRAWL){
-                Double score;
-                try{
-                    score = scorerService.score(crawlRequestDto.getWorkspace(), crawlRequestDto.getJobId(), crawlRequestDto.getUrl(), analyzedCrawlResultDto.getText());
-                }
-                catch (Exception e) {
-                    LOGGER.error("ERROR scoring:" +aquariumInput, e);
-                    score = 0d;
-                }
+            Double score;
+            try{
+                score = scorerService.score(crawlRequestDto.getWorkspace(), crawlRequestDto.getJobId(), crawlRequestDto.getUrl(), analyzedCrawlResultDto.getText());
+            }
+            catch (Exception e) {
+                LOGGER.error("ERROR scoring:" +aquariumInput, e);
+                score = 0d;
+            }
 
-                BroadCrawlContextDto broadCrawlContextDto = new BroadCrawlContextDto(crawlRequestDto, analyzedCrawlResultDto, score);
-                crawlResultService.save(broadCrawlContextDto);
-//            }
-//            else if(aquariumInput.getMetadata().getCrawlType()== Constants.CrawlType.KEYWORDS){
-//                TrainingCrawlContextDto trainingCrawlContextDto = new TrainingCrawlContextDto(crawlRequestDto, analyzedCrawlResultDto);
-//                crawlResultService.save(trainingCrawlContextDto);
-//            }
-//            else {
-//                throw new RuntimeException("UNSUPPORTED CRAWLTYPE:" +aquariumInput.getMetadata().toString());
-//            }
+            BroadCrawlContextDto broadCrawlContextDto = new BroadCrawlContextDto(crawlRequestDto, analyzedCrawlResultDto, score);
+            crawlResultService.save(broadCrawlContextDto);
 
         }catch(Exception e){
             LOGGER.error("Error Analyzing: " + aquariumInput.getUrl(), e);

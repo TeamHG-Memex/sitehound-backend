@@ -1,8 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.dd.crawler.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.ScoredProcess;
-import org.apache.http.client.fluent.ContentResponseHandler;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutput;
@@ -13,13 +11,12 @@ import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.Scor
 import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
+import org.apache.http.client.fluent.ContentResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -44,9 +41,9 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
             for (PageSample pageSample : ddCrawlerOutput.getPage_sample()){
                 AquariumInput aquariumInput = new AquariumInput(metadata);
                 aquariumInput.setUrl(pageSample.getUrl());
-                ScoredCallbackServiceWrapper scoredCallbackServiceWrapper = new ScoredCallbackServiceWrapper(ddCrawlerAquariumCallbackService, pageSample.getScore());
-                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput, semaphore, scoredCallbackServiceWrapper);
-                aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+                ScoredCallbackServiceWrapper scoredCallbackServiceWrapper = new ScoredCallbackServiceWrapper(aquariumInput, ddCrawlerAquariumCallbackService, pageSample.getScore());
+                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, scoredCallbackServiceWrapper);
+                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
             }
         }
         catch(Exception e){

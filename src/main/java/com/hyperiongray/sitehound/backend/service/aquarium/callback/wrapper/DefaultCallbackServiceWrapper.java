@@ -11,17 +11,18 @@ import org.slf4j.LoggerFactory;
  */
 
 public class DefaultCallbackServiceWrapper extends BaseCallbackServiceWrapper {
-
-    private final DefaultProcess baseAquariumCallbackService;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultCallbackServiceWrapper.class);
 
-    public DefaultCallbackServiceWrapper(DefaultProcess baseAquariumCallbackService) {
+    private final AquariumInput aquariumInput;
+    private final DefaultProcess baseAquariumCallbackService;
+
+    public DefaultCallbackServiceWrapper(AquariumInput aquariumInput, DefaultProcess baseAquariumCallbackService) {
+        this.aquariumInput = aquariumInput;
         this.baseAquariumCallbackService = baseAquariumCallbackService;
     }
 
     @Override
-    public void execute(AquariumInput aquariumInput, AquariumInternal aquariumInternal){
+    public void execute(AquariumInternal aquariumInternal){
         baseAquariumCallbackService.process(aquariumInput, aquariumInternal);
     }
 }

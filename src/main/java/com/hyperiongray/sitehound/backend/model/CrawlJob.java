@@ -55,4 +55,7 @@ public class CrawlJob{
 	public Integer getnResultsRequested(){
 		return nResultsRequested;
 	}
+
+
+
 }
