@@ -82,7 +82,7 @@ public class DeepcrawlerOutputKafkaTemplateTests {
         template.setDefaultTopic(TEMPLATE_TOPIC);
         template.sendDefault(input);
         try {
-            Thread.sleep(10000L);
+            Thread.sleep(100000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

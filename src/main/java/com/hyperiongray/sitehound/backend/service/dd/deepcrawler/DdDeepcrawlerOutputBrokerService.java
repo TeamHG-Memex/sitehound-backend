@@ -1,14 +1,13 @@
 package com.hyperiongray.sitehound.backend.service.dd.deepcrawler;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.DdDeepcrawlerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.PageSample;
+import com.hyperiongray.sitehound.backend.model.CrawlJob;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerAquariumCallbackService;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DeepcrawlerOutputCallbackServiceWrapper;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DefaultCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
@@ -27,9 +26,10 @@ import java.util.concurrent.Semaphore;
 public class DdDeepcrawlerOutputBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerOutputBrokerService.class);
 
-    @Autowired private DdDeepcrawlerAquariumCallbackService ddDeepcrawlerAquariumCallbackService;
+    @Autowired private DdDeepcrawlerOutputAquariumCallbackService ddDeepcrawlerOutputAquariumCallbackService;
     @Autowired private AquariumAsyncClient aquariumClient;
     @Autowired private MetadataBuilder metadataBuilder;
+    @Autowired private CrawlJobRepository crawlJobRepository;
 
     @Override
     public void process(String jsonInput, Semaphore semaphore){
@@ -40,13 +40,34 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
             JsonMapper<DdDeepcrawlerOutput> jsonMapper= new JsonMapper();
             DdDeepcrawlerOutput ddDeepcrawlerOutput = jsonMapper.toObject(jsonInput, DdDeepcrawlerOutput.class);
 
-            Metadata metadata = metadataBuilder.buildFromDeepcrawlerOutput(ddDeepcrawlerOutput.getId());
+//            Metadata metadata = metadataBuilder.buildFromDeepcrawlerOutput(ddDeepcrawlerOutput.getId());
+//            Metadata metadata = new Metadata();
+//            metadata.setCrawlType(Constants.CrawlType.DEEPCRAWL);
+//            metadata.setSource("DD");
+//            metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
+//            metadata.setWorkspace(crawlJobRepository.getWorkspaceId(jobId));
+//            metadata.setTimestamp(System.currentTimeMillis());
+//            metadata.setCallbackQueue("");
+//            metadata.setJobId(jobId);
+//            metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
+//            metadata.setnResults(1000);
+
+//            String workspaceId = crawlJobRepository.getWorkspaceId(ddDeepcrawlerOutput.getId());
+//            new CrawlJob.Builder()
+//                    .withWorkspaceId(workspaceId)
+//                    .withJobId(ddDeepcrawlerOutput.getId())
+//                    .withCrawlType(Constants.CrawlType.DEEPCRAWL)
+//                    .withTimestamp(System.currentTimeMillis())
+//                    .withNResultsRequested()
+
+            CrawlJob crawlJob = crawlJobRepository.get(ddDeepcrawlerOutput.getId());
+
             for (PageSample pageSample : ddDeepcrawlerOutput.getPageSamples()){
-                AquariumInput aquariumInput = new AquariumInput(metadata);
-                aquariumInput.setUrl(pageSample.getUrl());
-                DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(aquariumInput, ddDeepcrawlerAquariumCallbackService, pageSample.getDomain());
+//                AquariumInput aquariumInput = new AquariumInput(metadata);
+//                aquariumInput.setUrl(pageSample.getUrl());
+                DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, ddDeepcrawlerOutputAquariumCallbackService, pageSample.getDomain());
                 AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, callbackServiceWrapper);
-                aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
             }
         }
         catch(Exception e){

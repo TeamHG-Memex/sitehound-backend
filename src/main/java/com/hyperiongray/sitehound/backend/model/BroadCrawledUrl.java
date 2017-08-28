@@ -12,8 +12,8 @@ public class BroadCrawledUrl extends CrawledUrl{
 	private Boolean pinned;
 	private Double score;
 
-	public BroadCrawledUrl(String url, Metadata metadata, Constants.CrawlerResult crawlerResult){
-		super(url, metadata, crawlerResult);
+	public BroadCrawledUrl(String url, Metadata metadata, Constants.CrawlStatus crawlStatus){
+		super(url, metadata, crawlStatus);
 	}
 
 

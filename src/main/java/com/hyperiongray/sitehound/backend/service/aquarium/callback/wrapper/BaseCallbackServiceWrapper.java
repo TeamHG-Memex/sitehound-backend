@@ -8,6 +8,6 @@ import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
  */
 public abstract class BaseCallbackServiceWrapper {
 
-    public abstract void execute(AquariumInternal aquariumInternal);
+    public abstract void execute(String url, AquariumInternal aquariumInternal);
 
 }

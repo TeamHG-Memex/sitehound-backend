@@ -22,16 +22,16 @@ public class CrawledUrl{
 	private Set<String> categories = new HashSet<>();
 	private String language;
 
-	private Constants.CrawlerResult crawlerResult;
+	private Constants.CrawlStatus crawlStatus;
 	private Integer nRetries;
 	private String lastError;
 	private Metadata metadata;
 
-	public CrawledUrl(String url, Metadata metadata, Constants.CrawlerResult crawlerResult){
+	public CrawledUrl(String url, Metadata metadata, Constants.CrawlStatus crawlStatus){
 		this.url=url;
 		this.metadata=metadata;
-		this.crawlerResult=crawlerResult;
-		this.timestamp = Calendar.getInstance().getTimeInMillis();
+		this.crawlStatus=crawlStatus;
+		this.timestamp=Calendar.getInstance().getTimeInMillis();
 	}
 
 	public long getTimestamp(){
@@ -98,8 +98,8 @@ public class CrawledUrl{
 		this.language=language;
 	}
 
-	public Constants.CrawlerResult getCrawlerResult(){
-		return crawlerResult;
+	public Constants.CrawlStatus getCrawlStatus(){
+		return crawlStatus;
 	}
 
 	public Integer getnRetries(){

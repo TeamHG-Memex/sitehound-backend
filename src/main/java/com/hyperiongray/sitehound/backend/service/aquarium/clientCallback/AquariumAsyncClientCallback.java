@@ -34,7 +34,7 @@ public class AquariumAsyncClientCallback implements FutureCallback<Content>{
 		try{
 			LOGGER.info("Aquarium response for: " + url);
 			AquariumInternal aquariumInternal = aquariumInternalJsonMapper.toObject(content.asString(Charset.forName("UTF-8")), AquariumInternal.class);
-			baseCallbackServiceWrapper.execute(aquariumInternal);
+			baseCallbackServiceWrapper.execute(url, aquariumInternal);
 		}
 		catch(Exception e){
 			LOGGER.error("Error In Callback", e);

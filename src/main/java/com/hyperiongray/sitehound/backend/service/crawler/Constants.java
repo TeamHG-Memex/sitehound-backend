@@ -27,8 +27,8 @@ public class Constants {
 		KEYWORDS, BROADCRAWL, DEEPCRAWL
 	}
 
-	public enum CrawlerResult{
-		SUCCESS, FAIL
+	public enum CrawlStatus{
+		QUEUED, STARTED, STOPPED, FINISHED
 	}
 
 	public enum JobStatus{

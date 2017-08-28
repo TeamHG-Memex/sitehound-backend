@@ -11,8 +11,8 @@ public class KeywordCrawledUrl extends CrawledUrl{
 	private Boolean relevant;
 	private Constants.CrawlEntityType crawlEntityType;
 
-	public KeywordCrawledUrl(String url, Metadata metadata, Constants.CrawlerResult crawlerResult){
-		super(url, metadata, crawlerResult);
+	public KeywordCrawledUrl(String url, Metadata metadata, Constants.CrawlStatus crawlStatus){
+		super(url, metadata, crawlStatus);
 	}
 
 

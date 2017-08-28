@@ -30,6 +30,7 @@ public class BroadcrawlerAquariumCallbackService implements DefaultProcess{
     @Autowired private ScorerService scorerService;
     @Autowired private CrawlResultService crawlResultService;
 
+
     public void process(AquariumInput aquariumInput, AquariumInternal aquariumInternal){
 
         try{
@@ -48,6 +49,7 @@ public class BroadcrawlerAquariumCallbackService implements DefaultProcess{
 
             BroadCrawlContextDto broadCrawlContextDto = new BroadCrawlContextDto(crawlRequestDto, analyzedCrawlResultDto, score);
             crawlResultService.save(broadCrawlContextDto);
+
 
         }catch(Exception e){
             LOGGER.error("Error Analyzing: " + aquariumInput.getUrl(), e);

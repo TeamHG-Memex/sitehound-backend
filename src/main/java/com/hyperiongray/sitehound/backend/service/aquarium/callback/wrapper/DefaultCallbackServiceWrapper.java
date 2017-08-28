@@ -22,7 +22,7 @@ public class DefaultCallbackServiceWrapper extends BaseCallbackServiceWrapper {
     }
 
     @Override
-    public void execute(AquariumInternal aquariumInternal){
+    public void execute(String url, AquariumInternal aquariumInternal){
         baseAquariumCallbackService.process(aquariumInput, aquariumInternal);
     }
 }

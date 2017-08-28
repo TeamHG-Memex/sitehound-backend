@@ -39,8 +39,11 @@ public class AnalyzedCrawlRequestFactory{
 	@Autowired private ClassifierService classifierService;
 
 
-	@Deprecated
-	public AnalyzedCrawlResultDto build(CrawlResultDto crawlResultDto) throws Exception{
+	public AnalyzedCrawlResultDto build(CrawlResultDto crawlResultDto) throws Exception {
+		return new AnalyzedCrawlResultDto(crawlResultDto);
+	}
+
+	public AnalyzedCrawlResultDto buildFull(CrawlResultDto crawlResultDto) throws Exception{
 
 		AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
 

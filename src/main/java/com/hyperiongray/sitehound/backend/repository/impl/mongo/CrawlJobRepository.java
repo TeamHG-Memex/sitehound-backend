@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputProgress;
+import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
@@ -34,6 +36,28 @@ public class CrawlJobRepository{
 
 	public static final String CRAWL_JOB_COLLECTION_NAME = "crawl_job";
 	private ConcurrentHashMap<String, String> cacheMap = new ConcurrentHashMap<>(50);
+
+
+	public CrawlJob get(String id){
+		LOGGER.info("About to get crawlJob:" + id);
+		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
+		Bson filter = new BasicDBObject("_id", new ObjectId(id));
+		FindIterable<Document> iterable = collection.find(filter);
+		Document document = iterable.iterator().next();
+
+		CrawlJob crawlJob = new CrawlJob.Builder()
+				.withWorkspaceId(document.getString("workspaceId"))
+				.withJobId(id)
+				.withSources((List<String>) document.get("sources"))
+				.withCrawlType(Constants.CrawlType.valueOf(document.getString("crawlType")))
+				.withCrawlEntityType(Constants.CrawlEntityType.DD)
+				.withCrawlStatus(Constants.CrawlStatus.valueOf(document.getString("status")))
+				.withTimestamp(document.getDouble("timestamp").longValue())
+				.withNResultsRequested(document.getInteger("nResultsRequested"))
+				.build();
+
+		return crawlJob;
+	}
 
 
 	public boolean updateJobStatus(String jobId, Constants.JobStatus status){
