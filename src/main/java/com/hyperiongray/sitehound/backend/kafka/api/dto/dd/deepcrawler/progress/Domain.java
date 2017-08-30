@@ -9,7 +9,7 @@ public class Domain {
 
     private String url;
     private String domain;
-    private Boolean finished;
+    private String status; // valids are: running | finished | failed
     @JsonProperty("pages_fetched")
     private Integer pagesFetched;
     private Integer rpm;
@@ -30,12 +30,12 @@ public class Domain {
         this.domain = domain;
     }
 
-    public Boolean getFinished() {
-        return finished;
+    public String getStatus() {
+        return status;
     }
 
-    public void setFinished(Boolean finished) {
-        this.finished = finished;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getPagesFetched() {
@@ -60,7 +60,7 @@ public class Domain {
         return "Domain{" +
                 "url='" + url + '\'' +
                 ", domain='" + domain + '\'' +
-                ", finished=" + finished +
+                ", status=" + status +
                 ", pagesFetched=" + pagesFetched +
                 ", rpm=" + rpm +
                 '}';

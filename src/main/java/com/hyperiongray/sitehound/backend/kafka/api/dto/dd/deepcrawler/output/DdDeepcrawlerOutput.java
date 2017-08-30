@@ -13,9 +13,8 @@ public class DdDeepcrawlerOutput extends KafkaDto {
     /** crawl id */
     private String id;
 
-    @JsonProperty("page_sample")
+    @JsonProperty("page_samples")
     private List<PageSample> pageSamples;
-
 
     public String getId() {
         return id;

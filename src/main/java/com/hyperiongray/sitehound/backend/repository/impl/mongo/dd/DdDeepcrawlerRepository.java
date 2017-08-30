@@ -1,6 +1,5 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.DdDeepcrawlerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgress;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.Domain;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.Progress;
@@ -58,8 +57,8 @@ public class DdDeepcrawlerRepository {
             Document d = new Document();
             d.put("url", domain.getUrl());
             d.put("domain", domain.getDomain());
+            d.put("status", domain.getStatus());
             d.put("pagesFetched", domain.getPagesFetched());
-            d.put("finished", domain.getFinished());
             d.put("rpm", domain.getRpm());
             domains.add(d);
         }
@@ -74,6 +73,5 @@ public class DdDeepcrawlerRepository {
     public void savePages(Map<String, Object> fields){
         mongoRepository.insert(DEEP_CRAWLER_COLLECTION_NAME, fields);
     }
-
 
 }
