@@ -40,16 +40,16 @@ public class KafkaConfig {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
-        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
-        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "60000");
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "10000");
+        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "90000");
 //        props.put(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG, "16000");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         props.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, "200000000");
-        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "10000");
+        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "90000");
         props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "3000");
-        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "2");
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
         props.put(ConsumerConfig.CONNECTIONS_MAX_IDLE_MS_CONFIG, "3000");
         return props;
 
