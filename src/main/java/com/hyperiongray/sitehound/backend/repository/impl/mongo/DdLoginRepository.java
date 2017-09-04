@@ -21,7 +21,7 @@ import java.util.Map;
 public class DdLoginRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdLoginRepository.class);
 
-    private static final String LOGIN_COLLECTION_NAME = "login_input";
+    private static final String LOGIN_COLLECTION_NAME = "login";
 
     @Autowired private MongoRepository mongoRepository;
 
@@ -51,7 +51,8 @@ public class DdLoginRepository {
         document.put("workspaceId", ddLoginInput.getWorkspaceId());
         document.put("jobId", ddLoginInput.getJobId());
         document.put("url", ddLoginInput.getUrl());
-        document.put("screenshot", ddLoginInput.getScreenshot());
+        document.put("domain", ddLoginInput.getDomain());
+//        document.put("screenshot", ddLoginInput.getScreenshot());
         document.put("keyValues", ddLoginInput.getKeyValues());
         document.put("keysOrder", ddLoginInput.getKeysOrder());
         return document;

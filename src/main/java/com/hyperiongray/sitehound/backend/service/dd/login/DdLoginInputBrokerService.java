@@ -32,7 +32,6 @@ public class DdLoginInputBrokerService implements BrokerService {
             DdLoginInputDto ddLoginInputDto = jsonMapper.toObject(jsonInput, DdLoginInputDto.class);
             DdLoginInput ddLoginInput = loginInputDtoToLoginInputTranslator.translate(ddLoginInputDto);
             ddLoginRepository.save(ddLoginInput);
-
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

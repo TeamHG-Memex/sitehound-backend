@@ -13,11 +13,10 @@ public class DdLoginInputDto extends KafkaDto{
 
     @JsonProperty("workspace_id")
     private String workspaceId;
-
     @JsonProperty("job_id")
     private String jobId;
-
     private String url;
+    private String domain;
     private List<String> keys = new LinkedList<>();
     private String screenshot;
 
@@ -45,6 +44,14 @@ public class DdLoginInputDto extends KafkaDto{
         this.url = url;
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
     public List<String> getKeys() {
         return keys;
     }
@@ -68,6 +75,7 @@ public class DdLoginInputDto extends KafkaDto{
                 "workspaceId='" + workspaceId + '\'' +
                 ", jobId='" + jobId + '\'' +
                 ", url='" + url + '\'' +
+                ", domain='" + domain + '\'' +
                 ", keys=" + keys +
                 ", screenshot='" + scr + '\'' +
                 '}';

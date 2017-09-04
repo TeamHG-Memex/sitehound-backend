@@ -16,6 +16,7 @@ public class DdLoginInput {
     private String workspaceId;
     private String jobId;
     private String url;
+    private String domain;
     private Map<String, String> keyValues;
     private String screenshot;
     private List<String> keysOrder;
@@ -32,6 +33,9 @@ public class DdLoginInput {
     public String getUrl() {
         return url;
     }
+    public String getDomain() {
+        return domain;
+    }
     public String getScreenshot() {
         return screenshot;
     }
@@ -42,12 +46,12 @@ public class DdLoginInput {
         return keysOrder;
     }
 
-
     public static class Builder {
         private String id;
         private String workspaceId;
         private String jobId;
         private String url;
+        private String domain;
         private Map<String, String> keyValues = new HashMap<>();
         private String screenshot;
         private List<String> keysOrder = new LinkedList<>();
@@ -66,6 +70,10 @@ public class DdLoginInput {
         }
         public Builder withUrl(String url){
             this.url = url;
+            return this;
+        }
+        public Builder withDomain(String domain){
+            this.domain = domain;
             return this;
         }
         public Builder withKeyValues(Map<String,String> keyValues){
@@ -98,6 +106,7 @@ public class DdLoginInput {
         this.workspaceId = builder.workspaceId;
         this.jobId = builder.jobId;
         this.url = builder.url;
+        this.domain = builder.domain;
         this.keyValues = builder.keyValues;
         this.screenshot = builder.screenshot;
         this.keysOrder = builder.keysOrder;
@@ -114,6 +123,7 @@ public class DdLoginInput {
                 ", workspaceId='" + workspaceId + '\'' +
                 ", jobId='" + jobId + '\'' +
                 ", url='" + url + '\'' +
+                ", domain='" + domain + '\'' +
                 ", keyValues=" + keyValues +
                 ", screenshot='" + screenshotStr + '\'' +
                 ", keysOrder=" + keysOrder +

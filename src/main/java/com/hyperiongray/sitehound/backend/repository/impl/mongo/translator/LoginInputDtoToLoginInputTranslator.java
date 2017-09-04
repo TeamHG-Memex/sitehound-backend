@@ -22,6 +22,7 @@ public class LoginInputDtoToLoginInputTranslator {
                 .withWorkspaceId(ddLoginInputDto.getWorkspaceId())
                 .withJobId(ddLoginInputDto.getJobId())
                 .withUrl(ddLoginInputDto.getUrl())
+                .withDomain(ddLoginInputDto.getDomain())
                 .withKeyValues(keyValues)
                 .withKeysOrder(ddLoginInputDto.getKeys())
                 .withScreenshot(ddLoginInputDto.getScreenshot())
