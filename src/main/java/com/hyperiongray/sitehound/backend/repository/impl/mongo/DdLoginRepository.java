@@ -4,9 +4,16 @@ import com.google.common.collect.Maps;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.model.CrawlTask;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
+import com.hyperiongray.sitehound.backend.model.DdLoginResult;
+import com.hyperiongray.sitehound.backend.service.crawler.Constants;
+import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +63,16 @@ public class DdLoginRepository {
         document.put("keyValues", ddLoginInput.getKeyValues());
         document.put("keysOrder", ddLoginInput.getKeysOrder());
         return document;
+    }
+
+    public boolean updateResult(DdLoginResult ddLoginResult) {
+        LOGGER.info("About to update login results:" + ddLoginResult.getId());
+        MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(LOGIN_COLLECTION_NAME);
+//		Bson filter = new BasicDBObject("_id", new ObjectId(jobId)).append("status", "QUEUED");
+        Bson filter = new BasicDBObject("_id", new ObjectId(ddLoginResult.getId()));
+        UpdateResult updateResult=collection.updateOne(filter,
+                new BasicDBObject("$set", new BasicDBObject("result", ddLoginResult.getResult())));
+        LOGGER.info("Finished to update crawlJob:" + ddLoginResult.getId() + ": " + ddLoginResult.getResult());
+        return updateResult.getModifiedCount() == 1L;
     }
 }
