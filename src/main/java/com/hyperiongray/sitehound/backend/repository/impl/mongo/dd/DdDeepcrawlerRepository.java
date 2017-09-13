@@ -1,8 +1,8 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgress;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.Domain;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.Progress;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.ProgressDto;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.BasicDBObject;
@@ -35,25 +35,25 @@ public class DdDeepcrawlerRepository {
     @Autowired private MongoRepository mongoRepository;
     private static final String PROGRESS_FIELD = "progress";
 
-    public boolean saveProgress(DdDeepcrawlerProgress ddDeepcrawlerProgress) {
-        String jobId = ddDeepcrawlerProgress.getId();
+    public boolean saveProgress(DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto) {
+        String jobId = ddDeepcrawlerProgressDto.getId();
         LOGGER.info("About to update crawlJob:" + jobId);
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
         Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
         UpdateResult updateResult=collection.updateOne(filter,
-                new BasicDBObject("$set", new BasicDBObject(PROGRESS_FIELD, translate(ddDeepcrawlerProgress.getProgress()))));
+                new BasicDBObject("$set", new BasicDBObject(PROGRESS_FIELD, translate(ddDeepcrawlerProgressDto.getProgress()))));
         LOGGER.info("Finished to update crawlJob:" + jobId);
         return updateResult.getModifiedCount() == 1L;
     }
 
-    private Document translate(Progress progress){
+    private Document translate(ProgressDto progress){
         Document document = new Document();
         document.put("status", progress.getStatus());
         document.put("pagesFetched", progress.getPagesFetched());
         document.put("rpm", progress.getRpm());
 
         List<Document> domains = new LinkedList();
-        for(Domain domain : progress.getDomains()){
+        for(DomainDto domain : progress.getDomains()){
             Document d = new Document();
             d.put("url", domain.getUrl());
             d.put("domain", domain.getDomain());

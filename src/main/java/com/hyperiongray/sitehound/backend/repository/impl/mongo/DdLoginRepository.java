@@ -9,6 +9,7 @@ import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoWriteException;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,5 +76,25 @@ public class DdLoginRepository {
                 new BasicDBObject("$set", new BasicDBObject("result", ddLoginResult.getResult())));
         LOGGER.info("Finished to update crawlJob:" + ddLoginResult.getId() + ": " + ddLoginResult.getResult());
         return updateResult.getModifiedCount() == 1L;
+    }
+
+
+    public DdLoginInput getByDomain(String domain){
+        MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(LOGIN_COLLECTION_NAME);
+        Bson filter = new BasicDBObject("domain", domain);
+        FindIterable<Document> iterable = collection.find(filter);
+        Document document = iterable.iterator().next();
+        DdLoginInput ddLoginInput = new DdLoginInput.Builder()
+                .withId( document.getObjectId("_id").toString())
+                .withUrl(document.getString("url"))
+                .withDomain(document.getString("domain"))
+                .withWorkspaceId(document.getString("workspaceId"))
+                .withJobId(document.getString("jobId"))
+                .withKeysOrder((List<String> )document.get("keysOrder"))
+                .withKeyValues((Map<String,String>)document.get("keyValues"))
+                .withResult(document.getString("result"))
+                .build();
+
+        return ddLoginInput;
     }
 }

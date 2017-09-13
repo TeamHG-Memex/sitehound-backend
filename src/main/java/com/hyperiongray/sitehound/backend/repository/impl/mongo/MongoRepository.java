@@ -105,7 +105,7 @@ public class MongoRepository{
 			Document document = new Document();
 			document.putAll(fields);
 			collection.insertOne(document);
-			LOGGER.info("inserted collectionName:" + collectionName );
+			LOGGER.info("inserted collectionName:" + collectionName);
 		}
 		catch(MongoWriteException mwe){
 			LOGGER.warn("URL already existed" + fields);

@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.deepcrawler;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.DdDeepcrawlerOutput;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.PageSample;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.DdDeepcrawlerOutputDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.PageSampleDto;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
@@ -37,10 +37,10 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
         LOGGER.debug("DdDeepcrawlerOutputBrokerService consumer Permits:" + semaphore.availablePermits());
         LOGGER.debug("Receiving response size: " + jsonInput.length());
         try{
-            JsonMapper<DdDeepcrawlerOutput> jsonMapper= new JsonMapper();
-            DdDeepcrawlerOutput ddDeepcrawlerOutput = jsonMapper.toObject(jsonInput, DdDeepcrawlerOutput.class);
-            CrawlJob crawlJob = crawlJobRepository.get(ddDeepcrawlerOutput.getId());
-            for (PageSample pageSample : ddDeepcrawlerOutput.getPageSamples()){
+            JsonMapper<DdDeepcrawlerOutputDto> jsonMapper= new JsonMapper();
+            DdDeepcrawlerOutputDto ddDeepcrawlerOutputDto = jsonMapper.toObject(jsonInput, DdDeepcrawlerOutputDto.class);
+            CrawlJob crawlJob = crawlJobRepository.get(ddDeepcrawlerOutputDto.getId());
+            for (PageSampleDto pageSample : ddDeepcrawlerOutputDto.getPageSamples()){
                 DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(pageSample.getUrl(), pageSample.getDomain(), false);
                 DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
                 AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, callbackServiceWrapper);

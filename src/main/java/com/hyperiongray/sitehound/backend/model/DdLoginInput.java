@@ -20,6 +20,7 @@ public class DdLoginInput {
     private Map<String, String> keyValues;
     private String screenshot;
     private List<String> keysOrder;
+    private String result;
 
     public String getId() {
         return id;
@@ -45,6 +46,10 @@ public class DdLoginInput {
     public List<String> getKeysOrder() {
         return keysOrder;
     }
+    public String getResult() {
+        return result;
+    }
+
 
     public static class Builder {
         private String id;
@@ -55,6 +60,7 @@ public class DdLoginInput {
         private Map<String, String> keyValues = new HashMap<>();
         private String screenshot;
         private List<String> keysOrder = new LinkedList<>();
+        private String result;
 
         public Builder withId(String id){
             this.id = id;
@@ -88,6 +94,11 @@ public class DdLoginInput {
             this.keysOrder = keysOrder;
             return this;
         }
+        public Builder withResult(String result){
+            this.result = result;
+            return this;
+        }
+
 
         public DdLoginInput build(){
             org.springframework.util.Assert.hasText(this.workspaceId);
@@ -110,13 +121,14 @@ public class DdLoginInput {
         this.keyValues = builder.keyValues;
         this.screenshot = builder.screenshot;
         this.keysOrder = builder.keysOrder;
+        this.result = builder.result;
     }
 
     @Override
     public String toString() {
-        String screenshotStr = null;
-        if (screenshot!=null){
-            screenshotStr = "" + screenshot.length();
+        String screenshot = null;
+        if (this.screenshot !=null){
+            screenshot = "" + this.screenshot.length();
         }
         return "DdLoginInput{" +
                 "id='" + id + '\'' +
@@ -125,8 +137,9 @@ public class DdLoginInput {
                 ", url='" + url + '\'' +
                 ", domain='" + domain + '\'' +
                 ", keyValues=" + keyValues +
-                ", screenshot='" + screenshotStr + '\'' +
+                ", screenshot='" + screenshot + '\'' +
                 ", keysOrder=" + keysOrder +
+                ", result=" + result +
                 '}';
     }
 }

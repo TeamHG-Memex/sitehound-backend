@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.dd.deepcrawler;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgress;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.Domain;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
@@ -38,14 +38,13 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
         try{
             LOGGER.debug("DdDeepcrawlerProgressBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response size: " + jsonInput.length());
-            JsonMapper<DdDeepcrawlerProgress> jsonMapper= new JsonMapper();
-            DdDeepcrawlerProgress ddDeepcrawlerProgress = jsonMapper.toObject(jsonInput, DdDeepcrawlerProgress.class);
+            JsonMapper<DdDeepcrawlerProgressDto> jsonMapper= new JsonMapper();
+            DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto = jsonMapper.toObject(jsonInput, DdDeepcrawlerProgressDto.class);
 
-
-            CrawlJob crawlJob = crawlJobRepository.get(ddDeepcrawlerProgress.getId());
+            CrawlJob crawlJob = crawlJobRepository.get(ddDeepcrawlerProgressDto.getId());
 
             if(!crawlJob.getHasProgress()){
-                for(Domain domain :ddDeepcrawlerProgress.getProgress().getDomains()){
+                for(DomainDto domain :ddDeepcrawlerProgressDto.getProgress().getDomains()){
                     DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(domain.getUrl(), domain.getDomain(), true);
                     DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
                     AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(domain.getUrl(), semaphore, callbackServiceWrapper);
@@ -53,8 +52,8 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
                 }
             }
 
-            LOGGER.debug("DdDeepcrawlerProgressBrokerService received ddDeepcrawlerProgress: " + ddDeepcrawlerProgress);
-            ddDeepcrawlerRepository.saveProgress(ddDeepcrawlerProgress);
+            LOGGER.debug("DdDeepcrawlerProgressBrokerService received ddDeepcrawlerProgress: " + ddDeepcrawlerProgressDto);
+            ddDeepcrawlerRepository.saveProgress(ddDeepcrawlerProgressDto);
             LOGGER.info("DdDeepcrawlerProgressBrokerService saved ddDeepcrawlerProgress: ");
         }
         catch(Exception e){
