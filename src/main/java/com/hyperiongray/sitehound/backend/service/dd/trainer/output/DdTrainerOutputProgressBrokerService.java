@@ -24,10 +24,9 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputProgressBrokerService.class);
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
+    public void process(String jsonInput){
 
         try{
-            LOGGER.info("DdTrainerOutputPagesBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdTrainerOutputProgress> jsonMapper= new JsonMapper();
             DdTrainerOutputProgress ddTrainerOutputProgress = jsonMapper.toObject(jsonInput, DdTrainerOutputProgress.class);
@@ -36,10 +35,6 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
-        }
-        finally{
-            LOGGER.info("DdTrainerOutputPagesBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
-            semaphore.release();
         }
     }
 }

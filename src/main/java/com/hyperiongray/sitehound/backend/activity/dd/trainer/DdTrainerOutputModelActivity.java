@@ -32,7 +32,7 @@ public class DdTrainerOutputModelActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.trace("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddTrainerOutputModelBrokerService.process(data, new Semaphore(10000));
+        ddTrainerOutputModelBrokerService.process(data);
     }
 
 }

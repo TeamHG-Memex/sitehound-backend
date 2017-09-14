@@ -12,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * Created by tomas on 28/09/16.
  */
@@ -26,14 +24,12 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
     @Autowired private CrawlJobRepository crawlJobRepository;
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
-
+    public void process(String jsonInput){
         try{
-            LOGGER.info("DdTrainerOutputModelBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response size: " + jsonInput.length());
             JsonMapper<DdTrainerOutputModel> jsonMapper= new JsonMapper();
             DdTrainerOutputModel ddTrainerOutputModel = jsonMapper.toObject(jsonInput, DdTrainerOutputModel.class);
-            LOGGER.info("DdTrainerOutputModelBrokerService from ddTrainerOutputModel: " + ddTrainerOutputModel +" and semaphores: " + semaphore.availablePermits());
+            LOGGER.info("DdTrainerOutputModelBrokerService from ddTrainerOutputModel: " + ddTrainerOutputModel);
 
             String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputModel.getId());
             trainerModelRepository.save(workspaceId, ddTrainerOutputModel);
@@ -43,11 +39,6 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
         }
-        finally{
-            LOGGER.info("DdModelerOutputBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
-            semaphore.release();
-        }
-
     }
 
 }

@@ -24,39 +24,26 @@ import java.util.concurrent.Semaphore;
 public class DdTrainerOutputPagesBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputPagesBrokerService.class);
 
-    @Autowired private DdCrawlerRepository ddCrawlerRepository;
-
     @Autowired private AquariumProducer producer;
     @Autowired private MetadataBuilder metadataBuilder;
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
+    public void process(String jsonInput){
 
         try{
-            LOGGER.info("DdTrainerOutputPagesBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdTrainerOutputPages> jsonMapper= new JsonMapper();
             DdTrainerOutputPages ddTrainerOutputPages = jsonMapper.toObject(jsonInput, DdTrainerOutputPages.class);
-            dispatch(ddTrainerOutputPages);
+            Metadata metadata = metadataBuilder.buildFromTrainerOutputPages(ddTrainerOutputPages.getId());
+            for (PageSample pageSample : ddTrainerOutputPages.getPage_sample()){
+                AquariumInput aquariumInput = new AquariumInput(metadata);
+                aquariumInput.setUrl(pageSample.getUrl());
+                aquariumInput.setIndex(100);
+                producer.submit(aquariumInput);
+            }
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
         }
-        finally{
-            LOGGER.info("DdTrainerOutputPagesBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
-            semaphore.release();
-        }
     }
-
-    public void dispatch(DdTrainerOutputPages ddTrainerOutputPages) throws IOException {
-        Metadata metadata = metadataBuilder.buildFromTrainerOutputPages(ddTrainerOutputPages.getId());
-        for (PageSample pageSample : ddTrainerOutputPages.getPage_sample()){
-            AquariumInput aquariumInput = new AquariumInput(metadata);
-            aquariumInput.setUrl(pageSample.getUrl());
-            aquariumInput.setIndex(100);
-            producer.submit(aquariumInput);
-        }
-    }
-
-
 }

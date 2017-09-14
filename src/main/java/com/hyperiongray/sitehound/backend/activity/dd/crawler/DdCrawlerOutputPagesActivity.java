@@ -31,7 +31,7 @@ public class DdCrawlerOutputPagesActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddCrawlerOutputPagesBrokerService.process(data, new Semaphore(10000));
+        ddCrawlerOutputPagesBrokerService.process(data);
     }
 
 }

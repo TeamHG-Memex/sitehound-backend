@@ -58,8 +58,8 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 			semaphore.release();
 			throw new UnsupportedOperationException();
 		}
-		AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput.getUrl(), semaphore, callbackServiceWrapper);
-		aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+//		AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput.getUrl(), semaphore, callbackServiceWrapper);
+		aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), callbackServiceWrapper);
 		LOGGER.info("Aquarium requested (with semaphores :"+semaphore.availablePermits()+"): " + aquariumInput.getUrl());
 	}
 

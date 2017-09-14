@@ -31,9 +31,8 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
     @Autowired private MetadataBuilder metadataBuilder;
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
+    public void process(String jsonInput){
         try{
-            LOGGER.info("DdCrawlerOutputPagesBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdCrawlerOutput> jsonMapper= new JsonMapper();
             DdCrawlerOutput ddCrawlerOutput = jsonMapper.toObject(jsonInput, DdCrawlerOutput.class);
@@ -42,8 +41,8 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
                 AquariumInput aquariumInput = new AquariumInput(metadata);
                 aquariumInput.setUrl(pageSample.getUrl());
                 ScoredCallbackServiceWrapper scoredCallbackServiceWrapper = new ScoredCallbackServiceWrapper(aquariumInput, ddCrawlerAquariumCallbackService, pageSample.getScore());
-                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, scoredCallbackServiceWrapper);
-                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+//                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, scoredCallbackServiceWrapper);
+                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), scoredCallbackServiceWrapper);
             }
         }
         catch(Exception e){

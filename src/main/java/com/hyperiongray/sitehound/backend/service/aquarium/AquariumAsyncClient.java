@@ -1,5 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.aquarium;
 
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.BaseCallbackServiceWrapper;
+import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -9,7 +11,6 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.FutureRequestExecutionService;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -19,9 +20,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 
 /**
@@ -40,9 +41,11 @@ public class AquariumAsyncClient{
     private FutureRequestExecutionService futureRequestExecutionService;
     private RequestConfig config;
     private ExecutorService executorService;
+    private Semaphore semaphore;
 
     @PostConstruct
     public void postConstruct(){
+        semaphore = new Semaphore(threads);
 
         CredentialsProvider provider = new BasicCredentialsProvider();
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(user, password);
@@ -57,13 +60,22 @@ public class AquariumAsyncClient{
 	    //TODO implement retry strategy ...http://fahdshariff.blogspot.com.es/2009/08/retrying-operations-in-java.html ?
     }
 
-    public void fetch(String targetUrl,  ResponseHandler<Content> handler, FutureCallback<Content> myCallback) throws IOException {
-        LOGGER.debug("Getting Snapshot for: " + targetUrl);
-        String url = host + path + targetUrl;
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.setConfig(config);
-        futureRequestExecutionService.execute(httpGet, HttpClientContext.create(), handler, myCallback);
-        LOGGER.debug("Scheduled snapshot of: " + url);
+//    public void fetch(String targetUrl,  ResponseHandler<Content> handler, FutureCallback<Content> myCallback) throws IOException {
+    public void fetch(String targetUrl,  ResponseHandler<Content> handler, BaseCallbackServiceWrapper callbackServiceWrapper){
+        try{
+            LOGGER.info("splash available semaphores: " + semaphore.availablePermits());
+            LOGGER.debug("Getting Snapshot for: " + targetUrl);
+            AquariumAsyncClientCallback callback = new AquariumAsyncClientCallback(targetUrl, semaphore, callbackServiceWrapper);
+            String url = host + path + targetUrl;
+            HttpGet httpGet = new HttpGet(url);
+            httpGet.setConfig(config);
+            futureRequestExecutionService.execute(httpGet, HttpClientContext.create(), handler, callback);
+            LOGGER.debug("Scheduled snapshot of: " + url);
+        }
+        catch (Exception ex){
+            LOGGER.warn("Failed Scheduled snapshot of: " + targetUrl);
+            semaphore.release();
+        }
     }
 
 }

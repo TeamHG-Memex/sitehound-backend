@@ -44,7 +44,7 @@ public class KafkaProducerTestUtil {
         template.setDefaultTopic(topic);
         template.sendDefault(input);
         try {
-            Thread.sleep(2000L);
+            Thread.sleep(5000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

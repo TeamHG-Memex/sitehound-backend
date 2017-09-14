@@ -25,10 +25,9 @@ public class DdCrawlerOutputProgressBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdCrawlerOutputProgressBrokerService.class);
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
+    public void process(String jsonInput){
 
         try{
-            LOGGER.debug("DdCrawlerOutputProgressBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response size: " + jsonInput.length());
             JsonMapper<DdCrawlerOutputProgress> jsonMapper= new JsonMapper();
             DdCrawlerOutputProgress ddCrawlerOutputProgress = jsonMapper.toObject(jsonInput, DdCrawlerOutputProgress.class);
@@ -40,11 +39,6 @@ public class DdCrawlerOutputProgressBrokerService implements BrokerService {
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
         }
-        finally{
-            LOGGER.info("DdTrainerOutputPagesBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
-            semaphore.release();
-        }
-
     }
 
 }

@@ -32,7 +32,7 @@ public class DdTrainerOutputProgressActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddTrainerOutputProgressBrokerService.process(data, new Semaphore(10000));
+        ddTrainerOutputProgressBrokerService.process(data);
     }
 
 

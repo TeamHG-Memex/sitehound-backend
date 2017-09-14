@@ -32,7 +32,7 @@ public class DdDeepcrawlerOutputActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddDeepcrawlerOutputBrokerService.process(data, new Semaphore(10000));
+        ddDeepcrawlerOutputBrokerService.process(data);
     }
 
 }

@@ -32,7 +32,7 @@ public class DdDeepcrawlerProgressActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddDeepcrawlerProgressBrokerService.process(data, new Semaphore(10000));
+        ddDeepcrawlerProgressBrokerService.process(data);
     }
 
 }

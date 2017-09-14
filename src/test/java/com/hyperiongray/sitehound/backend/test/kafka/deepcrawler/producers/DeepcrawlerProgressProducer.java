@@ -27,7 +27,7 @@ public class DeepcrawlerProgressProducer {
         MessageListener<Integer, String> messageListener = new MessageListener<Integer, String>() {
             @Override
             public void onMessage(ConsumerRecord<Integer, String> record) {
-                ddDeepcrawlerProgressBrokerService.process(record.value(), new Semaphore(1));
+                ddDeepcrawlerProgressBrokerService.process(record.value());
             }
         };
         kafkaProducerTestUtil.kafkaProducer(topic, embeddedKafka, messageListener, input);

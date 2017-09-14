@@ -31,8 +31,7 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
     @Autowired private CrawlJobRepository crawlJobRepository;
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
-        LOGGER.debug("DdDeepcrawlerOutputBrokerService consumer Permits:" + semaphore.availablePermits());
+    public void process(String jsonInput){
         LOGGER.debug("Receiving response size: " + jsonInput.length());
         try{
             JsonMapper<DdDeepcrawlerOutputDto> jsonMapper= new JsonMapper();
@@ -41,16 +40,11 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
             for (PageSampleDto pageSample : ddDeepcrawlerOutputDto.getPageSamples()){
                 DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(pageSample.getUrl(), pageSample.getDomain(), false);
                 DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
-                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, callbackServiceWrapper);
-                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), callbackServiceWrapper);
             }
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
-        }
-        finally{
-            LOGGER.info("DdDeepcrawlerOutputBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
-            semaphore.release();
         }
     }
 }

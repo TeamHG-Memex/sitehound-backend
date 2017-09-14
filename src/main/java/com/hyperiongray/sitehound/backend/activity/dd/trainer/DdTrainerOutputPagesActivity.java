@@ -32,7 +32,7 @@ public class DdTrainerOutputPagesActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddTrainerOutputPagesBrokerService.process(data, new Semaphore(10000));
+        ddTrainerOutputPagesBrokerService.process(data);
     }
 
 

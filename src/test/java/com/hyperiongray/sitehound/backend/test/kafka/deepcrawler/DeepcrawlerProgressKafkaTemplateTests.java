@@ -5,7 +5,6 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.ProgressDto;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
-import com.hyperiongray.sitehound.backend.test.kafka.KafkaProducerTestUtil;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.test.kafka.deepcrawler.producers.DeepcrawlerProgressProducer;
 import org.assertj.core.util.Lists;
@@ -33,14 +32,10 @@ public class DeepcrawlerProgressKafkaTemplateTests {
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
 
     @Autowired
-    private KafkaProducerTestUtil kafkaProducerTestUtil;
-
-    @Autowired
     private DeepcrawlerProgressProducer deepcrawlerProgressProducer;
 
     @Test
     public void testTemplate() throws Exception {
-
 
         DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto = new DdDeepcrawlerProgressDto();
         ddDeepcrawlerProgressDto.setId("59a18279166f1c48c18760c5");

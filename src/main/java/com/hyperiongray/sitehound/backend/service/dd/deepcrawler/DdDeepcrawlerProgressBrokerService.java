@@ -12,6 +12,7 @@ import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DeepcrawlerOutputCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.SyncBrokerService;
 import org.apache.http.client.fluent.ContentResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ import java.util.concurrent.Semaphore;
  * Created by tomas on 28/09/16.
  */
 @Service
-public class DdDeepcrawlerProgressBrokerService implements BrokerService {
+public class DdDeepcrawlerProgressBrokerService implements SyncBrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerProgressBrokerService.class);
 
     @Autowired private CrawlJobRepository crawlJobRepository;
@@ -33,10 +34,9 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
     @Autowired private AquariumAsyncClient aquariumClient;
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
+    public void process(String jsonInput){
 
         try{
-            LOGGER.debug("DdDeepcrawlerProgressBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response size: " + jsonInput.length());
             JsonMapper<DdDeepcrawlerProgressDto> jsonMapper= new JsonMapper();
             DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto = jsonMapper.toObject(jsonInput, DdDeepcrawlerProgressDto.class);
@@ -47,8 +47,9 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
                 for(DomainDto domain :ddDeepcrawlerProgressDto.getProgress().getDomains()){
                     DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(domain.getUrl(), domain.getDomain(), true);
                     DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
-                    AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(domain.getUrl(), semaphore, callbackServiceWrapper);
-                    aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+//                    AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(domain.getUrl(), semaphore, callbackServiceWrapper);
+//                    aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+                    aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), callbackServiceWrapper);
                 }
             }
 
@@ -60,8 +61,7 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
             LOGGER.error("ERROR:" + jsonInput, e);
         }
         finally{
-            LOGGER.info("DdDeepcrawlerProgressBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
-            semaphore.release();
+            LOGGER.info("Finished");
         }
 
     }

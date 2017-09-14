@@ -31,7 +31,7 @@ public class DdModelerOutputActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.trace("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddModelerOutputBrokerService.process(data, new Semaphore(10000));
+        ddModelerOutputBrokerService.process(data);
     }
 
 }

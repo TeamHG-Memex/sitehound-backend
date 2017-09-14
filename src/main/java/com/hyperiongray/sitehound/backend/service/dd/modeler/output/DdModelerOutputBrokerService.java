@@ -21,10 +21,8 @@ public class DdModelerOutputBrokerService implements BrokerService {
     @Autowired private ModelerModelRepository modelerModelRepository;
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
-
+    public void process(String jsonInput){
         try{
-            LOGGER.info("DdModelerOutputBrokerService consumer Permits:" + semaphore.availablePermits());
             LOGGER.debug("Receiving response from DdModelerOutputBrokerService size: " + jsonInput.length());
             JsonMapper<DdModelerOutput> jsonMapper= new JsonMapper();
             DdModelerOutput ddModelerOutput = jsonMapper.toObject(jsonInput, DdModelerOutput.class);
@@ -34,11 +32,6 @@ public class DdModelerOutputBrokerService implements BrokerService {
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);
         }
-        finally{
-            LOGGER.info("DdModelerOutputBrokerService Consumer Permits (one will be released now): " + semaphore.availablePermits());
-            semaphore.release();
-        }
-
     }
 
 

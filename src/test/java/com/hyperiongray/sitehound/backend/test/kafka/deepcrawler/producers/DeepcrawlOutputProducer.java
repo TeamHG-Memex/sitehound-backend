@@ -27,7 +27,7 @@ public class DeepcrawlOutputProducer {
         MessageListener<Integer, String> messageListener = new MessageListener<Integer, String>() {
             @Override
             public void onMessage(ConsumerRecord<Integer, String> record) {
-                ddDeepcrawlerOutputBrokerService.process(record.value(), new Semaphore(1));
+                ddDeepcrawlerOutputBrokerService.process(record.value());
             }
         };
 
