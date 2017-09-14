@@ -26,7 +26,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 		@PropertySource("file:config/properties/proxy.properties"),
 		@PropertySource("file:config/properties/splash.properties"),
 		@PropertySource("file:config/properties/tor.properties"),
-		@PropertySource("file:config/properties/twitter.properties"),
 		@PropertySource("file:config/properties/mongo.properties"),
 		@PropertySource("file:config/properties/tika.custom.properties"),
 		@PropertySource("file:config/properties/scorer.properties"),
@@ -34,7 +33,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 		@PropertySource("file:config/properties/classifier.properties"),
 
 		@PropertySource(value = "file:config/properties-override/application-override.properties", ignoreResourceNotFound = true),
-		@PropertySource(value = "file:config/properties-override/twitter.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/splash.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/proxy.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/classifier.properties", ignoreResourceNotFound = true),

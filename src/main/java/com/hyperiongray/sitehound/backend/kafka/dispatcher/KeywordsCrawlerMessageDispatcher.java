@@ -1,20 +1,15 @@
 package com.hyperiongray.sitehound.backend.kafka.dispatcher;
 
 import com.hyperiongray.framework.kafka.service.KafkaListenerProcessor;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.kafka.submitter.AquariumTaskSubmitter;
-import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
-import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.service.crawler.twitter.TwitterCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.events.EventService;
-//import org.hyperiongray.googlecrawler.kafka.producer.ProducerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +29,6 @@ public class KeywordsCrawlerMessageDispatcher implements KafkaListenerProcessor<
 
 	@Autowired private GoogleCrawlerBrokerService keywordGoogleCrawlerBrokerService;
 	@Autowired private BingCrawlerBrokerService keywordBingCrawlerBrokerService;
-	@Autowired private TwitterCrawlerBrokerService twitterCrawlerBrokerService;
 	@Autowired private TorCrawlerBrokerService torCrawlerBrokerService;
 	@Autowired private CrawlJobRepository crawlJobRepository;
 	@Autowired private AquariumTaskSubmitter aquariumTaskSubmitter;
@@ -61,9 +55,6 @@ public class KeywordsCrawlerMessageDispatcher implements KafkaListenerProcessor<
 					case "SE":
 						executorService.submit(new DispatcherWorker(keywordGoogleCrawlerBrokerService, subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.KEYWORDS));
 						executorService.submit(new DispatcherWorker(keywordBingCrawlerBrokerService, subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.KEYWORDS));
-						break;
-					case "TWITTER":
-						executorService.submit(new DispatcherWorker(twitterCrawlerBrokerService, subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.KEYWORDS ));
 						break;
 					case "TOR":
 						torCrawlerBrokerService.process(subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.KEYWORDS);

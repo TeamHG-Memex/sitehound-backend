@@ -1,7 +1,6 @@
 package com.hyperiongray.sitehound.backend.test.service;
 
 import com.google.common.collect.Lists;
-import com.hyperiongray.sitehound.backend.integration.crawler.TwitterHttpsCrawlerTest;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberOutput;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
@@ -18,7 +17,7 @@ import java.io.IOException;
 public class JsonMapperTest {
 
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TwitterHttpsCrawlerTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsonMapperTest.class);
 
 	@Test
 	public void testJsonMapper() throws IOException{
