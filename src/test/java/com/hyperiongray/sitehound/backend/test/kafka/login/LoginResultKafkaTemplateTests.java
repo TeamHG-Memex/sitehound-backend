@@ -1,8 +1,9 @@
 package com.hyperiongray.sitehound.backend.test.kafka.login;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.login.producers.LoginResultProducer;
+import com.hyperiongray.sitehound.backend.test.kafka.SyncProducer;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,10 @@ public class LoginResultKafkaTemplateTests {
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
 
     @Autowired
-    private LoginResultProducer loginResultProducer;
+    private SyncProducer producer;
+
+    @Autowired
+    private DdLoginResultBrokerService ddLoginResultBrokerService;
 
     @Test
     public void testTemplate() {
@@ -34,7 +38,7 @@ public class LoginResultKafkaTemplateTests {
                 "    \"result\":\"failed\" "+
                 "}";
 
-        loginResultProducer.produce(TEMPLATE_TOPIC, embeddedKafka, input);
+        producer.produce(TEMPLATE_TOPIC, embeddedKafka, ddLoginResultBrokerService, input);
     }
 
 }

@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.test.service.nlp.scorer.cosinesimilar
 
 import com.beust.jcommander.internal.Lists;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.IndexerDao;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.RelevanceType;
 import org.jetbrains.annotations.NotNull;

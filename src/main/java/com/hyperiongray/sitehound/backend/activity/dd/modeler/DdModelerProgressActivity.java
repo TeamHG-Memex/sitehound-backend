@@ -31,6 +31,6 @@ public class DdModelerProgressActivity implements Activity {
 
         LOGGER.info("received data:" + data.length() + ", partition:" + partition + ", topic:" + topic);
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddModelerProgressBrokerService.process(data, new Semaphore(10000));
+        ddModelerProgressBrokerService.process(data);
     }
 }

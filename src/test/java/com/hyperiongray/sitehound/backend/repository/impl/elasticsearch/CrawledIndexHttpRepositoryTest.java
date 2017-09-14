@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch;
 import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageTypeEnum;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlResultDto;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;

@@ -1,13 +1,8 @@
 package com.hyperiongray.sitehound.backend.test.service;
 
-import com.hyperiongray.sitehound.backend.Configuration;
 import com.hyperiongray.sitehound.backend.service.CompressionService;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Created by tomas on 27/06/17.

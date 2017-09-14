@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend;
+package com.hyperiongray.sitehound.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,15 +11,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  */
 
 @org.springframework.context.annotation.Configuration
-@ComponentScan(value={"com.hyperiongray.framework",
-		"com.hyperiongray.sitehound.backend.activity",
-		"com.hyperiongray.sitehound.backend.httpclient",
-		"com.hyperiongray.sitehound.backend.kafka",
-		"com.hyperiongray.sitehound.backend.model",
-		"com.hyperiongray.sitehound.backend.repository",
-		"com.hyperiongray.sitehound.backend.service",
-//		"com.hyperiongray.sitehound.backend",
-})
 @PropertySources({
 		@PropertySource("file:config/properties/app.properties"),
 		@PropertySource("file:config/properties/kafka.properties"),

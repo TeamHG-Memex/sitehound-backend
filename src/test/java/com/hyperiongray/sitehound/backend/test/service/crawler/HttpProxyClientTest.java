@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.test.service.crawler;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.httpclient.HttpProxyClientImpl;
 import org.apache.http.client.utils.URIBuilder;
 import org.junit.Test;

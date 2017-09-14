@@ -1,6 +1,5 @@
 package com.hyperiongray.sitehound.backend.service.aquarium.clientCallback;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.BaseCallbackServiceWrapper;

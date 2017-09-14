@@ -4,7 +4,7 @@ import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.GenericCrawlMongoRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.GenericCrawlMongoRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

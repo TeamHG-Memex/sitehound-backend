@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.test.service.crawler;
 
 import com.hyperiongray.sitehound.backend.service.htmlunit.UrlFetcher;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.test.service.aquarium;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.jetbrains.annotations.NotNull;

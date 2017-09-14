@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.httpclient;
 
 import org.apache.http.client.utils.URIBuilder;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

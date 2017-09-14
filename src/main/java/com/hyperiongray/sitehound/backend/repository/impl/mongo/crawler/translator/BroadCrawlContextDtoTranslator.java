@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo.translator;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.translator;
 
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.BroadCrawlContextDto;
 import org.springframework.stereotype.Service;

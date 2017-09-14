@@ -1,5 +1,6 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler;
 
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.MongoWriteException;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.jetbrains.annotations.NotNull;

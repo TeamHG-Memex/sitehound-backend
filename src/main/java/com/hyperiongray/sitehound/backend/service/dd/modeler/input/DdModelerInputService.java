@@ -5,7 +5,7 @@ import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
 import com.hyperiongray.sitehound.backend.service.CompressionService;
-import com.hyperiongray.sitehound.backend.service.crawledindex.CrawledIndexService;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

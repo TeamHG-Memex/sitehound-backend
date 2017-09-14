@@ -5,7 +5,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrain
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;

@@ -31,7 +31,7 @@ public class DdLoginInputActivity implements Activity {
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddLoginInputBrokerService.process(data, new Semaphore(10000));
+        ddLoginInputBrokerService.process(data);
     }
 
 }

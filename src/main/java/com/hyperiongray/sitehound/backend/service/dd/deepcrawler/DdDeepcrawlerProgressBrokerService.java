@@ -4,7 +4,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdDeepcrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;

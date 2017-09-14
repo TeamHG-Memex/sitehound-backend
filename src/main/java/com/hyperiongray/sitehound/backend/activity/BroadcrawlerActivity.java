@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.activity;
 
 import com.hyperiongray.framework.kafka.service.Activity;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
-import com.hyperiongray.sitehound.backend.kafka.dispatcher.BroadCrawlerMessageDispatcher;
+import com.hyperiongray.sitehound.backend.service.crawler.dispatcher.BroadCrawlerMessageDispatcher;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

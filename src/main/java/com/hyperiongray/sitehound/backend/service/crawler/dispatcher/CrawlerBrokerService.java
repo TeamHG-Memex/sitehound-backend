@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.kafka.dispatcher;
+package com.hyperiongray.sitehound.backend.service.crawler.dispatcher;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.submitter.TaskSubmitter;

@@ -8,7 +8,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.Craw
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.AnalyzedCrawlRequestFactory;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlRequestTranslator;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlResultTranslator;
-import com.hyperiongray.sitehound.backend.service.CrawlResultService;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawlResultService;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

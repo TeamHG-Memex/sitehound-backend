@@ -1,16 +1,15 @@
 package com.hyperiongray.sitehound.backend.test.kafka.login;
 
-import com.hyperiongray.sitehound.backend.Configuration;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginResultDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
-import com.hyperiongray.sitehound.backend.model.DdLoginResult;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdLoginRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginInputBrokerService;
+import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.login.producers.LoginInputProducer;
-import com.hyperiongray.sitehound.backend.test.kafka.login.producers.LoginResultProducer;
+import com.hyperiongray.sitehound.backend.test.kafka.SyncProducer;
 import org.assertj.core.util.Lists;
 import org.assertj.core.util.Maps;
 import org.junit.Assert;
@@ -39,8 +38,14 @@ public class LoginIntegrationTest {
     @ClassRule public static KafkaEmbedded loginInputEmbeddedKafka = new KafkaEmbedded(1, true, LOGIN_INPUT_TOPIC);
     @ClassRule public static KafkaEmbedded loginResultEmbeddedKafka = new KafkaEmbedded(1, true, LOGIN_RESULT_TOPIC);
 
-    @Autowired private LoginInputProducer loginInputProducer;
-    @Autowired private LoginResultProducer loginResultProducer;
+
+    @Autowired
+    private DdLoginInputBrokerService ddLoginInputBrokerService;
+
+    @Autowired
+    private DdLoginResultBrokerService ddLoginResultBrokerService;
+
+    @Autowired private SyncProducer producer;
 
     @Autowired private DdLoginRepository ddLoginRepository;
 
@@ -73,7 +78,7 @@ public class LoginIntegrationTest {
             e.printStackTrace();
         }
 
-        loginInputProducer.produce(LOGIN_INPUT_TOPIC, loginInputEmbeddedKafka, loginInput);
+        producer.produce(LOGIN_INPUT_TOPIC, loginInputEmbeddedKafka, ddLoginInputBrokerService, loginInput);
 
         DdLoginInput ddLoginInputSaved = ddLoginRepository.getByDomain(domain);
         Assert.assertEquals(workspaceId, ddLoginInputSaved.getWorkspaceId());
@@ -95,7 +100,7 @@ public class LoginIntegrationTest {
             e.printStackTrace();
         }
 
-        loginResultProducer.produce(LOGIN_RESULT_TOPIC, loginResultEmbeddedKafka, loginResult);
+        producer.produce(LOGIN_RESULT_TOPIC, loginResultEmbeddedKafka, ddLoginResultBrokerService, loginResult);
 
         DdLoginInput ddLoginResultSaved = ddLoginRepository.getByDomain(domain);
         Assert.assertEquals(workspaceId, ddLoginResultSaved.getWorkspaceId());

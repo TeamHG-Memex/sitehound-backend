@@ -1,12 +1,11 @@
-package com.hyperiongray.sitehound.backend.service;
+package com.hyperiongray.sitehound.backend.service.crawler;
 
 import com.hyperiongray.sitehound.backend.repository.CrawledIndexRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.BroadCrawlContextDto;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.DeepCrawlContextDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.TrainingCrawlContextDto;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.GenericCrawlMongoRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.BroadCrawlContextDtoTranslator;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.TrainingCrawlContextDtoTranslator;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.GenericCrawlMongoRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.translator.BroadCrawlContextDtoTranslator;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator.TrainingCrawlContextDtoTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

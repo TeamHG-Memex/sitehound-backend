@@ -4,7 +4,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlRequestDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.TrainingCrawlContextDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.AnalyzedCrawlRequestFactory;
-import com.hyperiongray.sitehound.backend.service.CrawlResultService;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawlResultService;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlResultDto;

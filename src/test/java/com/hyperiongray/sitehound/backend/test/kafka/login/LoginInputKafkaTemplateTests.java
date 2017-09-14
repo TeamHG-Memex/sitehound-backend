@@ -1,8 +1,9 @@
 package com.hyperiongray.sitehound.backend.test.kafka.login;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginInputBrokerService;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.login.producers.LoginInputProducer;
+import com.hyperiongray.sitehound.backend.test.kafka.SyncProducer;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,11 @@ public class LoginInputKafkaTemplateTests {
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
 
     @Autowired
-    private LoginInputProducer loginInputProducer;
+    private DdLoginInputBrokerService ddLoginInputBrokerService;
+
+    @Autowired
+    private SyncProducer producer;
+
 
     @Test
     public void testTemplate() {
@@ -38,7 +43,7 @@ public class LoginInputKafkaTemplateTests {
                 "    \"screenshot\":\"57ea86a9d11ff300054a351.....afazzz9\" "+
                 "}";
 
-        loginInputProducer.produce(TEMPLATE_TOPIC, embeddedKafka, input);
+        producer.produce(TEMPLATE_TOPIC, embeddedKafka, ddLoginInputBrokerService, input);
     }
 
 }

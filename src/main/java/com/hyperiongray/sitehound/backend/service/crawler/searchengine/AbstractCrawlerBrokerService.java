@@ -2,18 +2,17 @@ package com.hyperiongray.sitehound.backend.service.crawler.searchengine;
 
 import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
-import com.hyperiongray.sitehound.backend.service.UowHelper;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
-import com.hyperiongray.sitehound.backend.kafka.dispatcher.CrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.kafka.submitter.TaskSubmitter;
 import com.hyperiongray.sitehound.backend.model.CrawlTask;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlTaskRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlTaskRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.sitehound.backend.service.UowHelper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.Crawler;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlerUtils;
+import com.hyperiongray.sitehound.backend.service.crawler.dispatcher.CrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.htmlunit.UrlFetcher;
-import com.hyperiongray.sitehound.backend.service.nlp.WordCounter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,8 @@ import java.util.Set;
  * Created by tomas on 5/20/15.
  */
 @Service
-public abstract class AbstractCrawlerBrokerService implements CrawlerBrokerService{
+public abstract class AbstractCrawlerBrokerService implements CrawlerBrokerService {
 
-	@Autowired private WordCounter wordCounter;
 	@Autowired private UrlFetcher urlFetcher;
 	@Autowired private UowHelper uowHelper;
 	@Autowired private CrawlTaskRepository crawlTaskRepository;

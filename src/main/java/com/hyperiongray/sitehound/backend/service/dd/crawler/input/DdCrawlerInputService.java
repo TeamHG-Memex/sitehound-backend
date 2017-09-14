@@ -8,8 +8,8 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrai
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.BroadCrawlRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.BroadCrawlRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.test.service.htmlunit;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.htmlunit.UrlFetcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;

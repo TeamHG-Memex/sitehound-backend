@@ -1,15 +1,15 @@
 package com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl;
 
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.AnalyzedCrawlRequestFactory;
-import com.hyperiongray.sitehound.backend.service.CrawlResultService;
-import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.BroadCrawlContextDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlRequestDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlResultDto;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.AnalyzedCrawlRequestFactory;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlRequestTranslator;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlResultTranslator;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawlResultService;
+import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.DefaultProcess;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.ScorerService;
 import org.slf4j.Logger;

@@ -1,10 +1,10 @@
 package com.hyperiongray.sitehound.backend.test.service.nlp.scorer;
 
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.service.crawledindex.CrawledIndexService;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.ScorerService;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.IndexerDao;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.RelevanceType;
 import org.junit.Before;
 import org.junit.Test;

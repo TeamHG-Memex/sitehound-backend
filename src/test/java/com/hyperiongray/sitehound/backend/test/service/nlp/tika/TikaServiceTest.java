@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.test.service.nlp.tika;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaOutput;
 import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;
 import org.junit.Assert;

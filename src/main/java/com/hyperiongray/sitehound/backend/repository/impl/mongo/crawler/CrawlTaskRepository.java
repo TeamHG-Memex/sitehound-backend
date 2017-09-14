@@ -1,7 +1,8 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler;
 
 import com.google.common.collect.Maps;
 import com.hyperiongray.sitehound.backend.model.CrawlTask;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

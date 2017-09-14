@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.test.service.crawler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.SearchEngineCrawlResult;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleSearchCrawler;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;

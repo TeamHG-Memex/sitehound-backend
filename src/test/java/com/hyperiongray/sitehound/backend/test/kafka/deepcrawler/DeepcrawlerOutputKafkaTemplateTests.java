@@ -1,9 +1,8 @@
 package com.hyperiongray.sitehound.backend.test.kafka.deepcrawler;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.DdDeepcrawlerOutputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.PageSampleDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.test.kafka.deepcrawler.producers.DeepcrawlOutputProducer;

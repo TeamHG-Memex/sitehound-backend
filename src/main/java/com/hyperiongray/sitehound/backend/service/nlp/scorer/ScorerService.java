@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.service.crawledindex.CrawledIndexService;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.IndexerDao;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.RelevanceType;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.SimilarityService;

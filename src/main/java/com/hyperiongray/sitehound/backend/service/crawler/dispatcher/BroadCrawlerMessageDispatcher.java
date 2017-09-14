@@ -1,11 +1,11 @@
-package com.hyperiongray.sitehound.backend.kafka.dispatcher;
+package com.hyperiongray.sitehound.backend.service.crawler.dispatcher;
 
 import com.hyperiongray.framework.kafka.service.KafkaListenerProcessor;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.kafka.submitter.AquariumTaskSubmitter;
 import com.hyperiongray.sitehound.backend.kafka.submitter.TaskSubmitter;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;

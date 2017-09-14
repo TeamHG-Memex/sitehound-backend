@@ -1,12 +1,9 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
 import com.google.common.collect.Maps;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
-import com.hyperiongray.sitehound.backend.model.CrawlTask;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import com.hyperiongray.sitehound.backend.model.DdLoginResult;
-import com.hyperiongray.sitehound.backend.service.crawler.Constants;
-import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoWriteException;
 import com.mongodb.client.FindIterable;

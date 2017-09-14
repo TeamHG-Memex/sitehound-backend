@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import org.bson.Document;
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
-package com.hyperiongray.sitehound.backend.service.crawledindex;
+package com.hyperiongray.sitehound.backend.service.crawler;
 
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.KeywordsRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.CrawledIndexHttpRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import org.slf4j.Logger;

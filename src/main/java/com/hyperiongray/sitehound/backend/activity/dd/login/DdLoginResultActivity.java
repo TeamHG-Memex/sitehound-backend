@@ -30,7 +30,7 @@ public class DdLoginResultActivity implements Activity {
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
-        ddLoginResultBrokerService.process(data, new Semaphore(10000));
+        ddLoginResultBrokerService.process(data);
     }
 
 }

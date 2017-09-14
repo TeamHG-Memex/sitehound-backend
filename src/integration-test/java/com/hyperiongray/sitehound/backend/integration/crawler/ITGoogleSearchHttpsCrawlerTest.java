@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.integration.crawler;
 
 import junit.framework.Assert;
 import org.apache.http.client.utils.URIBuilder;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.SearchEngineCrawlResult;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleSearchCrawler;

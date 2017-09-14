@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.test.service.nlp.scorer;
 
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.service.crawledindex.CrawledIndexService;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

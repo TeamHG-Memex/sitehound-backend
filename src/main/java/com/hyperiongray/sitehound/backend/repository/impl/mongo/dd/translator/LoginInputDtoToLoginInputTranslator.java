@@ -1,10 +1,9 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo.translator;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.stream.Collectors;
 

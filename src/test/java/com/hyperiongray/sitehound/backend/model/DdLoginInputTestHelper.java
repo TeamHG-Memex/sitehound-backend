@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by tomas on 22/06/17.
  */
-public class DdLoginInputTest {
+public class DdLoginInputTestHelper {
 
     public static DdLoginInput getOne(){
 //        String id = "9d11ff30005";

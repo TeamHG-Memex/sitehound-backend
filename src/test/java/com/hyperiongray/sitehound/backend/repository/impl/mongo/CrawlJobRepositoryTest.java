@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,10 +1,8 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.ProgressDto;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator.DeepcrawlerTranslator;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.UpdateResult;
@@ -16,13 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import static com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlJobRepository.CRAWL_JOB_COLLECTION_NAME;
 import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository.DEEP_CRAWLER_COLLECTION_NAME;
 import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository.DEEP_CRAWLER_DOMAINS_COLLECTION_NAME;
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository.CRAWL_JOB_COLLECTION_NAME;
 
 /**
  * Created by tomas on 27/08/17.
@@ -31,8 +27,10 @@ import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepo
 public class DdDeepcrawlerRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerRepository.class);
 
-    @Autowired private CrawlJobRepository crawlJobRepository;
     @Autowired private MongoRepository mongoRepository;
+
+    @Autowired private DeepcrawlerTranslator deepcrawlerTranslator;
+
     private static final String PROGRESS_FIELD = "progress";
 
     public boolean saveProgress(DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto) {
@@ -41,29 +39,9 @@ public class DdDeepcrawlerRepository {
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
         Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
         UpdateResult updateResult=collection.updateOne(filter,
-                new BasicDBObject("$set", new BasicDBObject(PROGRESS_FIELD, translate(ddDeepcrawlerProgressDto.getProgress()))));
+                new BasicDBObject("$set", new BasicDBObject(PROGRESS_FIELD, deepcrawlerTranslator.translate(ddDeepcrawlerProgressDto.getProgress()))));
         LOGGER.info("Finished to update crawlJob:" + jobId);
         return updateResult.getModifiedCount() == 1L;
-    }
-
-    private Document translate(ProgressDto progress){
-        Document document = new Document();
-        document.put("status", progress.getStatus());
-        document.put("pagesFetched", progress.getPagesFetched());
-        document.put("rpm", progress.getRpm());
-
-        List<Document> domains = new LinkedList();
-        for(DomainDto domain : progress.getDomains()){
-            Document d = new Document();
-            d.put("url", domain.getUrl());
-            d.put("domain", domain.getDomain());
-            d.put("status", domain.getStatus());
-            d.put("pagesFetched", domain.getPagesFetched());
-            d.put("rpm", domain.getRpm());
-            domains.add(d);
-        }
-        document.put("domains", domains);
-        return document;
     }
 
     public void saveDomains(Map<String, Object> fields){

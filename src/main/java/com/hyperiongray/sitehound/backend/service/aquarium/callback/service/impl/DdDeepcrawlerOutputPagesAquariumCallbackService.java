@@ -4,13 +4,11 @@ import com.google.common.collect.Maps;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
 import com.hyperiongray.sitehound.backend.repository.CrawledIndexRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.*;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.AnalyzedCrawlRequestFactory;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlRequestTranslator;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlResultTranslator;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.GenericCrawlMongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdDeepcrawlerRepository;
-import com.hyperiongray.sitehound.backend.service.CrawlResultService;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +24,9 @@ import java.util.Map;
 public class DdDeepcrawlerOutputPagesAquariumCallbackService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerOutputPagesAquariumCallbackService.class);
 
-    @Autowired private CrawlRequestTranslator crawlRequestTranslator;
     @Autowired private CrawlResultTranslator crawlResultTranslator;
     @Autowired private AnalyzedCrawlRequestFactory analyzedCrawlRequestFactory;
-    @Autowired private CrawlResultService crawlResultService;
     @Autowired private CrawledIndexRepository analyzedCrawlResultDtoIndexRepository;
-    @Autowired private GenericCrawlMongoRepository genericCrawlMongoRepository;
     @Autowired private DdDeepcrawlerRepository ddDeepcrawlerRepository;
 
 

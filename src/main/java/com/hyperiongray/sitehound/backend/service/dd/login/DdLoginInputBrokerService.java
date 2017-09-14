@@ -2,10 +2,11 @@ package com.hyperiongray.sitehound.backend.service.dd.login;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.DdLoginRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.translator.LoginInputDtoToLoginInputTranslator;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator.LoginInputDtoToLoginInputTranslator;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.SyncBrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ import java.util.concurrent.Semaphore;
  * Created by tomas on 22/06/17.
  */
 @Service
-public class DdLoginInputBrokerService implements BrokerService {
+public class DdLoginInputBrokerService implements SyncBrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdLoginInputBrokerService.class);
 
     @Autowired private LoginInputDtoToLoginInputTranslator loginInputDtoToLoginInputTranslator;
     @Autowired private DdLoginRepository ddLoginRepository;
 
     @Override
-    public void process(String jsonInput, Semaphore semaphore){
+    public void process(String jsonInput){
         try{
             LOGGER.info("DdLoginInputBrokerService receiving: " + jsonInput);
             LOGGER.debug("Receiving response: " + jsonInput);

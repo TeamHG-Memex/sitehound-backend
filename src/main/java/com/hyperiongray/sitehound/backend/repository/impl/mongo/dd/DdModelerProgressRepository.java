@@ -29,12 +29,17 @@ public class DdModelerProgressRepository {
 
 
     public void saveProgress(DdModelerProgress ddModelerProgress) {
-        LOGGER.info("About to save ddModelerProgress:" + ddModelerProgress.getId());
-        MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
-        Bson filter = Filters.eq("_id", new ObjectId(ddModelerProgress.getId()));
-        Bson updates = Updates.set(PAGE_MODEL_FIELD + ".percentage_done", ddModelerProgress.getPercentageDone());
-        collection.findOneAndUpdate(filter, updates);
-        LOGGER.info("done saving ddModelerProgress");
+        try{
+            LOGGER.info("About to save ddModelerProgress:" + ddModelerProgress.getId());
+            MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
+            Bson filter = Filters.eq("_id", new ObjectId(ddModelerProgress.getId()));
+            Bson updates = Updates.set(PAGE_MODEL_FIELD + ".percentage_done", ddModelerProgress.getPercentageDone());
+            collection.findOneAndUpdate(filter, updates);
+            LOGGER.info("done saving ddModelerProgress");
+        }
+        catch (Throwable ex){
+            LOGGER.error("FAILED TO SAVE" + ddModelerProgress, ex);
+        }
     }
 
 

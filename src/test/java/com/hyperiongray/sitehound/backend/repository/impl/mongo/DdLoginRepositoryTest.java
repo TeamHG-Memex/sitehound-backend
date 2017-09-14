@@ -1,15 +1,14 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
-import com.hyperiongray.sitehound.backend.model.DdLoginInputTest;
+import com.hyperiongray.sitehound.backend.model.DdLoginInputTestHelper;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by tomas on 22/06/17.
@@ -23,7 +22,7 @@ public class DdLoginRepositoryTest {
 
     @Test
     public void save() throws Exception {
-        DdLoginInput ddLoginInput = DdLoginInputTest.getOne();
+        DdLoginInput ddLoginInput = DdLoginInputTestHelper.getOne();
         ddLoginRepository.save(ddLoginInput);
     }
 

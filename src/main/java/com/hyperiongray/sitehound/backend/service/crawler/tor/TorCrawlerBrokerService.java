@@ -2,15 +2,13 @@ package com.hyperiongray.sitehound.backend.service.crawler.tor;
 
 import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
-import com.hyperiongray.sitehound.backend.kafka.dispatcher.CrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.service.UowHelper;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
+import com.hyperiongray.sitehound.backend.service.crawler.dispatcher.CrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.kafka.submitter.TaskSubmitter;
 import com.hyperiongray.sitehound.backend.model.CrawlTask;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.CrawlTaskRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlTaskRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlerUtils;
-import com.hyperiongray.sitehound.backend.service.nlp.WordCounter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,6 @@ import java.util.Set;
 public class TorCrawlerBrokerService implements CrawlerBrokerService {
 
 	@Autowired private TorCrawler crawler;
-	@Autowired private WordCounter wordCounter;
-	@Autowired private TorCrawlResultTranslator torCrawlResultTranslator;
-	@Autowired private UowHelper uowHelper;
 	@Autowired private CrawlTaskRepository crawlTaskRepository;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TorCrawlerBrokerService.class);
@@ -103,23 +98,6 @@ public class TorCrawlerBrokerService implements CrawlerBrokerService {
 		for(TorCrawlerResult torCrawlerResult: crawlResults){
 
 			taskSubmitter.submit(metadata, torCrawlerResult);
-			/*
-			AquariumInput aquariumInput = new AquariumInput(metadata);
-			aquariumInput.setUrl(torCrawlerResult.getUrl());
-			aquariumInput.setIndex(index);
-			index++;
-
-			String aquariumInputString;
-			try {
-				aquariumInputString = jsonMapper.toString(aquariumInput);
-				producer.send(aquariumInputString);
-				LOGGER.info("Sent: " + aquariumInput.getUrl());
-				LOGGER.info("Sent: " + aquariumInputString);
-			} catch (IOException e) {
-				LOGGER.error("COULD not parse:" + aquariumInput, e);
-			}
-			*/
-
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo.translator;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.translator;
 
 import com.google.common.collect.Maps;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;

@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.elasticsearch;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawler;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerResult;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlResult;
