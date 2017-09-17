@@ -1,10 +1,11 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator;
+package com.hyperiongray.sitehound.backend.impl.mongo.dd.translator;
 
 import com.google.common.collect.Lists;
 import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator.LoginInputDtoToLoginInputTranslator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

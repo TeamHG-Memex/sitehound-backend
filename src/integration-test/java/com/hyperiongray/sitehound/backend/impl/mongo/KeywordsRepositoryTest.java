@@ -1,10 +1,9 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo;
+package com.hyperiongray.sitehound.backend.impl.mongo;
 
 import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
 import junit.framework.TestCase;
-import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

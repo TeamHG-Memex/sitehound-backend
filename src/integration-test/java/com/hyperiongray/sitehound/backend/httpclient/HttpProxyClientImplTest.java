@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.httpclient;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.TestConfiguration;
 import org.apache.http.client.utils.URIBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by tomas on 7/23/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public class HttpProxyClientImplTest {
 
 	@Autowired

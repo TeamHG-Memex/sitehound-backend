@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.repository.impl.mongo;
+package com.hyperiongray.sitehound.backend.impl.mongo;
 
 import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.config.Configuration;

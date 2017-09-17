@@ -1,11 +1,10 @@
-package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch;
+package com.hyperiongray.sitehound.backend.impl.elasticsearch;
 
 import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.Application;
-import com.hyperiongray.sitehound.backend.TestConfiguration;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.CrawledIndexHttpRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageTypeEnum;
-import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlResultDto;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;

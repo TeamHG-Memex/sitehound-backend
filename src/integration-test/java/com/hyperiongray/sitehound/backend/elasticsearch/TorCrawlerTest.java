@@ -2,10 +2,10 @@ package com.hyperiongray.sitehound.backend.elasticsearch;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.TestConfiguration;
+import com.hyperiongray.sitehound.backend.service.crawler.CrawlResult;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawler;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerResult;
-import com.hyperiongray.sitehound.backend.service.crawler.CrawlResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ import java.util.Set;
  * Created by tomas on 7/28/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public class TorCrawlerTest{
 
 

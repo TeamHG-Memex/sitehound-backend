@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.httpclient;
 
+import com.hyperiongray.sitehound.backend.TestConfiguration;
 import org.apache.http.client.utils.URIBuilder;
-import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
  * Created by tomas on 7/23/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public class HttpDirectClientImplTest {
 
 	@Autowired
