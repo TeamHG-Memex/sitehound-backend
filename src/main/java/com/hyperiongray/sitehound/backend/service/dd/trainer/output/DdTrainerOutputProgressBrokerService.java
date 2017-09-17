@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * Created by tomas on 28/09/16.
  */
@@ -31,7 +29,7 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
             JsonMapper<DdTrainerOutputProgress> jsonMapper= new JsonMapper();
             DdTrainerOutputProgress ddTrainerOutputProgress = jsonMapper.toObject(jsonInput, DdTrainerOutputProgress.class);
             ddTrainerRepository.saveProgress(ddTrainerOutputProgress);
-            crawlJobRepository.saveProgress(ddTrainerOutputProgress.getId(), ddTrainerOutputProgress.getPercentageDone());
+            crawlJobRepository.saveProgress(ddTrainerOutputProgress.getWorkspaceId(), ddTrainerOutputProgress.getPercentageDone());
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

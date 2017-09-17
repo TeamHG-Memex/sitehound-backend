@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * Created by tomas on 3/10/16.
  */
 
-public class DefaultCallbackServiceWrapper extends BaseCallbackServiceWrapper {
+public class DefaultCallbackServiceWrapper implements CallbackServiceWrapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultCallbackServiceWrapper.class);
 
     private final AquariumInput aquariumInput;

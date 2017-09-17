@@ -9,7 +9,7 @@ import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginInputBrokerService;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.SyncProducer;
+import com.hyperiongray.sitehound.backend.test.kafka.Producer;
 import org.assertj.core.util.Lists;
 import org.assertj.core.util.Maps;
 import org.junit.Assert;
@@ -45,7 +45,7 @@ public class LoginIntegrationTest {
     @Autowired
     private DdLoginResultBrokerService ddLoginResultBrokerService;
 
-    @Autowired private SyncProducer producer;
+    @Autowired private Producer producer;
 
     @Autowired private DdLoginRepository ddLoginRepository;
 

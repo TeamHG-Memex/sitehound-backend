@@ -4,7 +4,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginRe
 import com.hyperiongray.sitehound.backend.model.DdLoginResult;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
-import com.hyperiongray.sitehound.backend.service.crawler.SyncBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * Created by tomas on 22/06/17.
  */
 @Service
-public class DdLoginResultBrokerService implements SyncBrokerService {
+public class DdLoginResultBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdLoginResultBrokerService.class);
 
     @Autowired private DdLoginRepository ddLoginRepository;

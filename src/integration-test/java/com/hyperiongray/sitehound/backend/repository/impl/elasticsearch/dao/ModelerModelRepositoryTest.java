@@ -30,13 +30,13 @@ public class ModelerModelRepositoryTest {
     public void crud() throws Exception {
         modelerModelRepository.delete(id);
         DdModelerOutput ddModelerOutput = new DdModelerOutput();
-        ddModelerOutput.setId(id);
+        ddModelerOutput.setWorkspaceId(id);
         ddModelerOutput.setModel(model);
         ddModelerOutput.setQuality(quality);
         modelerModelRepository.save(ddModelerOutput);
 
         DdModelerOutput ddModelerOutputSaved = modelerModelRepository.get(id);
-        Assert.assertEquals(ddModelerOutput.getId(), ddModelerOutputSaved.getId());
+        Assert.assertEquals(ddModelerOutput.getWorkspaceId(), ddModelerOutputSaved.getWorkspaceId());
         Assert.assertEquals(ddModelerOutput.getModel(), ddModelerOutputSaved.getModel());
         Assert.assertEquals(ddModelerOutput.getQuality(), ddModelerOutputSaved.getQuality());
         System.out.println(ddModelerOutputSaved);

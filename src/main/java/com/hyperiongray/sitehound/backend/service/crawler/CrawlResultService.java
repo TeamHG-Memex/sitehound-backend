@@ -5,6 +5,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.Broa
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.TrainingCrawlContextDto;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.GenericCrawlMongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.translator.BroadCrawlContextDtoTranslator;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.translator.DefaultCrawlContextDtoTranslator;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator.TrainingCrawlContextDtoTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ public class CrawlResultService{
 	@Autowired private TrainingCrawlContextDtoTranslator trainingCrawlContextDtoTranslator;
 	@Autowired private BroadCrawlContextDtoTranslator broadCrawlContextDtoTranslator;
 
-
 	public void save(BroadCrawlContextDto broadCrawlContextDto) throws IOException{
 
 		// update ES index
@@ -31,6 +31,7 @@ public class CrawlResultService{
 
 		// update mongo index
 		Map<String, Object> document = broadCrawlContextDtoTranslator.translate(broadCrawlContextDto);
+
 		document.put("hashKey", hashKey);
 		genericCrawlMongoRepository.save(broadCrawlContextDto.getCrawlType(), broadCrawlContextDto.getCrawlRequestDto().getWorkspace(), document);
 	}

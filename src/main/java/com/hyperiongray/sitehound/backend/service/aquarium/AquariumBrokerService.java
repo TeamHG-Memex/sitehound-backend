@@ -29,23 +29,8 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 	@Autowired private KeywordsAquariumCallbackService keywordsAquariumCallbackService;
 	@Autowired private BroadcrawlerAquariumCallbackService broadcrawlerAquariumCallbackService;
 
-
-	@Value( "${aquarium.threads}" ) private int threads;
-	private Semaphore semaphore;
-
-	@PostConstruct
-	private void postConstruct(){
-		semaphore = new Semaphore(threads);
-	}
-
 	@Override
 	public void process(AquariumInput aquariumInput) throws IOException {
-		try {
-			semaphore.acquire();
-		} catch (InterruptedException e) {
-			LOGGER.error("Interrupted Exception!");
-			e.printStackTrace();
-		}
 
 		DefaultCallbackServiceWrapper callbackServiceWrapper;
 		if (aquariumInput.getMetadata().getCrawlType().equals(Constants.CrawlType.KEYWORDS)){
@@ -55,12 +40,13 @@ public class AquariumBrokerService implements KafkaListenerProcessor<AquariumInp
 			callbackServiceWrapper = new DefaultCallbackServiceWrapper(aquariumInput, broadcrawlerAquariumCallbackService);
 		}
 		else{
-			semaphore.release();
 			throw new UnsupportedOperationException();
 		}
 //		AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(aquariumInput.getUrl(), semaphore, callbackServiceWrapper);
-		aquariumClient.fetch(aquariumInput.getUrl(), new ContentResponseHandler(), callbackServiceWrapper);
-		LOGGER.info("Aquarium requested (with semaphores :"+semaphore.availablePermits()+"): " + aquariumInput.getUrl());
+
+		LOGGER.debug("Aquarium requesting: " + aquariumInput.getUrl());
+		aquariumClient.fetch(aquariumInput.getUrl(), callbackServiceWrapper);
+		LOGGER.debug("Aquarium requested: " + aquariumInput.getUrl());
 	}
 
 

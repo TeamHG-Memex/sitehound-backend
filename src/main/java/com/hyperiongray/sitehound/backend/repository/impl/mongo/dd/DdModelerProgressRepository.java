@@ -30,9 +30,9 @@ public class DdModelerProgressRepository {
 
     public void saveProgress(DdModelerProgress ddModelerProgress) {
         try{
-            LOGGER.info("About to save ddModelerProgress:" + ddModelerProgress.getId());
+            LOGGER.info("About to save ddModelerProgress:" + ddModelerProgress.getWorkspaceId());
             MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
-            Bson filter = Filters.eq("_id", new ObjectId(ddModelerProgress.getId()));
+            Bson filter = Filters.eq("_id", new ObjectId(ddModelerProgress.getWorkspaceId()));
             Bson updates = Updates.set(PAGE_MODEL_FIELD + ".percentage_done", ddModelerProgress.getPercentageDone());
             collection.findOneAndUpdate(filter, updates);
             LOGGER.info("done saving ddModelerProgress");
@@ -45,7 +45,7 @@ public class DdModelerProgressRepository {
 
     public DdModelerProgress getProgress(String workspaceId){
         DdModelerProgress ddModelerProgress = new DdModelerProgress();
-        ddModelerProgress.setId(workspaceId);
+        ddModelerProgress.setWorkspaceId(workspaceId);
         Document document = mongoRepository.getById(WORKSPACE_COLLECTION_NAME, workspaceId);
         if(document.containsKey(PAGE_MODEL_FIELD)){
             Document modelerDocument = (Document) document.get(PAGE_MODEL_FIELD);

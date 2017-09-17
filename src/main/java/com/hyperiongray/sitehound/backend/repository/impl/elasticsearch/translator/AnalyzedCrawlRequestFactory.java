@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class AnalyzedCrawlRequestFactory{
 	private static final Logger LOGGER = LoggerFactory.getLogger(AnalyzedCrawlRequestFactory.class);
 
+	@Deprecated
 	public AnalyzedCrawlResultDto build(CrawlResultDto crawlResultDto) throws Exception {
 		return new AnalyzedCrawlResultDto(crawlResultDto);
 	}

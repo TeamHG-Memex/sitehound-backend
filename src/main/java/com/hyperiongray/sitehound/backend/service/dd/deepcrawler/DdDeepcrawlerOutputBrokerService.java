@@ -40,7 +40,7 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
             for (PageSampleDto pageSample : ddDeepcrawlerOutputDto.getPageSamples()){
                 DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(pageSample.getUrl(), pageSample.getDomain(), false);
                 DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
-                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), callbackServiceWrapper);
+                aquariumClient.fetch(pageSample.getUrl(), callbackServiceWrapper);
             }
         }
         catch(Exception e){

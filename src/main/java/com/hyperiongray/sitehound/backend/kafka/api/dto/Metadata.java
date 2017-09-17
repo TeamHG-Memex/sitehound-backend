@@ -7,17 +7,17 @@ import com.hyperiongray.sitehound.backend.service.crawler.Constants;
  * Created by tomas on 9/18/15.
  */
 public class Metadata extends KafkaDto {
-	private Long timestamp;
-	private String strTimestamp;
 	private String workspace;
-	private String source;
-	private String callbackQueue;
-	private Constants.CrawlerProvider provider = Constants.CrawlerProvider.HH_JOOGLE;
+	private String jobId;
+	@Deprecated private Long timestamp;
+	private String strTimestamp;
+	@Deprecated private String source;
+	@Deprecated private Constants.CrawlerProvider provider = Constants.CrawlerProvider.HH_JOOGLE;
 	private Constants.CrawlEntityType crawlEntityType;
 	private Constants.CrawlType crawlType;
 	private Integer nResults;
 	private String uow;
-	private String jobId;
+	@Deprecated private String callbackQueue;
 
 
 	public Long getTimestamp(){

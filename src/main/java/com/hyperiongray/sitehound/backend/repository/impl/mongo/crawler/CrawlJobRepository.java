@@ -102,7 +102,7 @@ public class CrawlJobRepository{
 	}
 
 	public void saveProgress(String jobId, Double percentageDone) {
-//		String jobId = ddTrainerOutputProgress.getId();
+//		String jobId = ddTrainerOutputProgress.getWorkspaceId();
 		LOGGER.info("About to update crawlJob:" + jobId);
 		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
 		Bson filter = new BasicDBObject("_id", new ObjectId(jobId));

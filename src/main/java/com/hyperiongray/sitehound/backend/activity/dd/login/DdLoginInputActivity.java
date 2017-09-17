@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.activity.dd.login;
 
 import com.hyperiongray.framework.kafka.service.Activity;
+import com.hyperiongray.sitehound.backend.activity.TopicsEnum;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.output.DdCrawlerOutputPagesBrokerService;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginInputBrokerService;
 import org.slf4j.Logger;
@@ -25,10 +26,12 @@ public class DdLoginInputActivity implements Activity {
     @Autowired private DdLoginInputBrokerService ddLoginInputBrokerService;
 
     @KafkaListener(topics= "dd-login-input")
+//    @KafkaListener(topics= DD_LOGIN_INPUT)
     public void listen(@Payload String data,
 //                       @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) Integer key,
                        @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+
 
         LOGGER.debug("received data:" + data + ", partition:" + partition + ", topic:" + topic);
         ddLoginInputBrokerService.process(data);

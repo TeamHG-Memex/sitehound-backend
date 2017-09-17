@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by tomas on 2/12/16.
  */
 @Service
-public class BroadCrawlContextDtoTranslator extends AbstractCrawlContextDtoTranslator{
+public class BroadCrawlContextDtoTranslator extends DefaultCrawlContextDtoTranslator{
 
 	public Map<String, Object> translate(BroadCrawlContextDto broadCrawlContextDto){
 		Map<String, Object> document = super.translate(broadCrawlContextDto);

@@ -28,7 +28,7 @@ public class MetadataBuilder{
 		metadata.setnResults(subscriberInput.getnResults());
 		return metadata;
 	}
-
+/*
 	public Metadata buildFromTrainerOutputPages(String jobId){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(Constants.CrawlType.KEYWORDS);
@@ -38,6 +38,20 @@ public class MetadataBuilder{
 		metadata.setTimestamp(System.currentTimeMillis());
 		metadata.setCallbackQueue("");
 		metadata.setJobId("generic-job-id");
+		metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
+		metadata.setnResults(30);
+		return metadata;
+	}
+*/
+	public Metadata buildFromTrainerOutputPages(String workspaceId){
+		Metadata metadata = new Metadata();
+		metadata.setWorkspace(workspaceId);
+		metadata.setJobId(workspaceId); // using the workspace as jobId cause not only one job per ws is allowed
+		metadata.setCrawlType(Constants.CrawlType.KEYWORDS);
+		metadata.setSource("DD");
+		metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
+		metadata.setTimestamp(System.currentTimeMillis());
+		metadata.setCallbackQueue("");
 		metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
 		metadata.setnResults(30);
 		return metadata;

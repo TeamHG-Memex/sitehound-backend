@@ -21,8 +21,8 @@ public class ModelerModelRepository extends AbstractElasticsearchRepository<DdMo
 
     // receives the workspaceId
     public void save(DdModelerOutput ddModelerOutput) throws IOException {
-        LOGGER.info("About to save Modeler model to ES:" + ddModelerOutput.getId());
-        super.save(indexName, typeName, ddModelerOutput.getId(), ddModelerOutput);
+        LOGGER.info("About to save Modeler model to ES:" + ddModelerOutput.getWorkspaceId());
+        super.save(indexName, typeName, ddModelerOutput.getWorkspaceId(), ddModelerOutput);
         LOGGER.info("done saving DdModelerOutput");
     }
 

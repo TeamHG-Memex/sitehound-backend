@@ -89,9 +89,13 @@
     <link rel="apple-touch-icon" sizes="72x72" href=".//views/shared/shared/images/media/touch-icon-ipad.png" />
     <link rel="apple-touch-icon" sizes="114x114" href=".//views/shared/shared/images/media/touch-icon-iphone4.png" /> -->
     <!--[if IE]><script type="text/javascript" src="/Views/Shared/shared/media/js/jquery.xdomainrequest.min.js"></script><![endif]-->
-        <link href="/Views/Shared/festival/homefestival/css/owl.carousel.css" rel="stylesheet"type="text/css" />        <script src="/Views/Shared/festival/homefestival/js/owl.carousel.min.js" type="text/javascript"></script>
-        <script src="/Views/Shared/festival/homefestival/js/owl.carousel.js" type="text/javascript"></script>        <script type="text/javascript" src="/Views/Shared/mediacaricature/shared/js/owl.carousel.js"></script>        <link href="/Views/Shared/festival/homefestival/css/owl.theme.css" rel="stylesheet"type="text/css" />
-        <link href="/Views/Shared/festival/homefestival/css/slider.css" rel="stylesheet"type="text/css" />        <script src="/Views/Shared/shared/media/js/liveStreamJs.js" type="text/javascript"></script>
+        <link href="/Views/Shared/festival/homefestival/css/owl.carousel.css" rel="stylesheet"type="text/css" />
+        <script src="/Views/Shared/festival/homefestival/js/owl.carousel.min.js" type="text/javascript"></script>
+        <script src="/Views/Shared/festival/homefestival/js/owl.carousel.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/Views/Shared/mediacaricature/shared/js/owl.carousel.js"></script>
+        <link href="/Views/Shared/festival/homefestival/css/owl.theme.css" rel="stylesheet"type="text/css" />
+        <link href="/Views/Shared/festival/homefestival/css/slider.css" rel="stylesheet"type="text/css" />
+        <script src="/Views/Shared/shared/media/js/liveStreamJs.js" type="text/javascript"></script>
     <script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 </head>
 <body class="">
@@ -134,10 +138,10 @@
     </div>
             <!-- end #site-header -->
         <!-- end #site-header -->
-        <input type="hidden" value="http://search1.aljazeera.net/ac.htm" id="AutoCompleteLinkMegaMenue" />
-        <input type="hidden" value="http://search1.aljazeera.net/spell.htm?q=" id="AutoSuggestionLinkMegaMenue" />
-<input name="DomainConfg" id="DomainConfg" value="www.aljazeera.net" type="hidden" />
-<input name="DomainConfgkey" id="DomainConfgkey" value="aljazeera.net" type="hidden" />
+        <input type="hidden" value="http://search1.aljazeera.net/ac.htm" workspaceId="AutoCompleteLinkMegaMenue" />
+        <input type="hidden" value="http://search1.aljazeera.net/spell.htm?q=" workspaceId="AutoSuggestionLinkMegaMenue" />
+<input name="DomainConfg" workspaceId="DomainConfg" value="www.aljazeera.net" type="hidden" />
+<input name="DomainConfgkey" workspaceId="DomainConfgkey" value="aljazeera.net" type="hidden" />
 
 <link rel="stylesheet" href="/Views/Shared/shared/media/css/headerandfooter.css" />
 <link rel="stylesheet" type="text/css" href="/Views/Shared/shared/media/css/portal.css">
@@ -168,11 +172,11 @@
 </div>
 <div class="c_30_60">
     <div class="c_30">
-        <div id="bluestripweathermobile" class="weather_mobile_container">
+        <div workspaceId="bluestripweathermobile" class="weather_mobile_container">
             
         </div>
     </div>
-    <div id="mobSocialMenu" class="mobSocialMenuDiv">
+    <div workspaceId="mobSocialMenu" class="mobSocialMenuDiv">
         <ul class="social_search_container">
             <li><a href="https://www.facebook.com/aljazeerachannel" class="social_ico fb_social" target="_blank"></a></li>
             <li><a href="https://twitter.com/ajarabic" class="social_ico twt_social" target="_blank"></a></li>
@@ -195,8 +199,8 @@
                     <div class="search_icon"></div>
                     <div class="search_container">
                         <div class="cls_member_ship_ctrls">اغلاق</div>
-                        <input placeholder="البحث بمصابيح" autocomplete="off" id="txtSearchMobile" name="Search" type="text">
-                        <button type="button" id="btnSearch" onclick="return BuildSimpleSearch();">ابحث</button>
+                        <input placeholder="البحث بمصابيح" autocomplete="off" workspaceId="txtSearchMobile" name="Search" type="text">
+                        <button type="button" workspaceId="btnSearch" onclick="return BuildSimpleSearch();">ابحث</button>
                     </div>
                 </li>
             </ul>
@@ -218,7 +222,7 @@
                  </select>
              </div>
     <div class="subjects subjects-left subjects-mobile">
-        <select id="spotLightMobile" class="subjects-select">
+        <select workspaceId="spotLightMobile" class="subjects-select">
             <option value="-1">اختيارات</option>
                             <option value="المجلة" data-custome-attr="http://www.aljazeera.net/knowledgegate/magazine">المجلة</option>
                 <option value="#اتجاهات" data-custome-attr="http://www.aljazeera.net/news/trends">#اتجاهات</option>
@@ -290,7 +294,7 @@
                     
                         <a href="/news">الأخبار</a> 
                     
-                        <div id="more_menu" class="more">
+                        <div workspaceId="more_menu" class="more">
                             <ul>
                                     <li><a href="/news/arabic">عربي</a></li>
                                     <li><a href="/news/international">دولي</a></li>
@@ -314,7 +318,7 @@
                     
                         <a href="/knowledgegate">المعرفة</a> 
                     
-                        <div id="more_menu" class="more">
+                        <div workspaceId="more_menu" class="more">
                             <ul>
                                     <li><a href="/knowledgegate/opinions">مقالات رأي</a></li>
                                     <li><a href="/knowledgegate/books">كتب</a></li>
@@ -328,7 +332,7 @@
                     
                         <a href="/programs">البرامج</a> 
                     
-                        <div id="more_menu" class="more">
+                        <div workspaceId="more_menu" class="more">
                             <ul>
                                     <li><a href="/programs/discussions">برامج حوارية</a></li>
                                     <li><a href="/programs/newsmagazineshows">مجلة تلفزيونية</a></li>
@@ -343,7 +347,7 @@
                     
                         <a href="/multimedia">الوسائط</a> 
                     
-                        <div id="more_menu" class="more">
+                        <div workspaceId="more_menu" class="more">
                             <ul>
                                     <li><a href="/multimedia/photoGallery">ألبوم الصور</a></li>
                                     <li><a href="/multimedia/audionews">النشرات الإخبارية</a></li>
@@ -359,7 +363,7 @@
                     
                         <a href="/encyclopedia">الموسوعة</a> 
                     
-                        <div id="more_menu" class="more">
+                        <div workspaceId="more_menu" class="more">
                             <ul>
                                     <li><a href="/encyclopedia/icons">شخصيات</a></li>
                                     <li><a href="/encyclopedia/events">وثائق وأحداث</a></li>
@@ -382,9 +386,9 @@
                 <li>
 
                     
-                            <a class="drop" data-id="more_menu" href="javascript:void(0)">المزيد</a>   
+                            <a class="drop" data-workspaceId="more_menu" href="javascript:void(0)">المزيد</a>
                     
-                        <div id="more_menu" class="more">
+                        <div workspaceId="more_menu" class="more">
                             <ul>
                                     <li><a href="/festival">مهرجان الجزيرة</a></li>
                                     <li><a href="/weather">الطقس</a></li>
@@ -617,41 +621,41 @@
     <li><a href="http://www.youtube.com/aljazeerachannel" class="social_ico yt_social" target="_blank"></a></li>
     <li><a href="http://instagram.com/aljazeeraarabic" class="social_ico ig_social" target="_blank"></a></li>
     <li><a href="/aljazeerarss/3c66e3fb-a5e0-4790-91be-ddb05ec17198/4e9f594a-03af-4696-ab98-880c58cd6718" class="social_ico rss_social" target="_blank"></a></li>
-    <li id="login-box">
+    <li workspaceId="login-box">
         <div class="member_ship">العضوية</div>
-        <form id="login-form">
-            <div id="account-login-form" class="member_ship_ctrls">
+        <form workspaceId="login-form">
+            <div workspaceId="account-login-form" class="member_ship_ctrls">
                 <div class="cls_member_ship_ctrls">اغلاق</div>
                 <div class="label_input_membership">
                     <label>اسم المستخدم</label>
-                    <input id="UserName" name="UserName" type="text" />
+                    <input workspaceId="UserName" name="UserName" type="text" />
                 </div>
                 <div class="label_input_membership">
                     <label>كلمة المرور</label>
-                    <input id="Password" name="Password" type="password" />
+                    <input workspaceId="Password" name="Password" type="password" />
                     
                 </div>
-                <input type="hidden" id="hidDateLogin" name="hidDateLogin" value="">
+                <input type="hidden" workspaceId="hidDateLogin" name="hidDateLogin" value="">
                 <a href="/MemberShip/ForgetPassword" class="forget_password" target="_blank">نسيت كلمة المرور</a>
                 
-                <input type="button" value="تسجيل الدخول" class="log_in_membership" id="member-login-default">
+                <input type="button" value="تسجيل الدخول" class="log_in_membership" workspaceId="member-login-default">
                 <div class="membership_ctrls">
-                    <a href="/MemberShip/AddMember" id="new-member" target="_blank">مشترك جديد</a>
-                    <a href="/MemberShip/DeleteMember" id="cancel-membership" target="_blank">إلغاء العضوية </a>
-                    <a href="mailto:support@aljazeera.net" id="contact-us">اتصل بنا </a>
+                    <a href="/MemberShip/AddMember" workspaceId="new-member" target="_blank">مشترك جديد</a>
+                    <a href="/MemberShip/DeleteMember" workspaceId="cancel-membership" target="_blank">إلغاء العضوية </a>
+                    <a href="mailto:support@aljazeera.net" workspaceId="contact-us">اتصل بنا </a>
                 </div>
             </div>
         </form>
-        <div id="login-error" style="display: none;">
-            <img src="/Views/Shared/shared/images/media/Wrong-Login.png" alt="" id="login-error-image">
-            <div id="login-error-text">خطأ في إسم المستخدم أو كلمة السر الرجاء إدخال المعلومات بشكل صحيح</div>
+        <div workspaceId="login-error" style="display: none;">
+            <img src="/Views/Shared/shared/images/media/Wrong-Login.png" alt="" workspaceId="login-error-image">
+            <div workspaceId="login-error-text">خطأ في إسم المستخدم أو كلمة السر الرجاء إدخال المعلومات بشكل صحيح</div>
             <input type="button" value="العودة">
         </div>
     </li>
-    <li id="account-logged" style="display:none;">
-        <img id="AccountImage" alt="Account name" src="/Views/Shared/shared/images/media/account.jpg" onerror="this.src='/Views/Shared/shared/images/media/account.jpg'" class="img-thumb"><a class="nav-account" href="javascript:void(0)">حسابي</a>
-        <ul id="account-menu">
-            <li><a id="EditMemberFormLink" href="/MemberShip/EditMember" target="_blank">تعديل</a></li>
+    <li workspaceId="account-logged" style="display:none;">
+        <img workspaceId="AccountImage" alt="Account name" src="/Views/Shared/shared/images/media/account.jpg" onerror="this.src='/Views/Shared/shared/images/media/account.jpg'" class="img-thumb"><a class="nav-account" href="javascript:void(0)">حسابي</a>
+        <ul workspaceId="account-menu">
+            <li><a workspaceId="EditMemberFormLink" href="/MemberShip/EditMember" target="_blank">تعديل</a></li>
             <li><a href="javascript:void(0)" onclick="MemberShipLogOut()">خروج</a></li>
         </ul>
     </li>
@@ -659,8 +663,8 @@
         <div class="search_icon"></div>
         <div class="search_container">
             <div class="cls_member_ship_ctrls">اغلاق</div>
-            <input placeholder="البحث بمصابيح" autocomplete="off" id="txtSearch" name="Search" type="text" />
-            <button type="button" id="btnSearch" onclick="return BuildSimpleSearch();">ابحث</button>
+            <input placeholder="البحث بمصابيح" autocomplete="off" workspaceId="txtSearch" name="Search" type="text" />
+            <button type="button" workspaceId="btnSearch" onclick="return BuildSimpleSearch();">ابحث</button>
         </div>
     </li>
     <li><a href="/broadcastschedule" class="live_stream" target="_blank">البث الحي</a></li>
@@ -668,7 +672,7 @@
  <div>
                     
                     
-        <ul id="hotNews" class="subjects">
+        <ul workspaceId="hotNews" class="subjects">
             <li>مواضيع ساخنة</li>
             
         <li data-title="الحرب-في-سوريا"><a href="/topics/الحرب-في-سوريا">الحرب في سوريا</a></li>
@@ -678,7 +682,7 @@
 
         </ul>
 
-    <ul id="spotlight" class="subjects left-subjects">
+    <ul workspaceId="spotlight" class="subjects left-subjects">
         <li>اختيارات</li>
                         <li data-title="المجلة"><a href="http://www.aljazeera.net/knowledgegate/magazine">المجلة</a></li>
                 <li data-title="#اتجاهات"><a href="http://www.aljazeera.net/news/trends">#اتجاهات</a></li>
@@ -726,16 +730,16 @@
                         </a>
                     </div>
                 <div class="blue_strip_item weather_area">
-                            <article id="bluestripweather"></article>
+                            <article workspaceId="bluestripweather"></article>
                 </div>
             </div>
         </div>
-<input type="hidden" id="datetimenow" name="datetimenow" value="3/18/2016 12:00:00 AM">
+<input type="hidden" workspaceId="datetimenow" name="datetimenow" value="3/18/2016 12:00:00 AM">
 </section>
 
 <div class="wide_banner">
-<div id="main-banner" class="initial_banner_hide">
-        <div id='div-gpt-ad-1395743456679-4' class="BannerClass alight_center_banners">
+<div workspaceId="main-banner" class="initial_banner_hide">
+        <div workspaceId='div-gpt-ad-1395743456679-4' class="BannerClass alight_center_banners">
             <script type='text/javascript'>
                 try {
                     googletag.cmd.push(function () { googletag.display('div-gpt-ad-1395743456679-4'); });
@@ -752,17 +756,17 @@
 <!-- This partial view used just to retrieve the date, the date time is sperated as the follwoing YYYY/DD/MM &middot; HH:MM:SS, the example from the original source was as the following
 2013/13/12 · 07:22:30, -->
 
-                <input type="hidden" id="hidFacebookURL" name="hidFacebookURL" value="" />
-    <input type="hidden" id="hidTwitterURL" name="hidTwitterURL" value="" />
-    <input type="hidden" id="hidGooglePlusURL" name="hidGooglePlusURL" value="" />
-    <input type="hidden" id="hidInstagramURL" name="hidInstagramURL" value="" />
-            <input type="hidden" id="hidYoutubeURL" name="hidYoutubeURL" value="" />
-    <header id="show-header" style="padding: 0;">
+                <input type="hidden" workspaceId="hidFacebookURL" name="hidFacebookURL" value="" />
+    <input type="hidden" workspaceId="hidTwitterURL" name="hidTwitterURL" value="" />
+    <input type="hidden" workspaceId="hidGooglePlusURL" name="hidGooglePlusURL" value="" />
+    <input type="hidden" workspaceId="hidInstagramURL" name="hidInstagramURL" value="" />
+            <input type="hidden" workspaceId="hidYoutubeURL" name="hidYoutubeURL" value="" />
+    <header workspaceId="show-header" style="padding: 0;">
 <!-- end Site Header -Site header with Logo and megaMenu -->
     </header>
     <!-- end #site-header -->
 
-    <div id="site-content">
+    <div workspaceId="site-content">
         
 <div class="dark box-section-live branded m-padin darkSectionLiveStream">
     <div class="LiveAndSliderContainer">
@@ -784,7 +788,7 @@
         <div class="sliderContaineLive">
             <div class="carousel-row HideOnLoad" style="position: relative;">
             <div class="fixMobView"></div>
-                <div id="nextProgs" class="DirectionFix">
+                <div workspaceId="nextProgs" class="DirectionFix">
                         <div class="item padmod " style="padding-top: 0px;">
                            
                             <div class="liveStream">
@@ -839,11 +843,11 @@
                                      <div class="liveBtns">
                                      <input  type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2014/12/25/الواقع-العربي" />
                                         <div class="share shareLiveStream">
-                                            <a class="social" href="javascript:void(0)" id="shareCounterMain">شارك</a>
+                                            <a class="social" href="javascript:void(0)" workspaceId="shareCounterMain">شارك</a>
                                            <ul>           
                                                 <li class="share-twitter">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count twitter" id="twitcountMain">0</span>
+                                                    <span class="share-count twitter" workspaceId="twitcountMain">0</span>
                                                     <div class="twt st_twitter_custom boxtwitter fleft " st_title="الواقع العربي" st_url="http://www.aljazeera.net/programs/livestreaming/2014/12/25/الواقع-العربي" tw:via="AJArabic" st_via="AJArabic">
                                                     Twitter           
                                                     </div>
@@ -851,7 +855,7 @@
                                                 </li>
                                                 <li class="share-facebook">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count facebook" id="fbcountMain">0</span>
+                                                    <span class="share-count facebook" workspaceId="fbcountMain">0</span>
                                                     <div class="fb st_facebook_custom boxfacebook fleft" st_url="http://www.aljazeera.net/programs/livestreaming/2014/12/25/الواقع-العربي">
                                                     Facebook   
                                                     </div>        
@@ -859,7 +863,7 @@
                                                 </li>
                                                 <li class="share-google">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count googleplus" id="googlepluscountMain">0</span>
+                                                    <span class="share-count googleplus" workspaceId="googlepluscountMain">0</span>
                                                     <div class="gp st_googleplus_custom  boxgoogleplus fleft" st_url="http://www.aljazeera.net/programs/livestreaming/2014/12/25/الواقع-العربي" >
                                                     Google+    
                                                     </div>       
@@ -867,7 +871,7 @@
                                                 </li>
 
                                             </ul>
-                                            <input type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2014/12/25/الواقع-العربي" id="articleLink_1" />
+                                            <input type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2014/12/25/الواقع-العربي" workspaceId="articleLink_1" />
                                             <script>
                                                 getShareControlMain($("#articleLink_1").val());
                                             </script>
@@ -923,11 +927,11 @@
                                      <div class="liveBtns">
                                      <input  type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2015/9/24/ما-وراء-الخبر" />
                                         <div class="share shareLiveStream">
-                                            <a class="social" href="javascript:void(0)" id="shareCounterMain">شارك</a>
+                                            <a class="social" href="javascript:void(0)" workspaceId="shareCounterMain">شارك</a>
                                            <ul>           
                                                 <li class="share-twitter">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count twitter" id="twitcountMain">0</span>
+                                                    <span class="share-count twitter" workspaceId="twitcountMain">0</span>
                                                     <div class="twt st_twitter_custom boxtwitter fleft " st_title="ما وراء الخبر " st_url="http://www.aljazeera.net/programs/livestreaming/2015/9/24/ما-وراء-الخبر" tw:via="AJArabic" st_via="AJArabic">
                                                     Twitter           
                                                     </div>
@@ -935,7 +939,7 @@
                                                 </li>
                                                 <li class="share-facebook">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count facebook" id="fbcountMain">0</span>
+                                                    <span class="share-count facebook" workspaceId="fbcountMain">0</span>
                                                     <div class="fb st_facebook_custom boxfacebook fleft" st_url="http://www.aljazeera.net/programs/livestreaming/2015/9/24/ما-وراء-الخبر">
                                                     Facebook   
                                                     </div>        
@@ -943,7 +947,7 @@
                                                 </li>
                                                 <li class="share-google">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count googleplus" id="googlepluscountMain">0</span>
+                                                    <span class="share-count googleplus" workspaceId="googlepluscountMain">0</span>
                                                     <div class="gp st_googleplus_custom  boxgoogleplus fleft" st_url="http://www.aljazeera.net/programs/livestreaming/2015/9/24/ما-وراء-الخبر" >
                                                     Google+    
                                                     </div>       
@@ -951,7 +955,7 @@
                                                 </li>
 
                                             </ul>
-                                            <input type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2015/9/24/ما-وراء-الخبر" id="articleLink_2" />
+                                            <input type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2015/9/24/ما-وراء-الخبر" workspaceId="articleLink_2" />
                                             <script>
                                                 getShareControlMain($("#articleLink_2").val());
                                             </script>
@@ -1017,11 +1021,11 @@
                                      <div class="liveBtns">
                                      <input  type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2014/12/25/حديث-الثورة" />
                                         <div class="share shareLiveStream">
-                                            <a class="social" href="javascript:void(0)" id="shareCounterMain">شارك</a>
+                                            <a class="social" href="javascript:void(0)" workspaceId="shareCounterMain">شارك</a>
                                            <ul>           
                                                 <li class="share-twitter">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count twitter" id="twitcountMain">0</span>
+                                                    <span class="share-count twitter" workspaceId="twitcountMain">0</span>
                                                     <div class="twt st_twitter_custom boxtwitter fleft " st_title="حــديــث الثــوره" st_url="http://www.aljazeera.net/programs/livestreaming/2014/12/25/حديث-الثورة" tw:via="AJArabic" st_via="AJArabic">
                                                     Twitter           
                                                     </div>
@@ -1029,7 +1033,7 @@
                                                 </li>
                                                 <li class="share-facebook">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count facebook" id="fbcountMain">0</span>
+                                                    <span class="share-count facebook" workspaceId="fbcountMain">0</span>
                                                     <div class="fb st_facebook_custom boxfacebook fleft" st_url="http://www.aljazeera.net/programs/livestreaming/2014/12/25/حديث-الثورة">
                                                     Facebook   
                                                     </div>        
@@ -1037,7 +1041,7 @@
                                                 </li>
                                                 <li class="share-google">
                                                     <a style="cursor:pointer;">
-                                                    <span class="share-count googleplus" id="googlepluscountMain">0</span>
+                                                    <span class="share-count googleplus" workspaceId="googlepluscountMain">0</span>
                                                     <div class="gp st_googleplus_custom  boxgoogleplus fleft" st_url="http://www.aljazeera.net/programs/livestreaming/2014/12/25/حديث-الثورة" >
                                                     Google+    
                                                     </div>       
@@ -1045,7 +1049,7 @@
                                                 </li>
 
                                             </ul>
-                                            <input type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2014/12/25/حديث-الثورة" id="articleLink_3" />
+                                            <input type="hidden" value="http://www.aljazeera.net/programs/livestreaming/2014/12/25/حديث-الثورة" workspaceId="articleLink_3" />
                                             <script>
                                                 getShareControlMain($("#articleLink_3").val());
                                             </script>
@@ -1068,16 +1072,16 @@
         <div class="playerLive">
             <div class="bigPlayOrData">
                 <div class="movablePlayer">
-                    <input type="hidden" id="hidAllowBlockService" name="hidAllowBlockService" value="1" />
+                    <input type="hidden" workspaceId="hidAllowBlockService" name="hidAllowBlockService" value="1" />
 
-                    <div id="main-player" class="player blurb-wide">
+                    <div workspaceId="main-player" class="player blurb-wide">
                         <!--Live Steaming-->
                         <link href="/Views/Shared/shared/media/css/video-js.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 
 <script type="text/javascript">
     function RenderBrightcovePlayer(vidId, plyrId, plyrKey, pwidth, pheight, divId) {
-        var html = ['<div class="containing-block"><div class="outer-container">' + '<object id="myExperience' + vidId + '" class="BrightcoveExperience">'];
+        var html = ['<div class="containing-block"><div class="outer-container">' + '<object workspaceId="myExperience' + vidId + '" class="BrightcoveExperience">'];
         html.push('<param name="bgcolor" value="#FFFFFF" />');
         html.push('<param name="width" value="' + pwidth + '" />')
         html.push('<param name="height" value="' + pheight + '" />');
@@ -1111,9 +1115,9 @@
     }
 </script>
 
-<div id="BCplayerArea" style="position:static; width:100%;height:100%;padding-right: 10px; z-index: 0;padding-left: 10px;padding-bottom: 20px">
+<div workspaceId="BCplayerArea" style="position:static; width:100%;height:100%;padding-right: 10px; z-index: 0;padding-left: 10px;padding-bottom: 20px">
 </div>
-<div id="divNotifyMessage">
+<div workspaceId="divNotifyMessage">
     <div class="am_note">
         مشاهدينا الكرام في أميركا<br />
         <p>
@@ -1168,13 +1172,13 @@
             <div class="dateAndLink">
                 الجمعة 18/03/2016 <a href="#topBorderSchedule">الذهاب لجدول البث</a>
             </div>
-             <div id="liveBtnsLo" class="liveBtns">
+             <div workspaceId="liveBtnsLo" class="liveBtns">
                 <div class="share shareLiveStream">
-                    <a class="social" href="javascript:void(0)" id="shareCounterMain">شارك</a>
+                    <a class="social" href="javascript:void(0)" workspaceId="shareCounterMain">شارك</a>
                    <ul>           
                         <li class="share-twitter">
                             <a style="cursor:pointer;">
-                            <span class="share-count twitter" id="twitcountMain">0</span>
+                            <span class="share-count twitter" workspaceId="twitcountMain">0</span>
                             <div class="st_twitter_custom boxtwitter fleft" st_title="البث الحي" st_url="http://www.aljazeera.net/broadcastschedule" tw:via="AJArabic" st_via="AJArabic">
                             Twitter           
                             </div>
@@ -1182,7 +1186,7 @@
                         </li>
                         <li class="share-facebook">
                             <a style="cursor:pointer;">
-                            <span class="share-count facebook" id="fbcountMain">0</span>
+                            <span class="share-count facebook" workspaceId="fbcountMain">0</span>
                             <div class="st_facebook_custom boxfacebook fleft" st_url="http://www.aljazeera.net/broadcastschedule">
                             Facebook   
                             </div>        
@@ -1190,7 +1194,7 @@
                         </li>
                         <li class="share-google">
                             <a style="cursor:pointer;">
-                            <span class="share-count googleplus" id="googlepluscountMain">0</span>
+                            <span class="share-count googleplus" workspaceId="googlepluscountMain">0</span>
                             <div class="st_googleplus_custom  boxgoogleplus fleft" st_url="http://www.aljazeera.net/broadcastschedule" >
                             Google+    
                             </div>       
@@ -1198,7 +1202,7 @@
                         </li>
 
                     </ul>
-                    <input type="hidden" value="http://www.aljazeera.net/broadcastschedule" id="articleLink" />
+                    <input type="hidden" value="http://www.aljazeera.net/broadcastschedule" workspaceId="articleLink" />
                     <script>
                         getShareControlMain($("#articleLink").val());
                     </script>
@@ -1208,29 +1212,29 @@
            
         </div>
         <div class="CommentsLive CommentsLiveMod">
-        <div id="commentHolder" style="display:none;">
-<section id="comments" >
+        <div workspaceId="commentHolder" style="display:none;">
+<section workspaceId="comments" >
             
 							
-<input type="hidden" name="hidEntityID" id="hidEntityID" value="b4b9626c-115c-4658-a60e-32255dd28094" />
-<input type="hidden" name="hidObjectID" id="hidObjectID" value="92dfe7cc-26c3-43ee-b441-112038ab2728" />
-<input type="hidden" name="hidPostGuid" id="hidPostGuid" value="b4b9626c-115c-4658-a60e-32255dd28094#92dfe7cc-26c3-43ee-b441-112038ab2728" />
-<input type="hidden" name="hidPageNoComment" id="hidPageNoComment"  value="1" />
-<input type="hidden" name="hidSortByComment" id="hidSortByComment"  value="date" />
-<input type="hidden" name="hidSortTypeComment" id="hidSortTypeComment"  value="Desc" />
+<input type="hidden" name="hidEntityID" workspaceId="hidEntityID" value="b4b9626c-115c-4658-a60e-32255dd28094" />
+<input type="hidden" name="hidObjectID" workspaceId="hidObjectID" value="92dfe7cc-26c3-43ee-b441-112038ab2728" />
+<input type="hidden" name="hidPostGuid" workspaceId="hidPostGuid" value="b4b9626c-115c-4658-a60e-32255dd28094#92dfe7cc-26c3-43ee-b441-112038ab2728" />
+<input type="hidden" name="hidPageNoComment" workspaceId="hidPageNoComment"  value="1" />
+<input type="hidden" name="hidSortByComment" workspaceId="hidSortByComment"  value="date" />
+<input type="hidden" name="hidSortTypeComment" workspaceId="hidSortTypeComment"  value="Desc" />
 
-<input type="hidden" name="hiddFaceBookKey" id="hiddFaceBookKey" value="109280002573256" />
-<input type="hidden" name="hiddGooglePlusKey" id="hiddGooglePlusKey" value="33604072961-u03t1dff1m6g33peaacbanf9sii7gq1k.apps.googleusercontent.com" />
-<input type="hidden" name="hiddHomePortalGoogle" id="hiddHomePortalGoogle" value="http://www.aljazeera.net/portal" />
+<input type="hidden" name="hiddFaceBookKey" workspaceId="hiddFaceBookKey" value="109280002573256" />
+<input type="hidden" name="hiddGooglePlusKey" workspaceId="hiddGooglePlusKey" value="33604072961-u03t1dff1m6g33peaacbanf9sii7gq1k.apps.googleusercontent.com" />
+<input type="hidden" name="hiddHomePortalGoogle" workspaceId="hiddHomePortalGoogle" value="http://www.aljazeera.net/portal" />
 
 
 
-        <input type="hidden" name="hidShowPostReaderComment" id="hidShowPostReaderComment"  value="1" />
+        <input type="hidden" name="hidShowPostReaderComment" workspaceId="hidShowPostReaderComment"  value="1" />
    
 					
                     <section class="comments-section">
                     
-                    <div id="conribute" class="contribute" >
+                    <div workspaceId="conribute" class="contribute" >
                     	
                         <div class="gray-color" style="display:block" >انشر تعليقك عن طريق:</div>
                         <a class="login-icons al-jazeera-login" onclick='aljazeeraLogin($(this))' style="display:block" rel="1"  href="javascript:void(0);" ></a>
@@ -1239,10 +1243,10 @@
                         <a class="login-icons googleplus-login" onclick='googlePlusLogin($(this))' style="display:block" rel="1" href="javascript:void(0);" ></a>
                        
                       
-                        <div id="comments-count" class="" style="display:none;">إظهار <span id="show-count">0 </span>/<span id="show-total"> 0 </span> تعليقات</div>
+                        <div workspaceId="comments-count" class="" style="display:none;">إظهار <span workspaceId="show-count">0 </span>/<span workspaceId="show-total"> 0 </span> تعليقات</div>
                         </div>
                          
-                    <div id="ManinReaderComment">
+                    <div workspaceId="ManinReaderComment">
                
                       
                         </div>
@@ -1256,61 +1260,61 @@
         </div>
     </div>
 </div>
-<div id="main-banner" class="initial_banner_hide">
-        <div id='div-gpt-ad-1395743456679-5' class="BannerClass alight_center_banners">
+<div workspaceId="main-banner" class="initial_banner_hide">
+        <div workspaceId='div-gpt-ad-1395743456679-5' class="BannerClass alight_center_banners">
             <script type='text/javascript'>
                 googletag.cmd.push(function () { googletag.display('div-gpt-ad-1395743456679-5'); });
             </script>
         </div>
 </div>
         <!--sliders-->
-        <div class="wrapper wrapperLiveFix" id="wrapperLiveFixMainArea">
+        <div class="wrapper wrapperLiveFix" workspaceId="wrapperLiveFixMainArea">
       
                 <section class="slidersConainer">
                 </section>
-                <div class="AllReportsBtnHolder" id="AllReportsBtnHolderId">
+                <div class="AllReportsBtnHolder" workspaceId="AllReportsBtnHolderId">
                 </div>
                 </div>
         <!--Endsliders-->
-    <input type="hidden" id="currentDate" name="currentDate" value="18/03" />
-    <input type="hidden" id="currentDateTime" name="currentDateTime" value="7200000" />
+    <input type="hidden" workspaceId="currentDate" name="currentDate" value="18/03" />
+    <input type="hidden" workspaceId="currentDateTime" name="currentDateTime" value="7200000" />
     <div class="allScheduleHolder">
-        <div id="topBorderSchedule">
+        <div workspaceId="topBorderSchedule">
         </div>
         <h1>
             جدول البث</h1>
         <div class="tabelHolderSchedule">
             <div class="days">
-                    <div id="13/03" class="m-hide" >
+                    <div workspaceId="13/03" class="m-hide" >
                         <a onclick="GetProgramWeek('e68b449c-3399-4dd0-bd90-24d9f9f78416','13/03')">الأحد
                             13/03 </a>
                     </div>
-                    <div id="14/03" class="m-hide" >
+                    <div workspaceId="14/03" class="m-hide" >
                         <a onclick="GetProgramWeek('38c8d01a-2388-4ea4-a193-262420cc4f99','14/03')">الإثنين
                             14/03 </a>
                     </div>
-                    <div id="15/03" class="m-hide" >
+                    <div workspaceId="15/03" class="m-hide" >
                         <a onclick="GetProgramWeek('303dbb25-1cf4-4236-a8ab-04352e0d0ee0','15/03')">الثلاثاء
                             15/03 </a>
                     </div>
-                    <div id="16/03" class="m-hide" >
+                    <div workspaceId="16/03" class="m-hide" >
                         <a onclick="GetProgramWeek('716fc298-1c63-49e9-aec5-50ef7c7e60ae','16/03')">الأربعاء
                             16/03 </a>
                     </div>
-                    <div id="17/03" class="m-hide" >
+                    <div workspaceId="17/03" class="m-hide" >
                         <a onclick="GetProgramWeek('c7e3a5d9-42ea-4e72-bbba-19c2d4369ab0','17/03')">الخميس
                             17/03 </a>
                     </div>
-                    <div id="18/03" class="m-hide" >
+                    <div workspaceId="18/03" class="m-hide" >
                         <a onclick="GetProgramWeek('6fe6bdc8-6806-4313-a012-66c192007188','18/03')">الجمعة
                             18/03 </a>
                     </div>
-                    <div id="12/03" class="m-hide" >
+                    <div workspaceId="12/03" class="m-hide" >
                         <a onclick="GetProgramWeek('6d70d937-74a3-47b0-a707-0e4a93d170b4','12/03')">السبت
                             12/03 </a>
                     </div>
             </div>
-            <div id="ProgramWeek">
+            <div workspaceId="ProgramWeek">
             </div>
         </div>
     </div>
@@ -1318,7 +1322,7 @@
       
       
     </div>
- <input type="hidden" id="_hdnTitle" value="جدول البث" />     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+ <input type="hidden" workspaceId="_hdnTitle" value="جدول البث" />     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
     <section class="footer">
         <div class="wrapper">
             <div><a href="#"><img src="/Views/Shared/shared/images/media/aj-logo-white.svg"></a></div>
@@ -1350,13 +1354,13 @@
                                 <h1 class="footer_header"><a href="/mobile" target="_blank">تطبيقات</a></h1>
                                 <ul class="footer_ul">
                                         <li><a rel="nofollow" href="https://itunes.apple.com/us/app/aljzyrt/id506665965?mt=8" class="" target="_blank">جوال آي فون</a></li>
-                                        <li><a rel="nofollow" href="https://play.google.com/store/apps/details?id=net.aljazeera.arabic" class="" target="_blank">جوال أندرويد</a></li>
+                                        <li><a rel="nofollow" href="https://play.google.com/store/apps/details?workspaceId=net.aljazeera.arabic" class="" target="_blank">جوال أندرويد</a></li>
                                         <li><a rel="nofollow" href="http://www.windowsphone.com/en-us/store/app/الجزيرة/3e29b875-6237-4ca8-9cd9-afc0389e8dc8" class="" target="_blank">جوال ويندوز</a></li>
                                         <li><a rel="nofollow" href="https://itunes.apple.com/us/app/aljzyrt-llaybad/id570545677?mt=8" class="" target="_blank">أجهزة لوحية آي فون</a></li>
-                                        <li><a rel="nofollow" href="https://play.google.com/store/apps/details?id=net.aljazeera.tablet.arabic" class="" target="_blank">أجهزة لوحية أندرويد</a></li>
+                                        <li><a rel="nofollow" href="https://play.google.com/store/apps/details?workspaceId=net.aljazeera.tablet.arabic" class="" target="_blank">أجهزة لوحية أندرويد</a></li>
                                         <li><a rel="nofollow" href="http://www.windowsphone.com/en-us/store/app/الجزيرة/3e29b875-6237-4ca8-9cd9-afc0389e8dc8" class="" target="_blank">أجهزة لوحية ويندوز</a></li>
                                         <li><a rel="nofollow" href="https://itunes.apple.com/us/app/mjlt-aljzyrt/id496510803?mt=8" class="" target="_blank">مجلة الجزيرة آي فون</a></li>
-                                        <li><a rel="nofollow" href="https://play.google.com/store/apps/details?id=net.aljazeera.mag" class="" target="_blank">مجلة الجزيرة أندرويد</a></li>
+                                        <li><a rel="nofollow" href="https://play.google.com/store/apps/details?workspaceId=net.aljazeera.mag" class="" target="_blank">مجلة الجزيرة أندرويد</a></li>
                                 </ul>
                         </div>
                         <div>
@@ -1414,7 +1418,7 @@
                 </ul>
             </div>
        
-            <input type="hidden" id="hidRssURL" name="hidEntityIDRSS" value="/aljazeerarss/963b8904-97b7-471b-a606-2c1d30950d66/bf3583ae-e477-48f4-afa0-c3778854ac9b" />
+            <input type="hidden" workspaceId="hidRssURL" name="hidEntityIDRSS" value="/aljazeerarss/963b8904-97b7-471b-a606-2c1d30950d66/bf3583ae-e477-48f4-afa0-c3778854ac9b" />
             <div class="search-footer-div">
                 <p class="copyright search-footer-copyright m-all tb-all db-all db-clear">جميع الحقوق محفوظة &copy; 2016 الجزيرة &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; <span class="by-iho"><a href="http://www.ihorizons.com" target="_blank"><img alt="" src="/Views/Shared/shared/images/icon/iHorizons-icon.png" style=" padding-bottom: 3px; width: 80px !important; height: 13px !important; " /></a> &nbsp;&nbsp; : &nbsp;&nbsp; Powered by  </span></p>
             </div>
@@ -1556,17 +1560,17 @@
 
         <div style="clear:both"></div>
     </section>
-    <ul id='wordDef' class="custom-menu">
+    <ul workspaceId='wordDef' class="custom-menu">
         <li>بحث</li>
         <li>تعريف</li>
-        <li><span id="copy-description">نسخ</span></li>
+        <li><span workspaceId="copy-description">نسخ</span></li>
         <li>
-            <div id="defineText">
-                <textarea id="wordDefintion"></textarea>
+            <div workspaceId="defineText">
+                <textarea workspaceId="wordDefintion"></textarea>
             </div>
         </li>
     </ul>
-    <div id="menu-back">
+    <div workspaceId="menu-back">
     </div>
 <!-- end Site footer -->
     </div>

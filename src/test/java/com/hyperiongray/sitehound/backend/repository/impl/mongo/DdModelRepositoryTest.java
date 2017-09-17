@@ -28,7 +28,7 @@ public class DdModelRepositoryTest {
 //    @Ignore
     public void saveProgress() throws Exception {
         DdModelerProgress ddModelerProgress = new DdModelerProgress();
-        ddModelerProgress.setId(workspaceId);
+        ddModelerProgress.setWorkspaceId(workspaceId);
         ddModelerProgress.setPercentageDone(98.13);
         ddModelerProgressRepository.saveProgress(ddModelerProgress);
     }
@@ -47,7 +47,7 @@ public class DdModelRepositoryTest {
         ddModelerProgressRepository.deleteProgress(workspaceId);
 
         DdModelerProgress ddModelerProgress = new DdModelerProgress();
-        ddModelerProgress.setId(workspaceId);
+        ddModelerProgress.setWorkspaceId(workspaceId);
         ddModelerProgress.setPercentageDone(percentageDone);
         ddModelerProgressRepository.saveProgress(ddModelerProgress);
 

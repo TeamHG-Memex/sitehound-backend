@@ -10,22 +10,18 @@ import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputPagesAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DeepcrawlerOutputCallbackServiceWrapper;
-import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
-import com.hyperiongray.sitehound.backend.service.crawler.SyncBrokerService;
 import org.apache.http.client.fluent.ContentResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * Created by tomas on 28/09/16.
  */
 @Service
-public class DdDeepcrawlerProgressBrokerService implements SyncBrokerService {
+public class DdDeepcrawlerProgressBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerProgressBrokerService.class);
 
     @Autowired private CrawlJobRepository crawlJobRepository;
@@ -49,7 +45,7 @@ public class DdDeepcrawlerProgressBrokerService implements SyncBrokerService {
                     DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
 //                    AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(domain.getUrl(), semaphore, callbackServiceWrapper);
 //                    aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
-                    aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), callbackServiceWrapper);
+                    aquariumClient.fetch(domain.getUrl(), callbackServiceWrapper);
                 }
             }
 

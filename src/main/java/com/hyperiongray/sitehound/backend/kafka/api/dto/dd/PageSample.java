@@ -1,11 +1,14 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd;
 
+import com.hyperiongray.framework.kafka.dto.KafkaDto;
+
 /**
  * Created by tomas on 4/10/16.
  */
-public class PageSample {
+public class PageSample extends KafkaDto{
 
     private String url;
+    private String domain;
     private Double score;
 
     public String getUrl() {
@@ -22,5 +25,13 @@ public class PageSample {
 
     public void setScore(Double score) {
         this.score = score;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 }

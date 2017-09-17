@@ -2,6 +2,7 @@ package com.hyperiongray.sitehound.backend.test.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -27,6 +28,7 @@ import static org.springframework.kafka.test.hamcrest.KafkaMatchers.hasValue;
 /**
  * Created by tomas on 14/06/17.
  */
+@Ignore
 public class KafkaTemplateExampleTests {
 
     private static final String TEMPLATE_TOPIC = "templateTopic";

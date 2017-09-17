@@ -8,27 +8,26 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 public class DdModelerProgress  extends KafkaDto {
 
-    private String id;
-
-    @JsonProperty("percentage_done")
+    private String workspaceId; //TODO check integration test. They are breaking cause expecting id
     private Double percentageDone;
 
-    public String getId() {
-        return id;
+    @JsonProperty("workspace_id")
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+    @JsonProperty("workspace_id")
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    @JsonProperty("percentage_done")
     public Double getPercentageDone() {
         return percentageDone;
     }
-
+    @JsonProperty("percentage_done")
     public void setPercentageDone(Double percentageDone) {
         this.percentageDone = percentageDone;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -37,13 +36,13 @@ public class DdModelerProgress  extends KafkaDto {
 
         DdModelerProgress that = (DdModelerProgress) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (workspaceId != null ? !workspaceId.equals(that.workspaceId) : that.workspaceId != null) return false;
         return percentageDone != null ? percentageDone.equals(that.percentageDone) : that.percentageDone == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = workspaceId != null ? workspaceId.hashCode() : 0;
         result = 31 * result + (percentageDone != null ? percentageDone.hashCode() : 0);
         return result;
     }
@@ -51,7 +50,7 @@ public class DdModelerProgress  extends KafkaDto {
     @Override
     public String toString() {
         return "DdModelerProgress{" +
-                "id='" + id + '\'' +
+                "workspaceId='" + workspaceId + '\'' +
                 ", percentageDone='" + percentageDone + '\'' +
                 '}';
     }

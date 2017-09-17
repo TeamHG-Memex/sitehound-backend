@@ -1,48 +1,27 @@
 package com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output;
 
-/**
- * Created by tomas on 28/09/16.
- */
-
 import com.hyperiongray.framework.kafka.dto.KafkaDto;
-
-/**
- dd-modeler-output
- {
- "id": "the same id",
- "quality": "Accuracy is 0.84 and some other metric is 0.89",
- "model": "b64-encoded page classifier model"
- }
+import org.codehaus.jackson.annotate.JsonProperty;
 
 
- */
 public class DdModelerOutput extends KafkaDto {
 
-    private String id;
+    private String workspaceId; //TODO check integration test. They are breaking cause expecting id
     private String quality;
     private String model;
 
-    public DdModelerOutput() {
+    @JsonProperty("workspace_id")
+    public String getWorkspaceId() {
+        return workspaceId;
     }
-
-    public DdModelerOutput(String id, String quality, String model) {
-        this.id = id;
-        this.quality = quality;
-        this.model = model;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    @JsonProperty("workspace_id")
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getQuality() {
         return quality;
     }
-
     public void setQuality(String quality) {
         this.quality = quality;
     }
@@ -50,15 +29,34 @@ public class DdModelerOutput extends KafkaDto {
     public String getModel() {
         return model;
     }
-
     public void setModel(String model) {
         this.model = model;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DdModelerOutput that = (DdModelerOutput) o;
+
+        if (workspaceId != null ? !workspaceId.equals(that.workspaceId) : that.workspaceId != null) return false;
+        if (quality != null ? !quality.equals(that.quality) : that.quality != null) return false;
+        return model != null ? model.equals(that.model) : that.model == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = workspaceId != null ? workspaceId.hashCode() : 0;
+        result = 31 * result + (quality != null ? quality.hashCode() : 0);
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "DdModelerOutput{" +
-                "id='" + id + '\'' +
+                "workspaceId='" + workspaceId + '\'' +
                 ", quality='" + quality + '\'' +
                 ", model='" + (model!=null? model.length(): "") + '\'' +
                 '}';

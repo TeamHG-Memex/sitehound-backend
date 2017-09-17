@@ -125,6 +125,38 @@ public class DdLoginInput {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DdLoginInput that = (DdLoginInput) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (workspaceId != null ? !workspaceId.equals(that.workspaceId) : that.workspaceId != null) return false;
+        if (jobId != null ? !jobId.equals(that.jobId) : that.jobId != null) return false;
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
+        if (domain != null ? !domain.equals(that.domain) : that.domain != null) return false;
+        if (keyValues != null ? !keyValues.equals(that.keyValues) : that.keyValues != null) return false;
+        if (screenshot != null ? !screenshot.equals(that.screenshot) : that.screenshot != null) return false;
+        if (keysOrder != null ? !keysOrder.equals(that.keysOrder) : that.keysOrder != null) return false;
+        return result != null ? result.equals(that.result) : that.result == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result1 = id != null ? id.hashCode() : 0;
+        result1 = 31 * result1 + (workspaceId != null ? workspaceId.hashCode() : 0);
+        result1 = 31 * result1 + (jobId != null ? jobId.hashCode() : 0);
+        result1 = 31 * result1 + (url != null ? url.hashCode() : 0);
+        result1 = 31 * result1 + (domain != null ? domain.hashCode() : 0);
+        result1 = 31 * result1 + (keyValues != null ? keyValues.hashCode() : 0);
+        result1 = 31 * result1 + (screenshot != null ? screenshot.hashCode() : 0);
+        result1 = 31 * result1 + (keysOrder != null ? keysOrder.hashCode() : 0);
+        result1 = 31 * result1 + (result != null ? result.hashCode() : 0);
+        return result1;
+    }
+
+    @Override
     public String toString() {
         String screenshot = null;
         if (this.screenshot !=null){

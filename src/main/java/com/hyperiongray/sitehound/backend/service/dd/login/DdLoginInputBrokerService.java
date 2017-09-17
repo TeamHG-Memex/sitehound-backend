@@ -6,19 +6,16 @@ import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginReposi
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator.LoginInputDtoToLoginInputTranslator;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
-import com.hyperiongray.sitehound.backend.service.crawler.SyncBrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * Created by tomas on 22/06/17.
  */
 @Service
-public class DdLoginInputBrokerService implements SyncBrokerService {
+public class DdLoginInputBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdLoginInputBrokerService.class);
 
     @Autowired private LoginInputDtoToLoginInputTranslator loginInputDtoToLoginInputTranslator;

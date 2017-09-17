@@ -31,16 +31,16 @@ public class DdTrainerRepository {
 //    public void saveLinkModel(DdTrainerOutputModel ddTrainerOutputModel){
 //        Document document = new Document();
 //        document.put("model", ddTrainerOutputModel.getLink_model());
-//        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputModel.getId());
-//        LOGGER.info("About to saveLinkModel jobId:" + ddTrainerOutputModel.getId() + ", workspaceId: " + workspaceId);
+//        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputModel.getWorkspaceId());
+//        LOGGER.info("About to saveLinkModel jobId:" + ddTrainerOutputModel.getWorkspaceId() + ", workspaceId: " + workspaceId);
 //        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, workspaceId, LINK_MODEL_FIELD, document);
 //    }
 
 
     public void saveProgress(DdTrainerOutputProgress ddTrainerOutputProgress) {
-        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputProgress.getId());
+        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputProgress.getWorkspaceId());
 
-        LOGGER.info("About to trainer saveProgress for jobId:" + ddTrainerOutputProgress.getId() +", workspaceId:" + workspaceId);
+        LOGGER.info("About to trainer saveProgress for jobId:" + ddTrainerOutputProgress.getWorkspaceId() +", workspaceId:" + workspaceId);
 //        Document document = new Document();
 //        document.put("trainer_progress", ddTrainerOutputProgress.getProgress());
 //        document.put("percentage_done", ddTrainerOutputProgress.getPercentageDone());

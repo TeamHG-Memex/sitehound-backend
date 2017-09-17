@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.service.aquarium.clientCallback;
 
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.BaseCallbackServiceWrapper;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.CallbackServiceWrapper;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.concurrent.FutureCallback;
 import org.slf4j.Logger;
@@ -19,21 +19,21 @@ public class AquariumAsyncClientCallback implements FutureCallback<Content>{
 
 	private final String url;
 	private final Semaphore semaphore;
-	private final BaseCallbackServiceWrapper baseCallbackServiceWrapper;
+	private final CallbackServiceWrapper callbackServiceWrapper;
 	private JsonMapper<AquariumInternal> aquariumInternalJsonMapper = new JsonMapper();
 
 
-	public AquariumAsyncClientCallback(String url, Semaphore semaphore, BaseCallbackServiceWrapper baseCallbackServiceWrapper){
+	public AquariumAsyncClientCallback(String url, Semaphore semaphore, CallbackServiceWrapper callbackServiceWrapper){
 		this.url=url;
 		this.semaphore=semaphore;
-		this.baseCallbackServiceWrapper=baseCallbackServiceWrapper;
+		this.callbackServiceWrapper = callbackServiceWrapper;
 	}
 
 	public void completed(final Content content) {
 		try{
 			LOGGER.info("Aquarium response for: " + url);
 			AquariumInternal aquariumInternal = aquariumInternalJsonMapper.toObject(content.asString(Charset.forName("UTF-8")), AquariumInternal.class);
-			baseCallbackServiceWrapper.execute(url, aquariumInternal);
+			callbackServiceWrapper.execute(url, aquariumInternal);
 		}
 		catch(Exception e){
 			LOGGER.error("Error In Callback", e);

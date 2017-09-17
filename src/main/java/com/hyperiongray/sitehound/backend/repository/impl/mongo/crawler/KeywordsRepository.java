@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler;
 
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -22,12 +23,15 @@ import static com.mongodb.client.model.Filters.or;
  * Created by tomas on 11/16/15.
  */
 @Repository
-public class KeywordsRepository extends GenericCrawlMongoRepository{
+public class KeywordsRepository {//extends GenericCrawlMongoRepository{
 	private static final Logger LOGGER = LoggerFactory.getLogger(KeywordsRepository.class);
 
 	private static final String KEYWORDS_COLLECTION_NAME = "seed_urls";
 
-	@Autowired private CrawlJobRepository crawlJobRepository;
+//	@Autowired private CrawlJobRepository crawlJobRepository;
+	@Autowired protected MongoRepository mongoRepository;
+
+
 
 	public List<TrainedCrawledUrl> getTrainedDocuments(String workspaceId){
 		List<TrainedCrawledUrl> trainedCrawledUrls = new LinkedList<>();

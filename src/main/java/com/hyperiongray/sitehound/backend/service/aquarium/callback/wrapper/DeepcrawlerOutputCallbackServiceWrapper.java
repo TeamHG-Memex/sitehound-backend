@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * Created by tomas on 3/10/16.
  */
 
-public class DeepcrawlerOutputCallbackServiceWrapper extends BaseCallbackServiceWrapper {
+public class DeepcrawlerOutputCallbackServiceWrapper implements CallbackServiceWrapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeepcrawlerOutputCallbackServiceWrapper.class);
 
     private CrawlJob crawlJob;

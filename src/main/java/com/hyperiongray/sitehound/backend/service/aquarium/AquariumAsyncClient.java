@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.aquarium;
 
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.BaseCallbackServiceWrapper;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.CallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -9,6 +9,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.fluent.Content;
+import org.apache.http.client.fluent.ContentResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCredentialsProvider;
@@ -60,8 +61,13 @@ public class AquariumAsyncClient{
 	    //TODO implement retry strategy ...http://fahdshariff.blogspot.com.es/2009/08/retrying-operations-in-java.html ?
     }
 
+
+    public void fetch(String targetUrl, CallbackServiceWrapper callbackServiceWrapper) {
+        fetch(targetUrl, new ContentResponseHandler(), callbackServiceWrapper);
+    }
+
 //    public void fetch(String targetUrl,  ResponseHandler<Content> handler, FutureCallback<Content> myCallback) throws IOException {
-    public void fetch(String targetUrl,  ResponseHandler<Content> handler, BaseCallbackServiceWrapper callbackServiceWrapper){
+    private void fetch(String targetUrl, ResponseHandler<Content> handler, CallbackServiceWrapper callbackServiceWrapper){
         try{
             LOGGER.info("splash available semaphores: " + semaphore.availablePermits());
             LOGGER.debug("Getting Snapshot for: " + targetUrl);

@@ -8,25 +8,24 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 public class DdTrainerOutputProgress extends KafkaDto {
 
-    private String id;
-
+    private String workspaceId;
     private String progress;
 
     @JsonProperty("percentage_done")
     private Double percentageDone;
 
-    public String getId() {
-        return id;
+    @JsonProperty("workspace_id")
+    public String getWorkspaceId() {
+        return workspaceId;
     }
-
-    public void setId(String id) {
-        this.id = id;
+    @JsonProperty("workspace_id")
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     public String getProgress() {
         return progress;
     }
-
     public void setProgress(String progress) {
         this.progress = progress;
     }
@@ -34,7 +33,6 @@ public class DdTrainerOutputProgress extends KafkaDto {
     public Double getPercentageDone() {
         return percentageDone;
     }
-
     public void setPercentageDone(Double percentageDone) {
         this.percentageDone = percentageDone;
     }
@@ -42,7 +40,7 @@ public class DdTrainerOutputProgress extends KafkaDto {
     @Override
     public String toString() {
         return "DdTrainerOutputProgress{" +
-                "id='" + id + '\'' +
+                "workspaceId='" + workspaceId + '\'' +
                 ", progress='" + progress + '\'' +
                 ", percentageDone=" + percentageDone +
                 '}';

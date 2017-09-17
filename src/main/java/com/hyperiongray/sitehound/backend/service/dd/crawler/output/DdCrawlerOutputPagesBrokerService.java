@@ -42,7 +42,7 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
                 aquariumInput.setUrl(pageSample.getUrl());
                 ScoredCallbackServiceWrapper scoredCallbackServiceWrapper = new ScoredCallbackServiceWrapper(aquariumInput, ddCrawlerAquariumCallbackService, pageSample.getScore());
 //                AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(pageSample.getUrl(), semaphore, scoredCallbackServiceWrapper);
-                aquariumClient.fetch(pageSample.getUrl(), new ContentResponseHandler(), scoredCallbackServiceWrapper);
+                aquariumClient.fetch(pageSample.getUrl(), scoredCallbackServiceWrapper);
             }
         }
         catch(Exception e){
