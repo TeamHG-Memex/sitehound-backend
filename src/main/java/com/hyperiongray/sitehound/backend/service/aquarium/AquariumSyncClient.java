@@ -30,6 +30,7 @@ public class AquariumSyncClient{
         return Request.Get(url)
                        .connectTimeout(90000)
                        .socketTimeout(90000)
+
                        .execute()
                        .returnContent()
                        .asString();
