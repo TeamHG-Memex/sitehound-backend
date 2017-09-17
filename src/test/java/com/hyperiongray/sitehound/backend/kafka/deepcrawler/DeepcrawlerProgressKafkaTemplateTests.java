@@ -1,12 +1,13 @@
 package com.hyperiongray.sitehound.backend.kafka.deepcrawler;
 
 import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.kafka.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.ProgressDto;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.deepcrawler.producers.DeepcrawlerProgressProducer;
+import com.hyperiongray.sitehound.backend.service.dd.deepcrawler.DdDeepcrawlerProgressBrokerService;
 import org.assertj.core.util.Lists;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -32,7 +33,10 @@ public class DeepcrawlerProgressKafkaTemplateTests {
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
 
     @Autowired
-    private DeepcrawlerProgressProducer deepcrawlerProgressProducer;
+    private Producer producer;
+
+    @Autowired
+    private DdDeepcrawlerProgressBrokerService ddDeepcrawlerProgressBrokerService;
 
     @Test
     public void testTemplate() throws Exception {
@@ -80,7 +84,7 @@ public class DeepcrawlerProgressKafkaTemplateTests {
                 "}" +
         "}";
 */
-        deepcrawlerProgressProducer.produce(TEMPLATE_TOPIC, embeddedKafka, input);
+        producer.produce(TEMPLATE_TOPIC, embeddedKafka, ddDeepcrawlerProgressBrokerService, input);
     }
 
 }

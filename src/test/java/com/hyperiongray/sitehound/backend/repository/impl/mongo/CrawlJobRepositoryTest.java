@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 
+import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
@@ -14,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public class CrawlJobRepositoryTest{
 
 	@Autowired

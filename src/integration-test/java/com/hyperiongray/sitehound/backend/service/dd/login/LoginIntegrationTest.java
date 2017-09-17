@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.kafka.login;
+package com.hyperiongray.sitehound.backend.service.dd.login;
 
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;

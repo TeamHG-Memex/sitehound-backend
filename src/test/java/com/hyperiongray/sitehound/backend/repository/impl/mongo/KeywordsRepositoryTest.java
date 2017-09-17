@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo;
 
+import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
 import junit.framework.TestCase;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by tomas on 11/18/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public class KeywordsRepositoryTest extends TestCase{
 	private static final Logger LOGGER = LoggerFactory.getLogger(KeywordsRepositoryTest.class);
 

@@ -1,6 +1,8 @@
 package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch;
 
 import com.google.common.collect.Sets;
+import com.hyperiongray.sitehound.backend.Application;
+import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageTypeEnum;
 import com.hyperiongray.sitehound.backend.config.Configuration;
@@ -24,7 +26,7 @@ import java.io.IOException;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = Application.class)
 public class CrawledIndexHttpRepositoryTest{
 
 	@Autowired private CrawledIndexHttpRepository analyzedCrawlResultDtoCrawledIndexHttpRepository;

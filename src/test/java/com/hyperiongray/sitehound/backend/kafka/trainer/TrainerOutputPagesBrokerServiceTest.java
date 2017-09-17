@@ -99,24 +99,10 @@ public class TrainerOutputPagesBrokerServiceTest {
 
         producer.produce(TEMPLATE_TOPIC, embeddedKafka, brokerService, json);
 
-//
-//        try {
-//            Thread.sleep(2*1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            Thread.sleep(2*1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
         PageSample pageSample = new PageSample();
         pageSample.setDomain(domain1);
         pageSample.setScore(score1);
         pageSample.setUrl(url1);
-//        DdTrainerOutputPagesCallbackServiceWrapper callbackServiceWrapperMock = new DdTrainerOutputPagesCallbackServiceWrapper(pageSample, metadataMock, ddTrainerOutputPagesAquariumCallbackService);
 
         verify(aquariumClient).fetch(eq(url1), any());
 
@@ -157,31 +143,24 @@ public class TrainerOutputPagesBrokerServiceTest {
         ArgumentCaptor<Constants.CrawlEntityType> capturedCrawlEntityType = ArgumentCaptor.forClass(Constants.CrawlEntityType.class);
         ArgumentCaptor<AnalyzedCrawlResultDto> capturedAnalyzedCrawlResultDto = ArgumentCaptor.forClass(AnalyzedCrawlResultDto.class);
 
-//        ArgumentCaptor<DdLoginInput> argument = ArgumentCaptor.forClass(DdLoginInput.class);
-//        verify(keywordsAquariumCallbackServiceMock).save(argument.capture());
         try {
             verify(analyzedCrawlResultDtoIndexRepositoryMock).upsert(capturedHashKey.capture(), capturedWorkspaceId.capture(), capturedCrawlEntityType.capture(), capturedAnalyzedCrawlResultDto.capture());
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        assertEquals(ddLoginInput, argument.getValue());
+
         assertEquals(pageSample.getUrl(), capturedHashKey.getValue());
         assertEquals(workspaceId, capturedWorkspaceId.getValue());
         assertEquals(Constants.CrawlEntityType.DD, capturedCrawlEntityType.getValue());
         assertEquals(title, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getTitle());
         assertEquals(url1, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getUrl());
         assertEquals(ImageTypeEnum.PNG, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getImage().getType());
-//        assertEquals(Constants.CrawlEntityType.DD, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getHost());
-//        assertEquals(Constants.CrawlEntityType.DD, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getTimestamp());
-//        assertEquals(Constants.CrawlEntityType.DD, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getHtml());
-
 
 /*
         // update mongodb
         Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto, pageSample.getScore());
         genericCrawlMongoRepository.save(crawlRequestDto.getCrawlType(), crawlRequestDto.getWorkspace(), document);
 */
-
 
         ArgumentCaptor<Constants.CrawlType> capturedCrawlType = ArgumentCaptor.forClass(Constants.CrawlType.class);
         ArgumentCaptor<String> capturedWorkspaceId2 = ArgumentCaptor.forClass(String.class);
@@ -209,6 +188,4 @@ public class TrainerOutputPagesBrokerServiceTest {
 
         System.out.println("done");
     }
-
-
 }

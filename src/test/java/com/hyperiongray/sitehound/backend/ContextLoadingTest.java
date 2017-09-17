@@ -16,9 +16,9 @@ import java.net.URISyntaxException;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Configuration.class)
-public class ContextTest{
+public class ContextLoadingTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ContextTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ContextLoadingTest.class);
 
 	@Test
 	public void test() throws IOException, URISyntaxException{

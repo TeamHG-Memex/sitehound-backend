@@ -1,11 +1,12 @@
 package com.hyperiongray.sitehound.backend.kafka.deepcrawler;
 
 import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.kafka.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.DdDeepcrawlerOutputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.PageSampleDto;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.deepcrawler.producers.DeepcrawlOutputProducer;
+import com.hyperiongray.sitehound.backend.service.dd.deepcrawler.DdDeepcrawlerOutputBrokerService;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +32,10 @@ public class DeepcrawlerOutputKafkaTemplateTests {
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
 
     @Autowired
-    public DeepcrawlOutputProducer deepcrawlOutputProducer;
+    private DdDeepcrawlerOutputBrokerService ddDeepcrawlerOutputBrokerService;
+
+    @Autowired
+    private Producer producer;
 
     @Test
     public void testTemplate(){
@@ -55,7 +59,7 @@ public class DeepcrawlerOutputKafkaTemplateTests {
             e.printStackTrace();
         }
 
-        deepcrawlOutputProducer.produce(TEMPLATE_TOPIC, embeddedKafka, input);
+        producer.produce(TEMPLATE_TOPIC, embeddedKafka, ddDeepcrawlerOutputBrokerService, input);
 
         try {
             Thread.sleep(10000L);
