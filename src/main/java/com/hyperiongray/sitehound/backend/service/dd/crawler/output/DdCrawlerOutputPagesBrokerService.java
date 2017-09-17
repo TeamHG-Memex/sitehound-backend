@@ -3,21 +3,17 @@ package com.hyperiongray.sitehound.backend.service.dd.crawler.output;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputPages;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdCrawlerAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.ScoredCallbackServiceWrapper;
-import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
-import org.apache.http.client.fluent.ContentResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.Semaphore;
 
 /**
  * Created by tomas on 28/09/16.
@@ -34,10 +30,10 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
     public void process(String jsonInput){
         try{
             LOGGER.debug("Receiving response: " + jsonInput);
-            JsonMapper<DdCrawlerOutput> jsonMapper= new JsonMapper();
-            DdCrawlerOutput ddCrawlerOutput = jsonMapper.toObject(jsonInput, DdCrawlerOutput.class);
-            Metadata metadata = metadataBuilder.buildFromCrawlerOutput(ddCrawlerOutput.getId());
-            for (PageSample pageSample : ddCrawlerOutput.getPage_sample()){
+            JsonMapper<DdCrawlerOutputPages> jsonMapper= new JsonMapper();
+            DdCrawlerOutputPages ddCrawlerOutputPages = jsonMapper.toObject(jsonInput, DdCrawlerOutputPages.class);
+            Metadata metadata = metadataBuilder.buildFromCrawlerOutput(ddCrawlerOutputPages.getId());
+            for (PageSample pageSample : ddCrawlerOutputPages.getPageSamples()){
                 AquariumInput aquariumInput = new AquariumInput(metadata);
                 aquariumInput.setUrl(pageSample.getUrl());
                 ScoredCallbackServiceWrapper scoredCallbackServiceWrapper = new ScoredCallbackServiceWrapper(aquariumInput, ddCrawlerAquariumCallbackService, pageSample.getScore());

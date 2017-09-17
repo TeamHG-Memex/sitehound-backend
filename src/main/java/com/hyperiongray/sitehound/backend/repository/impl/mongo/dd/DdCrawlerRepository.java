@@ -19,21 +19,16 @@ import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepo
 public class DdCrawlerRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdCrawlerRepository.class);
 
-    @Autowired private CrawlJobRepository crawlJobRepository;
+//    @Autowired private CrawlJobRepository crawlJobRepository;
     @Autowired private MongoRepository mongoRepository;
-
-
-    public static final String LINK_MODEL_FIELD = "link_model";
-    private static final String TRAINER_PROGRESS_FIELD = "trainer_progress";
-
 
     public void saveProgress(DdCrawlerOutputProgress ddCrawlerOutputProgress) {
         LOGGER.info("About to crawler saveProgress:" + ddCrawlerOutputProgress.getId());
         Document document = new Document();
         document.put("progress", ddCrawlerOutputProgress.getProgress());
         document.put("percentageDone", ddCrawlerOutputProgress.getPercentageDone());
-        String workspaceId = crawlJobRepository.getWorkspaceId(ddCrawlerOutputProgress.getId());
-        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, workspaceId, "dd_crawler", document);
+//        String workspaceId = crawlJobRepository.getWorkspaceId(ddCrawlerOutputProgress.getId());
+        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, ddCrawlerOutputProgress.getWorkspaceId(), "dd_crawler", document);
     }
 
 }

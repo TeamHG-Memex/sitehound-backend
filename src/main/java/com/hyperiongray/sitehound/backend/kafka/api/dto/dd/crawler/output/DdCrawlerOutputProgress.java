@@ -10,9 +10,10 @@ public class DdCrawlerOutputProgress  extends KafkaDto {
 
     private String id;
 
+    private String workspaceId;
+
     private String progress;
 
-    @JsonProperty("percentage_done")
     private Double percentageDone;
 
 
@@ -24,6 +25,16 @@ public class DdCrawlerOutputProgress  extends KafkaDto {
         this.id = id;
     }
 
+    @JsonProperty("workspace_id")
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+    @JsonProperty("workspace_id")
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+    }
+
+
     public String getProgress() {
         return progress;
     }
@@ -32,10 +43,11 @@ public class DdCrawlerOutputProgress  extends KafkaDto {
         this.progress = progress;
     }
 
+    @JsonProperty("percentage_done")
     public Double getPercentageDone() {
         return percentageDone;
     }
-
+    @JsonProperty("percentage_done")
     public void setPercentageDone(Double percentageDone) {
         this.percentageDone = percentageDone;
     }

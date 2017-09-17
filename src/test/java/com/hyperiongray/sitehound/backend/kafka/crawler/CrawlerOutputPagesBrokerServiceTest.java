@@ -1,7 +1,10 @@
-package com.hyperiongray.sitehound.backend.kafka.trainer;
+package com.hyperiongray.sitehound.backend.kafka.crawler;
 
 import com.google.common.collect.Lists;
+import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.kafka.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.CrawledIndexHttpRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
@@ -9,13 +12,14 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.Imag
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.GenericCrawlMongoRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdCrawlerAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdTrainerOutputPagesAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DdTrainerOutputPagesCallbackServiceWrapper;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.ScoredCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
+import com.hyperiongray.sitehound.backend.service.dd.crawler.output.DdCrawlerOutputPagesBrokerService;
 import com.hyperiongray.sitehound.backend.service.dd.trainer.output.DdTrainerOutputPagesBrokerService;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.Producer;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,16 +37,18 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {KafkaTestConfiguration.class})
 @SpringBootTest
-public class TrainerOutputPagesBrokerServiceTest {
+public class CrawlerOutputPagesBrokerServiceTest {
 
 
-    private static final String TEMPLATE_TOPIC = "dd-trainer-output-pages";
+    private static final String TEMPLATE_TOPIC = "dd-crawler-output-pages";
 
     @ClassRule
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
@@ -50,8 +56,11 @@ public class TrainerOutputPagesBrokerServiceTest {
     @Autowired
     private Producer producer;
 
-    @Autowired
-    private DdTrainerOutputPagesBrokerService brokerService;
+    @Autowired private DdCrawlerOutputPagesBrokerService brokerService;
+
+
+//    @Autowired private DdCrawlerOutputPagesAquariumCallbackService ddTrainerOutputPagesAquariumCallbackService;
+    @Autowired private DdCrawlerAquariumCallbackService ddCrawlerAquariumCallbackService;
 
     @MockBean
     private AquariumAsyncClient aquariumClient;
@@ -60,13 +69,12 @@ public class TrainerOutputPagesBrokerServiceTest {
     @MockBean private CrawledIndexHttpRepository analyzedCrawlResultDtoIndexRepositoryMock;
     @MockBean private GenericCrawlMongoRepository genericCrawlMongoRepositoryMock;
 
-    //for...
-    @Autowired private DdTrainerOutputPagesAquariumCallbackService ddTrainerOutputPagesAquariumCallbackService;
-
     @Test
     public void testTemplate() {
 
         String workspaceId = "59b114a2e4dc96629bb2b2fb";
+        String jobId = "555114a2e4dc9662e4dc9662";
+
         String url1 = "http://example.com";
         String url2 = "http://example.com";
         String domain1 = "example1.com";
@@ -75,25 +83,26 @@ public class TrainerOutputPagesBrokerServiceTest {
         Double score2 = 90.0;
         Long timestamp = System.currentTimeMillis();
 
-        String json = "{" +
-                        "\"workspace_id\": \"" + workspaceId + "\"," +
-                        "\"page_samples\": [" +
-                                "{\"url\": \"" + url1 + "\", \"domain\": \"" + domain1 + "\", \"score\": " + score1 + "}" +
-//                                ",{\"url\": \"" + url2 + "\", \"domain\": \"" + domain2 + "\", \"score\": " + score2 + "}" +
-                            "]" +
-                        "}";
 
-//        Metadata metadataMock = metadataBuilder.buildFromTrainerOutputPages(workspaceId);
+        String json = "{" +
+            "\"id\": \""+jobId+"\"," +
+            "\"workspace_id\": \"" + workspaceId + "\"," +
+            "\"page_samples\": [" +
+            "       {\"url\": \"" + url1 + "\", \"domain\": \"" + domain1 + "\", \"score\": " + score1 + "}" +
+//                ",{\"url\": \"http://example2.com\", \"domain\": \"example2.com\", \"score\": 90}" +
+            "]" +
+        "}";
+
         Metadata metadataMock = new Metadata();
-        metadataMock.setWorkspace(workspaceId);
-        metadataMock.setJobId(workspaceId); // using the workspace as jobId cause not only one job per ws is allowed
-        metadataMock.setCrawlType(Constants.CrawlType.KEYWORDS);
+        metadataMock.setCrawlType(Constants.CrawlType.BROADCRAWL);
         metadataMock.setSource("DD");
         metadataMock.setStrTimestamp(String.valueOf(timestamp));
+        metadataMock.setWorkspace(workspaceId);
         metadataMock.setTimestamp(timestamp);
         metadataMock.setCallbackQueue("");
+        metadataMock.setJobId(jobId);
         metadataMock.setCrawlEntityType(Constants.CrawlEntityType.DD);
-        metadataMock.setnResults(30);
+        metadataMock.setnResults(1000);
 
         when(metadataBuilder.buildFromTrainerOutputPages(workspaceId)).thenReturn(metadataMock);
 
@@ -105,12 +114,6 @@ public class TrainerOutputPagesBrokerServiceTest {
         pageSample.setUrl(url1);
 
         verify(aquariumClient).fetch(eq(url1), any());
-
-
-        /*
-        // update ES index
-        String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(pageSample.getUrl(), crawlRequestDto.getWorkspace(), crawlRequestDto.getCrawlEntityType(), analyzedCrawlResultDto);
-        */
 
         try {
             when(analyzedCrawlResultDtoIndexRepositoryMock.upsert(anyString(), anyString(), any(), any())).thenReturn(url1);
@@ -125,8 +128,8 @@ public class TrainerOutputPagesBrokerServiceTest {
         ArrayList<Integer> geometry = Lists.newArrayList(1, 2, 3);
 
 
-        DdTrainerOutputPagesCallbackServiceWrapper ddTrainerOutputPagesCallbackServiceWrapper =
-                new DdTrainerOutputPagesCallbackServiceWrapper(pageSample, metadataMock, ddTrainerOutputPagesAquariumCallbackService);
+        AquariumInput aquariumInput = new AquariumInput(metadataMock);
+        aquariumInput.setUrl(pageSample.getUrl());
 
         AquariumInternal aquariumInternal = new AquariumInternal();
         aquariumInternal.setGeometry(geometry);
@@ -135,7 +138,8 @@ public class TrainerOutputPagesBrokerServiceTest {
         aquariumInternal.setRequestedUrl(url1);
         aquariumInternal.setTitle(title);
 
-        ddTrainerOutputPagesCallbackServiceWrapper.execute(url1, aquariumInternal);
+        ScoredCallbackServiceWrapper scoredCallbackServiceWrapper = new ScoredCallbackServiceWrapper(aquariumInput, ddCrawlerAquariumCallbackService, pageSample.getScore());
+        scoredCallbackServiceWrapper.execute(url1, aquariumInternal);
 
 
         ArgumentCaptor<String> capturedHashKey = ArgumentCaptor.forClass(String.class);
@@ -170,15 +174,15 @@ public class TrainerOutputPagesBrokerServiceTest {
         verify(genericCrawlMongoRepositoryMock).save(capturedCrawlType.capture(), capturedWorkspaceId2.capture(), capturedDocument.capture());
 
         assertEquals(workspaceId, capturedWorkspaceId2.getValue());
-        assertEquals(Constants.CrawlType.KEYWORDS, capturedCrawlType.getValue());
+        assertEquals(Constants.CrawlType.BROADCRAWL, capturedCrawlType.getValue());
 
         Map<String, Object> capturedDocumentValue = capturedDocument.getValue();
         assertEquals(url1, capturedDocumentValue.get("hashKey"));
 //        assertEquals(List.empty(), capturedDocumentValue.get("words"));
         assertEquals(title, capturedDocumentValue.get("title"));
         assertEquals(url1, capturedDocumentValue.get("url"));
-        assertEquals(workspaceId, capturedDocumentValue.get("jobId"));
         assertEquals(workspaceId, capturedDocumentValue.get("workspaceId"));
+        assertEquals(jobId, capturedDocumentValue.get("jobId"));
         assertEquals(score1, capturedDocumentValue.get("score"));
         assertEquals(Constants.CrawlerProvider.HH_JOOGLE.name(), capturedDocumentValue.get("provider"));
         assertEquals("example.com", capturedDocumentValue.get("host"));
@@ -187,5 +191,6 @@ public class TrainerOutputPagesBrokerServiceTest {
         assertEquals(timestamp, capturedDocumentValue.get("timestamp"));
 
         System.out.println("done");
+
     }
 }
