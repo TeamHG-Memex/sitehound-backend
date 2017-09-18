@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.DefaultProcess;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DefaultAquariumCallbackService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +14,9 @@ public class DefaultCallbackServiceWrapper implements CallbackServiceWrapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultCallbackServiceWrapper.class);
 
     private final AquariumInput aquariumInput;
-    private final DefaultProcess baseAquariumCallbackService;
+    private final DefaultAquariumCallbackService baseAquariumCallbackService;
 
-    public DefaultCallbackServiceWrapper(AquariumInput aquariumInput, DefaultProcess baseAquariumCallbackService) {
+    public DefaultCallbackServiceWrapper(AquariumInput aquariumInput, DefaultAquariumCallbackService baseAquariumCallbackService) {
         this.aquariumInput = aquariumInput;
         this.baseAquariumCallbackService = baseAquariumCallbackService;
     }
