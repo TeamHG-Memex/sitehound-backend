@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.integration.classifier;
+package com.hyperiongray.sitehound.backend.activity.classifier;
 
 import com.hyperiongray.sitehound.backend.service.nlp.classifier.ClassifierSyncClient;
 import com.hyperiongray.sitehound.backend.Configuration;

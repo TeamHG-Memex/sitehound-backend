@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.integration.classifier;
+package com.hyperiongray.sitehound.backend.activity.classifier;
 
 /**
  * Created by tomas on 29/03/17.

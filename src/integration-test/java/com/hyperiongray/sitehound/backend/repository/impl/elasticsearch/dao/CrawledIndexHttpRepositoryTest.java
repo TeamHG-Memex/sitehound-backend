@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.impl.elasticsearch;
+package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao;
 
 import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.Application;

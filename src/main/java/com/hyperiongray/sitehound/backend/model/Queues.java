@@ -5,13 +5,13 @@ package com.hyperiongray.sitehound.backend.model;
  */
 public enum  Queues {
 
+    KEYWORDS_INPUT(ZookeeperType.HG, "google-keywords-input"),
+    IMPORT_URL_INPUT(ZookeeperType.HG, "import-url-input"),
     AQUARIUM_INPUT(ZookeeperType.HG, "aquarium-input"),
     DD_MODELER_INPUT(ZookeeperType.HG, "dd-modeler-input"),
     DD_TRAINER_INPUT(ZookeeperType.HG, "dd-trainer-input"),
     DD_CRAWLER_INPUT(ZookeeperType.HG, "dd-crawler-input"),
-    DD_CRAWLER_HINTS_INPUT(ZookeeperType.HG, "dd-crawler-hints-input")//,
-
- ;
+    DD_CRAWLER_HINTS_INPUT(ZookeeperType.HG, "dd-crawler-hints-input");
 
 
     private final ZookeeperType zookeeperType;

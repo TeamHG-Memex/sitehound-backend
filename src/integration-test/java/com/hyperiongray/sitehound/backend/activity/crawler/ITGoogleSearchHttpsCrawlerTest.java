@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.integration.crawler;
+package com.hyperiongray.sitehound.backend.activity.crawler;
 
 import junit.framework.Assert;
 import org.apache.http.client.utils.URIBuilder;

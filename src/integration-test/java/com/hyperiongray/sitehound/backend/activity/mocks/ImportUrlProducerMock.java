@@ -1,13 +1,13 @@
-package com.hyperiongray.sitehound.backend.integration.mocks;
+package com.hyperiongray.sitehound.backend.activity.mocks;
 
-import com.hyperiongray.sitehound.backend.integration.ImportUrlFlowTest;
+import com.hyperiongray.sitehound.backend.activity.ImportUrlFlowTest;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.producer.LocalQueueProducer;
+import com.hyperiongray.sitehound.backend.model.Queues;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,9 +18,6 @@ import java.io.IOException;
 @Component
 public class ImportUrlProducerMock {
 
-
-	@Value( "${kafka.subscriber.topic.importurl}" )
-	private String importUrlInputQueue;
 
 	@Autowired
 	private LocalQueueProducer localQueueProducer;
@@ -39,7 +36,7 @@ public class ImportUrlProducerMock {
 
 		ImportUrlFlowTest.ImportUrl importUrl = new ImportUrlFlowTest.ImportUrl(metadata, url, true);
 		String importUrlString = jsonMapper.toString(importUrl);
-		localQueueProducer.send(importUrlInputQueue, importUrlString);
+		localQueueProducer.send(Queues.IMPORT_URL_INPUT.getSubscriberTopic(), importUrlString);
 		LOGGER.info("Sent to aquarium"  + importUrlString +" with url:" + importUrl.getUrl());
 	}
 }

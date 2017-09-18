@@ -5,7 +5,7 @@
 .idea
 *.iml
 target/
-
+notes/
 # Package Files #
 *.jar
 *.war

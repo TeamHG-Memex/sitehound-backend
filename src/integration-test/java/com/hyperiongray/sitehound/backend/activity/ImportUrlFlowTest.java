@@ -1,7 +1,7 @@
-package com.hyperiongray.sitehound.backend.integration;
+package com.hyperiongray.sitehound.backend.activity;
 
 import com.hyperiongray.sitehound.backend.Configuration;
-import com.hyperiongray.sitehound.backend.integration.mocks.ImportUrlProducerMock;
+import com.hyperiongray.sitehound.backend.activity.mocks.ImportUrlProducerMock;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.integration;
+package com.hyperiongray.sitehound.backend.activity;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.integration.crawler;
+package com.hyperiongray.sitehound.backend.activity.crawler;
 
 import com.hyperiongray.sitehound.backend.Configuration;
 import com.hyperiongray.sitehound.backend.httpclient.HttpClientConnector;

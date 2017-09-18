@@ -62,7 +62,7 @@ public class DeepcrawlerOutputKafkaTemplateTests {
         producer.produce(TEMPLATE_TOPIC, embeddedKafka, ddDeepcrawlerOutputBrokerService, input);
 
         try {
-            Thread.sleep(10000L);
+            Thread.sleep(2000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.impl.mongo.dd.translator;
+package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.translator;
 
 import com.google.common.collect.Lists;
 import com.hyperiongray.sitehound.backend.TestConfiguration;
