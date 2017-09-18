@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.integration.crawler;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.Configuration;
 import com.hyperiongray.sitehound.backend.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.SearchEngineCrawlResult;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingSearchCrawler;

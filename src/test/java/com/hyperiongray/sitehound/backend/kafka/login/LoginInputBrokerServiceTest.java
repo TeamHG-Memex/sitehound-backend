@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.kafka.login;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.Configuration;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginInputBrokerService;

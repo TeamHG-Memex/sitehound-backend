@@ -1,6 +1,5 @@
 package com.hyperiongray.sitehound.backend;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

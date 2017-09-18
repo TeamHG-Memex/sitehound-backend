@@ -1,7 +1,6 @@
 package com.hyperiongray.sitehound.backend.impl.mongo;
 
 import com.hyperiongray.sitehound.backend.TestConfiguration;
-import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import com.hyperiongray.sitehound.backend.model.DdLoginInputTestHelper;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;

@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.splash;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

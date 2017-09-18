@@ -14,13 +14,14 @@ import org.springframework.context.annotation.ComponentScan;
 @org.springframework.context.annotation.Configuration
 @ComponentScan(value={
 		"com.hyperiongray.framework",
-		"com.hyperiongray.sitehound.backend.activity",
-		"com.hyperiongray.sitehound.backend.config",
-		"com.hyperiongray.sitehound.backend.httpclient",
-		"com.hyperiongray.sitehound.backend.kafka",
-		"com.hyperiongray.sitehound.backend.model",
-		"com.hyperiongray.sitehound.backend.repository",
-		"com.hyperiongray.sitehound.backend.service",
+		"com.hyperiongray.sitehound.backend",
+//		"com.hyperiongray.sitehound.backend.activity",
+//		"com.hyperiongray.sitehound.backend.config",
+//		"com.hyperiongray.sitehound.backend.httpclient",
+//		"com.hyperiongray.sitehound.backend.kafka",
+//		"com.hyperiongray.sitehound.backend.model",
+//		"com.hyperiongray.sitehound.backend.repository",
+//		"com.hyperiongray.sitehound.backend.service",
 })
 
 public class Application implements CommandLineRunner{

@@ -1,7 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.htmlunit;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
-import com.hyperiongray.sitehound.backend.service.htmlunit.UrlFetcher;
+import com.hyperiongray.sitehound.backend.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

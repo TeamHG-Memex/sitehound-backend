@@ -27,7 +27,7 @@ public class KeywordsActivity implements Activity {
 
 	private JsonMapper<SubscriberInput> jsonMapper = new JsonMapper();
 
-	@KafkaListener(topics= "google-keywords-input")
+	@KafkaListener(topics= "google-keywords-input", containerFactory = "kafkaListenerContainerFactory")
 	public void listen(@Payload String data,
 //					   @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) Integer key,
 					   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
