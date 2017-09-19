@@ -25,6 +25,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+import static java.util.concurrent.Executors.newWorkStealingPool;
+
 
 /**
  * Created by tomas on 9/18/15.
@@ -35,9 +37,10 @@ public class AquariumAsyncClient{
 
     @Value( "${aquarium.host}" ) private String host;
     @Value( "${aquarium.url.path}" ) private String path;
-    @Value( "${aquarium.threads}" ) private int threads;
     @Value( "${aquarium.user}" ) private String user;
     @Value( "${aquarium.password}" ) private String password;
+//    @Value( "${aquarium.threads}" ) private int threads;
+    @Value( "${aquarium.tasks.concurrent.load}" ) private int concurrentLoad;
 
     private FutureRequestExecutionService futureRequestExecutionService;
     private RequestConfig config;
@@ -46,15 +49,16 @@ public class AquariumAsyncClient{
 
     @PostConstruct
     public void postConstruct(){
-        semaphore = new Semaphore(threads);
+        semaphore = new Semaphore(concurrentLoad);
 
         CredentialsProvider provider = new BasicCredentialsProvider();
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(user, password);
         provider.setCredentials(AuthScope.ANY, credentials);
 
 //        HttpClient httpClient = HttpClientBuilder.create().setMaxConnPerRoute(100).setMaxConnTotal(threads-1).build();
-        HttpClient httpClient = HttpClientBuilder.create().setMaxConnPerRoute(threads-1).setMaxConnTotal(threads-1).setDefaultCredentialsProvider(provider).build();
-        executorService=Executors.newFixedThreadPool(threads);
+        HttpClient httpClient = HttpClientBuilder.create().setMaxConnPerRoute(concurrentLoad-1).setMaxConnTotal(concurrentLoad-1).setDefaultCredentialsProvider(provider).build();
+//        executorService=Executors.newFixedThreadPool(threads);
+        executorService=newWorkStealingPool();
         futureRequestExecutionService = new FutureRequestExecutionService(httpClient, executorService);
         config = RequestConfig.custom().setConnectionRequestTimeout(120*1000).setConnectTimeout(120*1000).setSocketTimeout(120*1000).build();
 
@@ -66,15 +70,14 @@ public class AquariumAsyncClient{
         fetch(targetUrl, new ContentResponseHandler(), callbackServiceWrapper);
     }
 
-//    public void fetch(String targetUrl,  ResponseHandler<Content> handler, FutureCallback<Content> myCallback) throws IOException {
     private void fetch(String targetUrl, ResponseHandler<Content> handler, CallbackServiceWrapper callbackServiceWrapper){
         try{
-            LOGGER.info("splash available semaphores: " + semaphore.availablePermits());
-            LOGGER.debug("Getting Snapshot for: " + targetUrl);
+            LOGGER.info("Getting Snapshot for: " + targetUrl + ", splash available semaphores: " + semaphore.availablePermits());
             AquariumAsyncClientCallback callback = new AquariumAsyncClientCallback(targetUrl, semaphore, callbackServiceWrapper);
             String url = host + path + targetUrl;
             HttpGet httpGet = new HttpGet(url);
             httpGet.setConfig(config);
+            semaphore.acquire();
             futureRequestExecutionService.execute(httpGet, HttpClientContext.create(), handler, callback);
             LOGGER.debug("Scheduled snapshot of: " + url);
         }

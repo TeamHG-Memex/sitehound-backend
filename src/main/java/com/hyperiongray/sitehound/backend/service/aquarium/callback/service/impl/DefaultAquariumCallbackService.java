@@ -53,6 +53,4 @@ public class DefaultAquariumCallbackService{
             LOGGER.error("Error Analyzing: " + aquariumInput.getUrl(), e);
         }
     }
-
-
 }

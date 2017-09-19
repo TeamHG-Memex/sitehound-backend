@@ -19,6 +19,7 @@ import java.io.IOException;
  * Created by tomas on 9/18/15.
  */
 @Component
+@Deprecated
 public class BroadcrawlerActivity implements Activity {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BroadcrawlerActivity.class);
 

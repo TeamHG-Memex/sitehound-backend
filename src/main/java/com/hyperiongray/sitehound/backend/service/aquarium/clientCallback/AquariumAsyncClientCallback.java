@@ -30,18 +30,16 @@ public class AquariumAsyncClientCallback implements FutureCallback<Content>{
 	}
 
 	public void completed(final Content content) {
+		LOGGER.info("Aquarium response for: " + url);
 		try{
-			LOGGER.info("Aquarium response for: " + url);
 			AquariumInternal aquariumInternal = aquariumInternalJsonMapper.toObject(content.asString(Charset.forName("UTF-8")), AquariumInternal.class);
 			callbackServiceWrapper.execute(url, aquariumInternal);
+			semaphore.release();
+			LOGGER.info("Aquarium finished and inserted: " + url + ". Semaphores available permits: " + semaphore.availablePermits());
 		}
 		catch(Exception e){
 			LOGGER.error("Error In Callback", e);
-		}
-		finally{
-			LOGGER.info("Aquarium finished and inserted: " + url);
 			semaphore.release();
-			LOGGER.info("semaphores available permits: " + semaphore.availablePermits());
 		}
 	}
 
