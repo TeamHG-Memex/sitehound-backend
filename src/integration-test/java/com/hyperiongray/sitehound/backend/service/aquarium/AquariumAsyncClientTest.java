@@ -24,7 +24,7 @@ public class AquariumAsyncClientTest {
 
 
     /**
-     * Test designed to stress splash
+     * Test designed to stress-test splash
      */
     @Test
     public void fetch(){

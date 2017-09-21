@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.dd;
 
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.client.MongoCollection;
@@ -27,6 +28,16 @@ public class DdModelerProgressRepository {
     @Autowired private MongoRepository mongoRepository;
 
 
+    public void saveQuality(DdModelerOutput ddModelerOutput){
+        LOGGER.info("About to saveQuality:" + ddModelerOutput.getWorkspaceId());
+        MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
+        Bson filter = Filters.eq("_id", new ObjectId(ddModelerOutput.getWorkspaceId()));
+        Bson updateQuality = Updates.set(PAGE_MODEL_FIELD + ".quality", ddModelerOutput.getQuality());
+//        Bson updatesModel = Updates.set(PAGE_MODEL_FIELD + ".model", ddModelerOutput.getModel());
+//        Bson combinedUpdate = combine(updateQuality, updatesModel);
+        collection.findOneAndUpdate(filter, updateQuality);
+        LOGGER.info("done saving DdModelerOutput");
+    }
 
     public void saveProgress(DdModelerProgress ddModelerProgress) {
         try{

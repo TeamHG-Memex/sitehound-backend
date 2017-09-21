@@ -46,7 +46,7 @@ public class ModelerProgressBrokerServiceTest {
     @Test
     public void testTemplate(){
 
-        String id = "59b114a2e4dc96629bb2b2fb";
+        String id = "59c27d45e91b2e11edbaf859";
         Double percentageDone = 98.123;
 
         String input = "{" +

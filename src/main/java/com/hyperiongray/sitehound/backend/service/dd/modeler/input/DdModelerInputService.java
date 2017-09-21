@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.service.dd.modeler.input;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.input.DdModelerInput;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
 import com.hyperiongray.sitehound.backend.service.CompressionService;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
@@ -28,7 +28,7 @@ public class DdModelerInputService {
     @Autowired private CrawledIndexService crawledIndexService;
     @Autowired private CompressionService compressionService;
     @Autowired private DdModelerProgressRepository ddModelerRepository;
-    @Autowired private ModelerModelRepository modelerModelRepository;
+    @Autowired private ElasticsearchModelerModelRepository modelerModelRepository;
 
     public DdModelerInput getDdModelerInput(String workspaceId) throws IOException {
         LOGGER.info("about the build DdModelerInput for workspace: " + workspaceId);

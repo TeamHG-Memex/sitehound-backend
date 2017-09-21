@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.kafka.modeler;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.output.DdModelerOutputBrokerService;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.Producer;
@@ -41,7 +41,7 @@ public class ModelerOutputBrokerServiceTest {
     private DdModelerOutputBrokerService brokerService;
 
     @MockBean
-    private ModelerModelRepository modelerModelRepositoryMock;
+    private ElasticsearchModelerModelRepository modelerModelRepositoryMock;
 
     @Test
     public void testTemplate() throws IOException {

@@ -51,7 +51,7 @@ public class DdTrainerRepository {
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
         Bson filter = new BasicDBObject("_id", new ObjectId(workspaceId));
         Bson updatesModel1 = Updates.set("dd_trainer.percentage_done", ddTrainerOutputProgress.getPercentageDone());
-        Bson updatesModel2 = Updates.set("dd_trainer.trainer_progress", ddTrainerOutputProgress.getProgress());
+        Bson updatesModel2 = Updates.set("dd_trainer.progress", ddTrainerOutputProgress.getProgress());
         Bson combinedUpdate = combine(updatesModel1, updatesModel2);
         collection.findOneAndUpdate(filter, combinedUpdate);
 

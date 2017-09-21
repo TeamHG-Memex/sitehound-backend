@@ -12,9 +12,9 @@ import java.io.IOException;
  * Created by tomas on 19/07/17.
  */
 @Repository
-public class ModelerModelRepository extends AbstractElasticsearchRepository<DdModelerOutput> {
+public class ElasticsearchModelerModelRepository extends AbstractElasticsearchRepository<DdModelerOutput> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModelerModelRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchModelerModelRepository.class);
 
     private String indexName ="modeler";
     private String typeName = "model";

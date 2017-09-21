@@ -21,7 +21,7 @@ public class DdModelRepositoryTest {
 
     @Autowired private DdModelerProgressRepository ddModelerProgressRepository;
 
-    private static String workspaceId = "59676bc6166f1c7543990bf3";
+    private static String workspaceId = "59c27d45e91b2e11edbaf859";
     private double percentageDone = 98.13;
 
     @Test

@@ -6,7 +6,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawl
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputModel;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ModelerModelRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.BroadCrawlRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
@@ -28,7 +28,7 @@ public class DdCrawlerInputService {
     @Autowired private KeywordsRepository keywordsRepository;
     @Autowired private BroadCrawlRepository broadCrawlRepository;
 
-    @Autowired private ModelerModelRepository modelerModelRepository;
+    @Autowired private ElasticsearchModelerModelRepository modelerModelRepository;
     @Autowired private TrainerModelRepository trainerModelRepository;
 
 

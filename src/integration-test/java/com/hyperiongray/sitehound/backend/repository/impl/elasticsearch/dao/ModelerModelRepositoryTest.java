@@ -19,7 +19,7 @@ import java.io.IOException;
 public class ModelerModelRepositoryTest {
 
     @Autowired
-    private ModelerModelRepository modelerModelRepository = new ModelerModelRepository();
+    private ElasticsearchModelerModelRepository modelerModelRepository = new ElasticsearchModelerModelRepository();
 
     private String id = "12345678";
     private String model = "big modell..d.adf";
