@@ -24,6 +24,7 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
     @Autowired private CrawlJobRepository crawlJobRepository;
 
     @Override
+    @Deprecated //this is not published anymore by dd. It's used only internally
     public void process(String jsonInput){
         try{
             LOGGER.debug("Receiving response size: " + jsonInput.length());

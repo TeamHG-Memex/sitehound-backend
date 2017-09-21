@@ -38,18 +38,11 @@ public class DdTrainerRepository {
 
 
     public void saveProgress(DdTrainerOutputProgress ddTrainerOutputProgress) {
-        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputProgress.getWorkspaceId());
+//        String workspaceId = crawlJobRepository.getWorkspaceId(ddTrainerOutputProgress.getWorkspaceId());
 
-        LOGGER.info("About to trainer saveProgress for jobId:" + ddTrainerOutputProgress.getWorkspaceId() +", workspaceId:" + workspaceId);
-//        Document document = new Document();
-//        document.put("trainer_progress", ddTrainerOutputProgress.getProgress());
-//        document.put("percentage_done", ddTrainerOutputProgress.getPercentageDone());
-//
-//        mongoRepository.updateFieldsInDocument(WORKSPACE_COLLECTION_NAME, workspaceId, "dd_trainer", document);
-//
-
+        LOGGER.info("About to trainer saveProgress for jobId:" + ddTrainerOutputProgress.getWorkspaceId() +", workspaceId:" + ddTrainerOutputProgress.getWorkspaceId());
         MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(WORKSPACE_COLLECTION_NAME);
-        Bson filter = new BasicDBObject("_id", new ObjectId(workspaceId));
+        Bson filter = new BasicDBObject("_id", new ObjectId(ddTrainerOutputProgress.getWorkspaceId()));
         Bson updatesModel1 = Updates.set("dd_trainer.percentage_done", ddTrainerOutputProgress.getPercentageDone());
         Bson updatesModel2 = Updates.set("dd_trainer.progress", ddTrainerOutputProgress.getProgress());
         Bson combinedUpdate = combine(updatesModel1, updatesModel2);
