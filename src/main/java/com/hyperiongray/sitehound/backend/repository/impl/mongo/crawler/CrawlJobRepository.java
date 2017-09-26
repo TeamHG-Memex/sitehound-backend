@@ -1,11 +1,13 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler;
 
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository.JOB_COLLECTION_NAME;
 import static com.mongodb.client.model.Updates.combine;
 
 /**
@@ -109,4 +112,20 @@ public class CrawlJobRepository{
 		Bson updatesModel = Updates.set("percentage_done",percentageDone);
 		collection.findOneAndUpdate(filter, updatesModel);
 	}
+
+
+	public void saveProgress(DdCrawlerOutputProgress ddCrawlerOutputProgress) {
+		LOGGER.info("About to update crawler progress:" + ddCrawlerOutputProgress.getId());
+
+		Bson filter = Filters.eq("_id", new ObjectId(ddCrawlerOutputProgress.getId()));
+		Bson updateProgress = Updates.set("progress", ddCrawlerOutputProgress.getProgress());
+		Bson updatePercentageDone = Updates.set("percentage_done", ddCrawlerOutputProgress.getPercentageDone());
+		Bson combinedUpdate = combine(updateProgress, updatePercentageDone);
+
+		MongoCollection<Document> collection = mongoRepository.getCollection(JOB_COLLECTION_NAME);
+		collection.findOneAndUpdate(filter, combinedUpdate);
+
+		LOGGER.info("updating field : " + ddCrawlerOutputProgress.getId() + " in: "+ JOB_COLLECTION_NAME);
+	}
+
 }

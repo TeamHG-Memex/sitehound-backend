@@ -1,7 +1,8 @@
 package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ModelerModelDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,16 +16,15 @@ import java.io.IOException;
  * Created by tomas on 19/07/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public class ModelerModelRepositoryTest {
 
     @Autowired
     private ElasticsearchModelerModelRepository modelerModelRepository = new ElasticsearchModelerModelRepository();
 
-    private String id = "12345678";
-    private String model = "big modell..d.adf";
+    private String id = "59c27d45e91b2e11edbaf859";
+    private String model = "YmlnIG1vZGVsbC4uZC5hZGY";
     private String quality = "big modell..d.adf";
-
 
     @Test
     public void crud() throws Exception {
@@ -35,23 +35,23 @@ public class ModelerModelRepositoryTest {
         ddModelerOutput.setQuality(quality);
         modelerModelRepository.save(ddModelerOutput);
 
-        DdModelerOutput ddModelerOutputSaved = modelerModelRepository.get(id);
-        Assert.assertEquals(ddModelerOutput.getWorkspaceId(), ddModelerOutputSaved.getWorkspaceId());
-        Assert.assertEquals(ddModelerOutput.getModel(), ddModelerOutputSaved.getModel());
-        Assert.assertEquals(ddModelerOutput.getQuality(), ddModelerOutputSaved.getQuality());
-        System.out.println(ddModelerOutputSaved);
+        ModelerModelDto savedModel = modelerModelRepository.get(id);
+        Assert.assertEquals(model, savedModel.getModel());
 
         modelerModelRepository.delete(id);
 
-        DdModelerOutput ddModelerOutputSavedAfterDelete = modelerModelRepository.get(id);
-        Assert.assertNull(ddModelerOutputSavedAfterDelete);
+        ModelerModelDto savedModelAfterDelete = modelerModelRepository.get(id);
+        Assert.assertNull(savedModelAfterDelete);
+
+        modelerModelRepository.save(ddModelerOutput);
+
     }
 
 
     @Test
     public void getTest() throws IOException {
 //        NotFoundError: TransportError(404, u'{"_index":"modeler","_type":"model","_id":"59676bc6166f1c7543990bf3","found":false}')
-        DdModelerOutput ddModelerOutputSaved = modelerModelRepository.get(id);
-        System.out.println(ddModelerOutputSaved);
+        ModelerModelDto model = modelerModelRepository.get(id);
+        System.out.println(model);
     }
 }

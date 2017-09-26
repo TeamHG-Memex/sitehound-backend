@@ -38,6 +38,7 @@ public class MongoRepository{
 	public static final String BROAD_CRAWLER_COLLECTION_NAME="broad_crawler";
 	public static final String DEEP_CRAWLER_COLLECTION_NAME="deep_crawler";
 	public static final String DEEP_CRAWLER_DOMAINS_COLLECTION_NAME="deep_crawler_domains";
+	public static final String JOB_COLLECTION_NAME="crawl_job";
 
 	@Value( "${mongo.host}" ) private String host;
 	@Value( "${mongo.port}" ) private Integer port;
@@ -54,6 +55,10 @@ public class MongoRepository{
 
 	public MongoDatabase getDatabase(){
 		return  mongoClient.getDatabase(db);
+	}
+
+	public MongoCollection<Document> getCollection(String collectionName){
+		return getDatabase().getCollection(collectionName);
 	}
 
 	public FindIterable<Document> find(String collectionName, String workspaceId, Bson filter){
@@ -146,6 +151,9 @@ public class MongoRepository{
 		Bson updates = Updates.set(key, document);
 		collection.findOneAndUpdate(filter, updates);
 	}
+
+
+
 
 	public Document getById(String collectionName, String objectId){
 		MongoCollection<Document> collection = getDatabase().getCollection(collectionName);

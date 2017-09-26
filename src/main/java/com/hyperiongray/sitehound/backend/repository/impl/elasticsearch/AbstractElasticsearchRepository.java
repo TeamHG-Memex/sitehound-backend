@@ -21,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
  */
 @Component
 public abstract class AbstractElasticsearchRepository<T>{
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractElasticsearchRepository.class);
 
 
 	@Value( "${elasticsearch.host}" ) private String host;
@@ -28,7 +29,6 @@ public abstract class AbstractElasticsearchRepository<T>{
 
 	private JestClient client;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractElasticsearchRepository.class);
 
 	@PostConstruct
 	public void postConstruct() throws KeyManagementException, NoSuchAlgorithmException{

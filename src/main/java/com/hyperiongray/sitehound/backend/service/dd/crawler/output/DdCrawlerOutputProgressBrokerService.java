@@ -18,7 +18,6 @@ import java.util.concurrent.Semaphore;
 @Service
 public class DdCrawlerOutputProgressBrokerService implements BrokerService {
 
-    @Autowired private DdCrawlerRepository ddCrawlerRepository;
     @Autowired private CrawlJobRepository crawlJobRepository;
 
 
@@ -32,9 +31,7 @@ public class DdCrawlerOutputProgressBrokerService implements BrokerService {
             JsonMapper<DdCrawlerOutputProgress> jsonMapper= new JsonMapper();
             DdCrawlerOutputProgress ddCrawlerOutputProgress = jsonMapper.toObject(jsonInput, DdCrawlerOutputProgress.class);
             LOGGER.debug("DdCrawlerOutputProgressBrokerService received ddCrawlerOutputProgress: " + ddCrawlerOutputProgress);
-
-            ddCrawlerRepository.saveProgress(ddCrawlerOutputProgress);
-            crawlJobRepository.saveProgress(ddCrawlerOutputProgress.getId(), ddCrawlerOutputProgress.getPercentageDone());
+            crawlJobRepository.saveProgress(ddCrawlerOutputProgress);
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

@@ -6,6 +6,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawl
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputModel;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ModelerModelDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.BroadCrawlRepository;
@@ -24,7 +25,6 @@ import java.util.List;
 @Service
 public class DdCrawlerInputService {
 
-    @Autowired private DdCrawlerRepository ddCrawlerRepository;
     @Autowired private KeywordsRepository keywordsRepository;
     @Autowired private BroadCrawlRepository broadCrawlRepository;
 
@@ -49,9 +49,9 @@ public class DdCrawlerInputService {
 //        Map<String, String> models = ddRepository.getModels(eventInput.getWorkspaceId());
 //        ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
 //        ddCrawlerInputStartDto.setLinkModel(models.get("link_model"));
-        DdModelerOutput ddModelerOutput = modelerModelRepository.get(eventInput.getWorkspaceId());
+        ModelerModelDto modelerModelDto = modelerModelRepository.get(eventInput.getWorkspaceId());
         DdTrainerOutputModel ddTrainerOutputModel = trainerModelRepository.get(eventInput.getWorkspaceId());
-        ddCrawlerInputStartDto.setPageModel(ddModelerOutput.getModel());
+        ddCrawlerInputStartDto.setPageModel(modelerModelDto.getModel());
         ddCrawlerInputStartDto.setLinkModel(ddTrainerOutputModel.getLink_model());
 
         List<String> seeds = keywordsRepository.getRelevantTrainedUrls(eventInput.getWorkspaceId());

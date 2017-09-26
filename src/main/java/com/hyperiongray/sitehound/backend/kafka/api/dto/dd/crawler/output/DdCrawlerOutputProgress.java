@@ -9,18 +9,13 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class DdCrawlerOutputProgress  extends KafkaDto {
 
     private String id;
-
     private String workspaceId;
-
     private String progress;
-
     private Double percentageDone;
-
 
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -38,7 +33,6 @@ public class DdCrawlerOutputProgress  extends KafkaDto {
     public String getProgress() {
         return progress;
     }
-
     public void setProgress(String progress) {
         this.progress = progress;
     }
@@ -57,8 +51,10 @@ public class DdCrawlerOutputProgress  extends KafkaDto {
     public String toString() {
         return "DdCrawlerOutputProgress{" +
                 "id='" + id + '\'' +
+                ", workspaceId='" + workspaceId + '\'' +
                 ", progress='" + progress + '\'' +
                 ", percentageDone=" + percentageDone +
                 '}';
     }
+
 }

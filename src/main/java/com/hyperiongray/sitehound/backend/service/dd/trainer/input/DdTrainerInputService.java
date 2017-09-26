@@ -1,14 +1,12 @@
 package com.hyperiongray.sitehound.backend.service.dd.trainer.input;
 
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStop;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ModelerModelDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
 import com.hyperiongray.sitehound.backend.service.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +22,6 @@ import java.util.List;
 public class DdTrainerInputService {
 
     @Autowired private KeywordsRepository keywordsRepository;
-    @Autowired private DdCrawlerRepository ddCrawlerRepository;
-    @Autowired private DdModelerProgressRepository ddModelerRepository;
     @Autowired private ElasticsearchModelerModelRepository modelerModelRepository;
     @Autowired private DdTrainerRepository ddTrainerRepository;
     @Autowired private TrainerModelRepository trainerModelRepository;
@@ -45,8 +41,8 @@ public class DdTrainerInputService {
         List<String> seeds = keywordsRepository.getAllUrls(eventInput.getWorkspaceId());
         ddTrainerInputStart.setSeeds(seeds);
 
-        DdModelerOutput ddModelerOutput = modelerModelRepository.get(eventInput.getWorkspaceId());
-        ddTrainerInputStart.setPage_model(ddModelerOutput.getModel());
+        ModelerModelDto modelerModelDto = modelerModelRepository.get(eventInput.getWorkspaceId());
+        ddTrainerInputStart.setPage_model(modelerModelDto.getModel());
 
         return ddTrainerInputStart;
 
