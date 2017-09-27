@@ -29,7 +29,6 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
             JsonMapper<DdTrainerOutputProgress> jsonMapper= new JsonMapper();
             DdTrainerOutputProgress ddTrainerOutputProgress = jsonMapper.toObject(jsonInput, DdTrainerOutputProgress.class);
             ddTrainerRepository.saveProgress(ddTrainerOutputProgress);
-            crawlJobRepository.saveProgress(ddTrainerOutputProgress.getWorkspaceId(), ddTrainerOutputProgress.getPercentageDone());
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

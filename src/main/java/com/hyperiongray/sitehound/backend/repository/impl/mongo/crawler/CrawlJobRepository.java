@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputProgress;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.mongodb.BasicDBObject;
@@ -104,14 +105,14 @@ public class CrawlJobRepository{
 		return iterable.iterator().next().getString("workspaceId");
 	}
 
-	public void saveProgress(String jobId, Double percentageDone) {
-//		String jobId = ddTrainerOutputProgress.getWorkspaceId();
-		LOGGER.info("About to update crawlJob:" + jobId);
-		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
-		Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
-		Bson updatesModel = Updates.set("percentage_done",percentageDone);
-		collection.findOneAndUpdate(filter, updatesModel);
-	}
+//	public void saveProgress(String jobId, Double percentageDone) {
+////		String jobId = ddTrainerOutputProgress.getWorkspaceId();
+//		LOGGER.info("About to update crawlJob:" + jobId);
+//		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
+//		Bson filter = new BasicDBObject("_id", new ObjectId(jobId));
+//		Bson updatesModel = Updates.set("percentage_done",percentageDone);
+//		collection.findOneAndUpdate(filter, updatesModel);
+//	}
 
 
 	public void saveProgress(DdCrawlerOutputProgress ddCrawlerOutputProgress) {

@@ -42,32 +42,22 @@ public class CrawlerOutputProgressBrokerServiceTest {
         String workspaceId = "59b114a2e4dc96629bb2b2fb";
         String jobId = "555114a2e4dc9662e4dc9662";
         Double percentageDone = 98.123;
+        String progress = "Crawled N pages and M domains, average reward is 0.122";
 
         String json = "{" +
                 "    \"id\": \"" + jobId + "\"," +
                 "    \"workspace_id\": \""+ workspaceId +"\"," +
-                "    \"progress\": \"Crawled N pages and M domains, average reward is 0.122\"," +
+                "    \"progress\": \""+progress+"\"," +
                 "    \"percentage_done\": "+ percentageDone +
                 "}";
 
         producer.produce(TEMPLATE_TOPIC, embeddedKafka, brokerService, json);
 
-        // expecting repo to be called once with correct param
-        verify(crawlJobRepositoryMock).saveProgress(jobId, percentageDone);
-
-        ArgumentCaptor<String> jobIdCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<Double> percentageDoneCaptor = ArgumentCaptor.forClass(Double.class);
-        verify(crawlJobRepositoryMock).saveProgress(jobIdCaptor.capture(), percentageDoneCaptor.capture());
-        assertEquals(jobId, jobIdCaptor.getValue());
-        assertEquals(percentageDone, percentageDoneCaptor.getValue());
-
         DdCrawlerOutputProgress ddCrawlerOutputProgress = new DdCrawlerOutputProgress();
         ddCrawlerOutputProgress.setWorkspaceId(workspaceId);
         ddCrawlerOutputProgress.setId(jobId);
-        ddCrawlerOutputProgress.setPercentageDone(percentageDone);
-        String progress = "Crawled N pages and M domains, average reward is 0.122";
         ddCrawlerOutputProgress.setProgress(progress);
-
+        ddCrawlerOutputProgress.setPercentageDone(percentageDone);
 
         ArgumentCaptor<DdCrawlerOutputProgress> argument = ArgumentCaptor.forClass(DdCrawlerOutputProgress.class);
         verify(crawlJobRepositoryMock).saveProgress(argument.capture());

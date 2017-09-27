@@ -37,6 +37,27 @@ public class DdTrainerOutputProgress extends KafkaDto {
         this.percentageDone = percentageDone;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DdTrainerOutputProgress that = (DdTrainerOutputProgress) o;
+
+        if (workspaceId != null ? !workspaceId.equals(that.workspaceId) : that.workspaceId != null) return false;
+        if (progress != null ? !progress.equals(that.progress) : that.progress != null) return false;
+        return percentageDone != null ? percentageDone.equals(that.percentageDone) : that.percentageDone == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = workspaceId != null ? workspaceId.hashCode() : 0;
+        result = 31 * result + (progress != null ? progress.hashCode() : 0);
+        result = 31 * result + (percentageDone != null ? percentageDone.hashCode() : 0);
+        return result;
+    }
+
     @Override
     public String toString() {
         return "DdTrainerOutputProgress{" +
