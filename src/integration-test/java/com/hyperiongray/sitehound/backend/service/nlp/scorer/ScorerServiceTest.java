@@ -1,9 +1,10 @@
 package com.hyperiongray.sitehound.backend.service.nlp.scorer;
 
+import com.hyperiongray.sitehound.backend.Application;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.IndexerDao;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity.RelevanceType;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,13 +31,12 @@ import static org.junit.Assert.*;
  * Created by tomas on 17/03/16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = {Application.class, Configuration.class})
 public class ScorerServiceTest {
 
 	@Autowired private ScorerService scorerService;
 	@Autowired private IndexerDao indexerDao;
-	@Autowired
-    CrawledIndexService mockCrawledIndexService;
+	@Autowired private CrawledIndexService mockCrawledIndexService;
 
 	@Autowired
 	@Qualifier("alquds")

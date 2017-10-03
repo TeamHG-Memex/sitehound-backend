@@ -1,10 +1,9 @@
 package com.hyperiongray.sitehound.backend.kafka.producer.dd.crawler;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerHintsInputDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
 import com.hyperiongray.sitehound.backend.kafka.producer.LocalQueueProducer;
 import com.hyperiongray.sitehound.backend.model.Queues;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

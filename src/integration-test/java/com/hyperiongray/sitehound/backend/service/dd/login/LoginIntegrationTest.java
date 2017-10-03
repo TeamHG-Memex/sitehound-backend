@@ -1,11 +1,11 @@
 package com.hyperiongray.sitehound.backend.service.dd.login;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginResultDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.Producer;
 import org.assertj.core.util.Lists;

@@ -1,5 +1,5 @@
 package com.hyperiongray.sitehound.backend.service.nlp.scorer;
-
+/*
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
+*/
 /**
  * Created by tomas on 18/03/16.
  */
+public class MockCrawledIndexService{}
+/*
 @Service
 public class MockCrawledIndexService extends CrawledIndexService {
 
@@ -44,3 +46,4 @@ public class MockCrawledIndexService extends CrawledIndexService {
     }
 
 }
+*/

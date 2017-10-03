@@ -35,4 +35,21 @@ public class DdDeepcrawlerProgressDto extends KafkaDto {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DdDeepcrawlerProgressDto that = (DdDeepcrawlerProgressDto) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        return progress != null ? progress.equals(that.progress) : that.progress == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (progress != null ? progress.hashCode() : 0);
+        return result;
+    }
 }

@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.kafka.login;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginInputBrokerService;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.verify;
  * Created by tomas on 14/06/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Configuration.class, KafkaTestConfiguration.class})
+@ContextConfiguration(classes = {KafkaTestConfiguration.class})
 public class LoginInputBrokerServiceTest {
 
     private static final String TEMPLATE_TOPIC = "dd-login-input";
@@ -36,14 +36,10 @@ public class LoginInputBrokerServiceTest {
     @ClassRule
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
 
-    @Autowired
-    private DdLoginInputBrokerService ddLoginInputBrokerService;
+    @Autowired private Producer producer;
+    @Autowired private DdLoginInputBrokerService ddLoginInputBrokerService;
 
-    @Autowired
-    private Producer producer;
-
-    @MockBean
-    private DdLoginRepository ddLoginRepositoryMock;
+    @MockBean private DdLoginRepository ddLoginRepositoryMock;
 
     @Test
     public void testTemplate() {

@@ -3,7 +3,6 @@ package com.hyperiongray.sitehound.backend.service.dd.crawler.input;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.event.DdCrawlerInputStartArgs;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStartDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawlerInputStopDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrainerOutputModel;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ModelerModelDto;
@@ -11,8 +10,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.Elas
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.BroadCrawlRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

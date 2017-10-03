@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.service.dd.login;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginResultDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginResult;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

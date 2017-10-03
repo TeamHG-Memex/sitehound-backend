@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.service.htmlunit;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.hyperiongray.sitehound.backend.httpclient.HttpClientConnector;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import java.util.List;
  */
 @Service
 public class UrlFetcher {
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(UrlFetcher.class);
 
 	@Autowired

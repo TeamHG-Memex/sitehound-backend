@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.kafka.producer.dd.modeler;
 
 import com.hyperiongray.sitehound.backend.kafka.producer.LocalQueueProducer;
 import com.hyperiongray.sitehound.backend.model.Queues;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.input.DdModelerInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

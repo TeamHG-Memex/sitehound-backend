@@ -4,7 +4,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputPages;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdCrawlerAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.ScoredCallbackServiceWrapper;

@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing;
  * Created by tomas on 7/8/15.
  */
 
-import com.hyperiongray.sitehound.backend.httpclient.HttpClientConnector;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.crawler.Crawler;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlerUtils;
 import org.apache.http.client.utils.URIBuilder;

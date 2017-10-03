@@ -34,14 +34,10 @@ public class ModelerProgressBrokerServiceTest {
     @ClassRule
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(1, true, TEMPLATE_TOPIC);
 
-    @Autowired
-    private Producer producer;
+    @Autowired private Producer producer;
+    @Autowired private DdModelerProgressBrokerService brokerService;
 
-    @Autowired
-    private DdModelerProgressBrokerService brokerService;
-
-    @MockBean
-    private DdModelerProgressRepository ddModelerProgressRepositoryMock;
+    @MockBean private DdModelerProgressRepository ddModelerProgressRepositoryMock;
 
     @Test
     public void testTemplate(){

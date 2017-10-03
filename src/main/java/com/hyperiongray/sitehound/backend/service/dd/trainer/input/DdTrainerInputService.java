@@ -8,7 +8,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.Elas
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.KeywordsRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

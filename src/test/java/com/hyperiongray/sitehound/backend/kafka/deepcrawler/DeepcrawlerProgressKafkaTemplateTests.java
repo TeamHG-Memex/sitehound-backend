@@ -1,18 +1,24 @@
 package com.hyperiongray.sitehound.backend.kafka.deepcrawler;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.ProgressDto;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.sitehound.backend.model.CrawlJob;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdDeepcrawlerRepository;
+import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
+import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputPagesAquariumCallbackService;
+import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.dd.deepcrawler.DdDeepcrawlerProgressBrokerService;
 import org.assertj.core.util.Lists;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,11 +26,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.IOException;
 import java.util.List;
 
+import static junit.framework.TestCase.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 /**
  * Created by tomas on 14/06/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Configuration.class, KafkaTestConfiguration.class})
+@ContextConfiguration(classes = {KafkaTestConfiguration.class})
 public class DeepcrawlerProgressKafkaTemplateTests {
 
     private static final String TEMPLATE_TOPIC = "dd-deepcrawler-progress";
@@ -35,14 +47,19 @@ public class DeepcrawlerProgressKafkaTemplateTests {
     @Autowired
     private Producer producer;
 
-    @Autowired
-    private DdDeepcrawlerProgressBrokerService ddDeepcrawlerProgressBrokerService;
+    @Autowired private DdDeepcrawlerProgressBrokerService instance;
+
+    @MockBean private CrawlJobRepository crawlJobRepository;
+    @MockBean private DdDeepcrawlerRepository ddDeepcrawlerRepository;
+    @MockBean private DdDeepcrawlerOutputPagesAquariumCallbackService ddDeepcrawlerOutputPagesAquariumCallbackService;
+    @MockBean private AquariumAsyncClient aquariumClient;
 
     @Test
-    public void testTemplate() throws Exception {
+    public void processTest() throws Exception {
 
         DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto = new DdDeepcrawlerProgressDto();
-        ddDeepcrawlerProgressDto.setId("59a18279166f1c48c18760c5");
+        String id = "59a18279166f1c48c18760c5";
+        ddDeepcrawlerProgressDto.setId(id);
 
         ProgressDto progressDto = new ProgressDto();
         progressDto.setPagesFetched(1000);
@@ -67,24 +84,32 @@ public class DeepcrawlerProgressKafkaTemplateTests {
             input = jsonMapper.toString(ddDeepcrawlerProgressDto);
         } catch (IOException e) {
             e.printStackTrace();
+            fail();
         }
 
         System.out.println(input);
-/*
-        String input = "{" +
-                "\"id\": \"59a18279166f1c48c18760c5\"," +
-                "\"progress\": {" +
-                "\"status\": \"running\"," +
-                "\"pages_fetched\": 1468," +
-                "\"rpm\": 24000," +
-                "\"domains\": [" +
-                " {\"url\":\"http://example.com\", \"domain\": \"example.com\", \"pages_fetched\": 1234, \"status\": \"finished\", \"rpm\":12000}," +
-                " {\"url\":\"http://google.com\", \"domain\": \"google.com\", \"pages_fetched\": 234, \"status\": \"finished\", \"rpm\":12000}" +
-                "]"+
-                "}" +
-        "}";
-*/
-        producer.produce(TEMPLATE_TOPIC, embeddedKafka, ddDeepcrawlerProgressBrokerService, input);
+
+        CrawlJob crawlJob = new CrawlJob.Builder()
+                .withJobId(id)
+                .withCrawlStatus(Constants.CrawlStatus.STARTED)
+                .withWorkspaceId("ws1")
+                .withTimestamp(System.currentTimeMillis())
+                .withCrawlEntityType(Constants.CrawlEntityType.DD)
+                .withCrawlType(Constants.CrawlType.DEEPCRAWL)
+                .withNResultsRequested(100)
+                .withSources(Lists.newArrayList("DD"))
+                .withProgress(false)
+                .build();
+
+        when(crawlJobRepository.get(id)).thenReturn(crawlJob);
+
+        producer.produce(TEMPLATE_TOPIC, embeddedKafka, instance, input);
+
+        Thread.sleep(100L);
+        verify(ddDeepcrawlerRepository).saveProgress(ddDeepcrawlerProgressDto);
+        verify(aquariumClient).fetch(eq(domainDto.getUrl()), any());
+
+
     }
 
 }

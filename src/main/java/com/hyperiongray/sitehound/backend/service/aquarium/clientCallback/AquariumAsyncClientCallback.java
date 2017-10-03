@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.aquarium.clientCallback;
 
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.CallbackServiceWrapper;
 import org.apache.http.client.fluent.Content;

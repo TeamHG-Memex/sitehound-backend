@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.kafka.producer.dd.trainer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStop;
 import com.hyperiongray.sitehound.backend.kafka.producer.LocalQueueProducer;
 import com.hyperiongray.sitehound.backend.model.Queues;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.input.DdTrainerInputStart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

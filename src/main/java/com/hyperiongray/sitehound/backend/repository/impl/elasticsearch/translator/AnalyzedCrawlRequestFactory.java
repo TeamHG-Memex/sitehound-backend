@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
  * Created by tomas on 2/11/16.
  */
 @Service
+@Deprecated
 public class AnalyzedCrawlRequestFactory{
 	private static final Logger LOGGER = LoggerFactory.getLogger(AnalyzedCrawlRequestFactory.class);
 

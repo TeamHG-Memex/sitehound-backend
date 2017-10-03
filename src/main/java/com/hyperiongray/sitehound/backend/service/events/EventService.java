@@ -11,7 +11,7 @@ import com.hyperiongray.sitehound.backend.kafka.producer.dd.crawler.DdCrawlerInp
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.trainer.DdTrainerInputProducer;
 import com.hyperiongray.sitehound.backend.model.EventsType;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.input.DdCrawlerHintsInputService;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.input.DdCrawlerInputService;

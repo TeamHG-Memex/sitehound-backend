@@ -5,40 +5,39 @@ import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.repository.CrawledIndexRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultWrapperDto;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 
-/**
- * Created by tomas on 2/9/16.
- */
 @Repository
-public class CrawledIndexHttpRepository extends AbstractElasticsearchRepository<AnalyzedCrawlResultWrapperDto> implements CrawledIndexRepository {
-
-	private String indexName ="crawled-open";
-	private String typeName ="analyzed";
-
-	private final JsonMapper<AnalyzedCrawlResultDto> jsonMapper = new JsonMapper();
+public class CrawledIndexHttpRepository implements CrawledIndexRepository{
 	private static final Logger LOGGER = LoggerFactory.getLogger(CrawledIndexHttpRepository.class);
 
+	public final static String CRAWLED_INDEX_NAME ="crawled-open";
+	public final static String CRAWLED_TYPE_NAME ="analyzed";
 
-	@Override
+	@Autowired private ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+
+	private final JsonMapper<AnalyzedCrawlResultDto> jsonMapper = new JsonMapper();
+
+//	@Override
 	public String save(String url, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException{
 		AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = new AnalyzedCrawlResultWrapperDto();
 		analyzedCrawlResultWrapperDto.setResult(analyzedCrawlResultDto);
 		analyzedCrawlResultWrapperDto.setWorkspaces(Sets.<String>newHashSet(workspace));
-		super.save(indexName, typeName, url, analyzedCrawlResultWrapperDto);
+		elasticsearchDatabaseClient.save(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, url, analyzedCrawlResultWrapperDto);
 		return url;
 	}
 		/**
 		 * This method does an upsert, adding the new documenent if not already exists.
 		 * Otherwise the current workspace will be added to the list of workspaces in the indexed document
 		 */
-	@Override
+//	@Override
 	public String upsert(String url, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException{
 		LOGGER.info("saving: " + url);
 		//save(indexName, typeName, id, analyzedCrawlResultDto);
@@ -59,25 +58,25 @@ public class CrawledIndexHttpRepository extends AbstractElasticsearchRepository<
 						"}";
 //		String id = UuidGenerator.hash(url);
 		String id = url;
-		super.upsert(indexName, typeName, id, script);
+		elasticsearchDatabaseClient.upsert(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, id, script);
 		return id;
 	}
 
-	@Override
+//	@Override
 	public AnalyzedCrawlResultDto get(String url) throws IOException{
 		LOGGER.info("getting: " + url);
 //		String id = UuidGenerator.hash(url);
 		String id = url;
-		AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = super.get(indexName, typeName, id, AnalyzedCrawlResultWrapperDto.class);
+		AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = elasticsearchDatabaseClient.get(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, id, AnalyzedCrawlResultWrapperDto.class);
 		return analyzedCrawlResultWrapperDto == null ? null : analyzedCrawlResultWrapperDto.getResult();
 
 	}
 
-	@Override
+//	@Override
 	public void delete(String url) throws IOException{
 //		String id = UuidGenerator.hash(url);
 		String id = url;
-		super.delete(indexName, typeName, id);
+		elasticsearchDatabaseClient.delete(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, id);
 	}
 
 }

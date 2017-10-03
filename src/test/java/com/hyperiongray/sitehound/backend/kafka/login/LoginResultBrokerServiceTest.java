@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.kafka.login;
 
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.model.DdLoginResult;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;

@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.service;
 
 import com.google.common.collect.Lists;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberOutput;
 import org.junit.Test;

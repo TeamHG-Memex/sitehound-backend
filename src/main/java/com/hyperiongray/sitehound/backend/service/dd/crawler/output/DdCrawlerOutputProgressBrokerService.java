@@ -2,15 +2,12 @@ package com.hyperiongray.sitehound.backend.service.dd.crawler.output;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.output.DdCrawlerOutputProgress;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdCrawlerRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.Semaphore;
 
 /**
  * Created by tomas on 28/09/16.

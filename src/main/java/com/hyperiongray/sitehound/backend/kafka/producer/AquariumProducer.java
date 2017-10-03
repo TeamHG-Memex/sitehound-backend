@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.kafka.producer;
 import com.hyperiongray.framework.kafka.service.KafkaProducerProcessor;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.model.Queues;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

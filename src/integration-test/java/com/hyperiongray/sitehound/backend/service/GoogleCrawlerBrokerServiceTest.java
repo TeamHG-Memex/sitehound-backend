@@ -1,7 +1,7 @@
 package com.hyperiongray.sitehound.backend.service;
 
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.AbstractCrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.Configuration;
+import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

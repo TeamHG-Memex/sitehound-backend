@@ -63,4 +63,26 @@ public class ProgressDto {
                 ", domains=" + domains +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProgressDto that = (ProgressDto) o;
+
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (pagesFetched != null ? !pagesFetched.equals(that.pagesFetched) : that.pagesFetched != null) return false;
+        if (rpm != null ? !rpm.equals(that.rpm) : that.rpm != null) return false;
+        return domains != null ? domains.equals(that.domains) : that.domains == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = status != null ? status.hashCode() : 0;
+        result = 31 * result + (pagesFetched != null ? pagesFetched.hashCode() : 0);
+        result = 31 * result + (rpm != null ? rpm.hashCode() : 0);
+        result = 31 * result + (domains != null ? domains.hashCode() : 0);
+        return result;
+    }
 }

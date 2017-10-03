@@ -5,19 +5,15 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.Pa
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
 import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputPagesAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DeepcrawlerOutputCallbackServiceWrapper;
-import com.hyperiongray.sitehound.backend.service.aquarium.clientCallback.AquariumAsyncClientCallback;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
-import org.apache.http.client.fluent.ContentResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.Semaphore;
 
 /**
  * Created by tomas on 28/09/16.

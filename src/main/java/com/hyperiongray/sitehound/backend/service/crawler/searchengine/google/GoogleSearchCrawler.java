@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.service.crawler.searchengine.google;
  * Created by tomas on 5/19/15.
  */
 
-import com.hyperiongray.sitehound.backend.httpclient.HttpClientConnector;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.crawler.Crawler;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlerUtils;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.SearchEngineCrawlResult;

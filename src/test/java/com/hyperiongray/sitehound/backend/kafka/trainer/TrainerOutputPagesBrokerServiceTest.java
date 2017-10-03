@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -116,6 +117,7 @@ public class TrainerOutputPagesBrokerServiceTest {
             when(analyzedCrawlResultDtoIndexRepositoryMock.upsert(anyString(), anyString(), any(), any())).thenReturn(url1);
         } catch (IOException e) {
             e.printStackTrace();
+            fail();
         }
 
 //        manually invoke the callback to mock the splash call
@@ -147,6 +149,7 @@ public class TrainerOutputPagesBrokerServiceTest {
             verify(analyzedCrawlResultDtoIndexRepositoryMock).upsert(capturedHashKey.capture(), capturedWorkspaceId.capture(), capturedCrawlEntityType.capture(), capturedAnalyzedCrawlResultDto.capture());
         } catch (IOException e) {
             e.printStackTrace();
+            fail();
         }
 
         assertEquals(pageSample.getUrl(), capturedHashKey.getValue());
@@ -186,6 +189,5 @@ public class TrainerOutputPagesBrokerServiceTest {
 //        assertEquals(List.empty(), capturedDocumentValue.get("categories"));
         assertEquals(timestamp, capturedDocumentValue.get("timestamp"));
 
-        System.out.println("done");
     }
 }

@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.service.dd.modeler.output;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

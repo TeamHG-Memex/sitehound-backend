@@ -25,16 +25,14 @@ public class DdDeepcrawlerOutputPagesAquariumCallbackService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdDeepcrawlerOutputPagesAquariumCallbackService.class);
 
     @Autowired private CrawlResultTranslator crawlResultTranslator;
-    @Autowired private AnalyzedCrawlRequestFactory analyzedCrawlRequestFactory;
     @Autowired private CrawledIndexRepository analyzedCrawlResultDtoIndexRepository;
     @Autowired private DdDeepcrawlerRepository ddDeepcrawlerRepository;
-
 
     public void process(CrawlJob crawlJob, DeepcrawlerPageRequest deepcrawlerPageRequest, AquariumInternal aquariumInternal){
 
         try{
             CrawlResultDto crawlResultDto = crawlResultTranslator.translateFromAquariumInternal(aquariumInternal);
-            AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlRequestFactory.build(crawlResultDto);
+            AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
             // update ES index
             String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(deepcrawlerPageRequest.getUrl(), crawlJob.getWorkspaceId(), crawlJob.getCrawlEntityType(), analyzedCrawlResultDto);
 
@@ -62,3 +60,4 @@ public class DdDeepcrawlerOutputPagesAquariumCallbackService {
 
 
 }
+

@@ -66,4 +66,29 @@ public class DomainDto {
                 ", rpm=" + rpm +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DomainDto domainDto = (DomainDto) o;
+
+        if (url != null ? !url.equals(domainDto.url) : domainDto.url != null) return false;
+        if (domain != null ? !domain.equals(domainDto.domain) : domainDto.domain != null) return false;
+        if (status != null ? !status.equals(domainDto.status) : domainDto.status != null) return false;
+        if (pagesFetched != null ? !pagesFetched.equals(domainDto.pagesFetched) : domainDto.pagesFetched != null)
+            return false;
+        return rpm != null ? rpm.equals(domainDto.rpm) : domainDto.rpm == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = url != null ? url.hashCode() : 0;
+        result = 31 * result + (domain != null ? domain.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (pagesFetched != null ? pagesFetched.hashCode() : 0);
+        result = 31 * result + (rpm != null ? rpm.hashCode() : 0);
+        return result;
+    }
 }

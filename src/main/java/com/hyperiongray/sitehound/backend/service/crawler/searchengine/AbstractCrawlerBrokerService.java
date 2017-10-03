@@ -6,13 +6,10 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.submitter.TaskSubmitter;
 import com.hyperiongray.sitehound.backend.model.CrawlTask;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlTaskRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
-import com.hyperiongray.sitehound.backend.service.UowHelper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.Crawler;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlerUtils;
 import com.hyperiongray.sitehound.backend.service.crawler.dispatcher.CrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.service.htmlunit.UrlFetcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +26,12 @@ import java.util.Set;
 @Service
 public abstract class AbstractCrawlerBrokerService implements CrawlerBrokerService {
 
-	@Autowired private UrlFetcher urlFetcher;
-	@Autowired private UowHelper uowHelper;
 	@Autowired private CrawlTaskRepository crawlTaskRepository;
 	@Autowired private MetadataBuilder metadataBuilder;
 	@Autowired private UrlDeduplicator urlDeduplicator;
 
 	@Value( "${crawler.threads}" ) private int threadNumber;
 
-	private JsonMapper jsonMapper = new JsonMapper();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrawlerBrokerService.class);
 

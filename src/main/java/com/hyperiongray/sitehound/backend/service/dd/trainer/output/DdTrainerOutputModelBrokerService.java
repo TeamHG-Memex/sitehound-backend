@@ -4,7 +4,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.trainer.output.DdTrai
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.TrainerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdTrainerRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.slf4j.Logger;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
  * Created by tomas on 28/09/16.
  */
 @Service
+@Deprecated
 public class DdTrainerOutputModelBrokerService implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputModelBrokerService.class);
 

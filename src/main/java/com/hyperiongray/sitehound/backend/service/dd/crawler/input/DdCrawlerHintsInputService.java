@@ -4,7 +4,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.crawler.input.DdCrawl
 import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.kafka.producer.dd.crawler.DdCrawlerHintsInputProducer;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.BroadCrawlRepository;
-import com.hyperiongray.sitehound.backend.service.JsonMapper;
+import com.hyperiongray.framework.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
