@@ -2,10 +2,13 @@ package com.hyperiongray.sitehound.backend.service.crawler;
 
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlerUtils;
 import org.junit.Test;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Created by tomas on 2/03/16.
  */
+@ActiveProfiles("integration-test")
 public class CrawlerUtilsTest {
 
     @Test

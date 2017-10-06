@@ -2,15 +2,24 @@ package com.hyperiongray.sitehound.backend.kafka.login;
 
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.model.DdLoginResult;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
+import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
+import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.Producer;
+import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl;
+import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,7 +32,8 @@ import static org.mockito.Mockito.verify;
  * Created by tomas on 14/06/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Configuration.class, KafkaTestConfiguration.class})
+@ContextConfiguration(classes = {KafkaTestConfiguration.class})
+@SpringBootTest
 public class LoginResultBrokerServiceTest {
 
     private static final String TEMPLATE_TOPIC = "dd-login-result";
@@ -39,6 +49,24 @@ public class LoginResultBrokerServiceTest {
 
     @MockBean
     private DdLoginRepository ddLoginRepositoryMock;
+
+    @MockBean
+    AquariumAsyncClient aquariumAsyncClient;
+    @MockBean
+    MongoRepository mongoRepository;
+    @MockBean
+    GoogleCrawlerBrokerService googleCrawlerBrokerService;
+    @MockBean
+    BingCrawlerBrokerService bingCrawlerBrokerService;
+    @MockBean
+    DdModelerInputService ddModelerInputService;
+    @MockBean
+    HttpProxyClientImpl httpProxyClient;
+    @MockBean
+    HttpClientConnector httpClientConnector;
+    @MockBean
+    TikaService tikaService;
+
 
     @Test
     public void testTemplate() {

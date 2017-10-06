@@ -1,13 +1,12 @@
 package com.hyperiongray.sitehound.backend.service.dd.login;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.framework.JsonMapper;
+import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.kafka.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginResultDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
-import com.hyperiongray.framework.JsonMapper;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.Producer;
 import org.assertj.core.util.Lists;
 import org.assertj.core.util.Maps;
 import org.junit.Assert;
@@ -15,7 +14,9 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,7 +28,8 @@ import java.util.Map;
  * Created by tomas on 7/09/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Configuration.class, KafkaTestConfiguration.class})
+@ContextConfiguration(classes = {KafkaTestConfiguration.class})
+@ActiveProfiles("integration-test")
 public class LoginIntegrationTest {
 
     private static final String LOGIN_INPUT_TOPIC = "dd-login-input";

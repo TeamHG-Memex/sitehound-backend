@@ -1,15 +1,10 @@
 package com.hyperiongray.sitehound.backend.service;
 
-import com.hyperiongray.sitehound.backend.service.CompressionService;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by tomas on 27/06/17.
- */
+import static org.junit.Assert.*;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = Configuration.class)
 public class CompressionServiceTest {
 
     private CompressionService compressionService = new CompressionService();
@@ -21,7 +16,7 @@ public class CompressionServiceTest {
     public void b64compress() throws Exception {
         String initialString = "Hello World!";
         String s = compressionService.b64compress(initialString);
-            Assert.assertEquals("H4sIAAAAAAAAAPNIzcnJVwjPL8pJUQQAoxwpHAwAAAA=", s);
+        Assert.assertEquals("H4sIAAAAAAAAAPNIzcnJVwjPL8pJUQQAoxwpHAwAAAA=", s);
     }
     @Test
     public void b64compressNotAnsi() throws Exception {

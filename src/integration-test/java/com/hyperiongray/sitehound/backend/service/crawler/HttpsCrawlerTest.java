@@ -2,6 +2,7 @@ package com.hyperiongray.sitehound.backend.service.crawler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.hyperiongray.sitehound.backend.Application;
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.SearchEngineCrawlResult;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleSearchCrawler;
@@ -11,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,7 +26,8 @@ import java.util.Set;
  * Created by tomas on 6/6/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = Application.class)
+@ActiveProfiles("integration-test")
 public class HttpsCrawlerTest {
 
 	@Autowired

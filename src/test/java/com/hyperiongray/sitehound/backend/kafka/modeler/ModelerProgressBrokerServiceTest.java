@@ -1,10 +1,18 @@
 package com.hyperiongray.sitehound.backend.kafka.modeler;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
+import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
+import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.output.DdModelerProgressBrokerService;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.Producer;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl;
+import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +46,24 @@ public class ModelerProgressBrokerServiceTest {
     @Autowired private DdModelerProgressBrokerService brokerService;
 
     @MockBean private DdModelerProgressRepository ddModelerProgressRepositoryMock;
+
+    @MockBean
+    AquariumAsyncClient aquariumAsyncClient;
+    @MockBean
+    MongoRepository mongoRepository;
+    @MockBean
+    GoogleCrawlerBrokerService googleCrawlerBrokerService;
+    @MockBean
+    BingCrawlerBrokerService bingCrawlerBrokerService;
+    @MockBean
+    DdModelerInputService ddModelerInputService;
+    @MockBean
+    HttpProxyClientImpl httpProxyClient;
+    @MockBean
+    HttpClientConnector httpClientConnector;
+    @MockBean
+    TikaService tikaService;
+
 
     @Test
     public void testTemplate(){

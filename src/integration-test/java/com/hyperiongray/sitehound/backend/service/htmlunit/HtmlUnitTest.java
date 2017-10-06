@@ -29,6 +29,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.net.URL;
 
@@ -41,6 +43,7 @@ import java.net.URL;
 /**
  * Created by tomas on 5/23/15.
  */
+@ActiveProfiles("integration-test")
 public class HtmlUnitTest {
 
 

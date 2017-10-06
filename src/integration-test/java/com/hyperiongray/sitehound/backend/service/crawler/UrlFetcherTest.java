@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.crawler;
 
+import com.hyperiongray.sitehound.backend.Application;
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.service.htmlunit.UrlFetcher;
 import org.junit.Assert;
@@ -7,6 +8,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,7 +22,8 @@ import static junit.framework.Assert.fail;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = Application.class)
+@ActiveProfiles("integration-test")
 public class UrlFetcherTest{
 
 	@Autowired

@@ -5,6 +5,8 @@ import com.hyperiongray.sitehound.backend.service.crawler.CrawlerUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
  * Created by tomas on 7/9/15.
  */
 @Ignore
+@ActiveProfiles("integration-test")
 public class GoogleSearchCrawlerGroupCreatorTest {
 
 	@Test

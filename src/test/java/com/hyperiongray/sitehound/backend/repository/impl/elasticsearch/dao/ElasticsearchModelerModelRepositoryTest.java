@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchTestConfiguration;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ModelerModelDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;

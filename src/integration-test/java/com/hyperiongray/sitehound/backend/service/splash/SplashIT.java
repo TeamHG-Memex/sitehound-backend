@@ -1,6 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.splash;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
+import com.hyperiongray.sitehound.backend.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -15,10 +15,10 @@ import java.io.IOException;
  * Created by tomas on 6/6/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
-public class SplashTest {
+@ContextConfiguration(classes = Application.class)
+public class SplashIT {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(SplashTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SplashIT.class);
 
 	@Autowired
 	private Splash splash;

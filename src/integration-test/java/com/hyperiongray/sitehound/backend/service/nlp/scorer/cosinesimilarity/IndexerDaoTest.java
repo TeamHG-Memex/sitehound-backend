@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.nlp.scorer.cosinesimilarity;
 
 import com.beust.jcommander.internal.Lists;
+import com.hyperiongray.sitehound.backend.Application;
 import com.hyperiongray.sitehound.backend.model.TrainedCrawledUrl;
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.jetbrains.annotations.NotNull;
@@ -8,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,7 +25,8 @@ import static junit.framework.TestCase.fail;
  * Created by tomas on 11/29/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = Application.class)
+@ActiveProfiles("integration-test")
 public class IndexerDaoTest{
 
 	@Autowired private IndexerDao indexerDao;

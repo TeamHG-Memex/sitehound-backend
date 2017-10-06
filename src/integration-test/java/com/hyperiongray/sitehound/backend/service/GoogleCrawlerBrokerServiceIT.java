@@ -20,10 +20,10 @@ import java.util.concurrent.Semaphore;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Configuration.class)
-public class GoogleCrawlerBrokerServiceTest {
+public class GoogleCrawlerBrokerServiceIT {
 
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(GoogleCrawlerBrokerServiceTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GoogleCrawlerBrokerServiceIT.class);
 
 	private AbstractCrawlerBrokerService googleCrawlerBrokerService;
 

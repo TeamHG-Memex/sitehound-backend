@@ -6,6 +6,7 @@ import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.CrawledIndexHttpRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageTypeEnum;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.GenericCrawlMongoRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
@@ -13,9 +14,15 @@ import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DdTrainerOutputPagesCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
+import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.trainer.output.DdTrainerOutputPagesBrokerService;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.Producer;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
+import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl;
+import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,6 +67,23 @@ public class TrainerOutputPagesBrokerServiceTest {
     @MockBean private MetadataBuilder metadataBuilder;
     @MockBean private CrawledIndexHttpRepository analyzedCrawlResultDtoIndexRepositoryMock;
     @MockBean private GenericCrawlMongoRepository genericCrawlMongoRepositoryMock;
+
+
+    @MockBean
+    MongoRepository mongoRepository;
+    @MockBean
+    GoogleCrawlerBrokerService googleCrawlerBrokerService;
+    @MockBean
+    BingCrawlerBrokerService bingCrawlerBrokerService;
+    @MockBean
+    DdModelerInputService ddModelerInputService;
+    @MockBean
+    HttpProxyClientImpl httpProxyClient;
+    @MockBean
+    HttpClientConnector httpClientConnector;
+    @MockBean
+    TikaService tikaService;
+
 
     //for...
     @Autowired private DdTrainerOutputPagesAquariumCallbackService ddTrainerOutputPagesAquariumCallbackService;

@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.htmlunit;
 
+import com.hyperiongray.sitehound.backend.Application;
 import com.hyperiongray.sitehound.backend.config.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import java.io.IOException;
  * Created by tomas on 7/4/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Configuration.class)
+@ContextConfiguration(classes = Application.class)
 public class UrlFetcherTest {
 
 	@Autowired
