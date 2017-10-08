@@ -196,59 +196,59 @@
     </dependencies>
 
 
-    <!--<profiles>-->
-        <!--&lt;!&ndash; The Configuration of the development profile &ndash;&gt;-->
-        <!--<profile>-->
-            <!--<id>dev</id>-->
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
-            <!--<properties>-->
-                <!--&lt;!&ndash;-->
-                    <!--Specifies the build.profile.id property that must be equal than the name of-->
-                    <!--the directory that contains the profile specific configuration file.-->
-                    <!--Because the name of the directory that contains the configuration file of the-->
-                    <!--development profile is dev, we must set the value of the build.profile.id-->
-                    <!--property to dev.-->
-                <!--&ndash;&gt;-->
-                <!--<build.profile.id>dev</build.profile.id>-->
-                <!--&lt;!&ndash;-->
-                    <!--Only unit tests are run when the development profile is active-->
-                <!--&ndash;&gt;-->
-                <!--<skip.integration.tests>true</skip.integration.tests>-->
-                <!--<skip.unit.tests>false</skip.unit.tests>-->
-            <!--</properties>-->
-        <!--</profile>-->
-        <!--&lt;!&ndash; The Configuration of the integration-test profile &ndash;&gt;-->
-        <!--<profile>-->
-            <!--<id>integration-test</id>-->
-            <!--<properties>-->
-                <!--&lt;!&ndash;-->
-                    <!--Specifies the build.profile.id property that must be equal than the name of-->
-                    <!--the directory that contains the profile specific configuration file.-->
-                    <!--Because the name of the directory that contains the configuration file of the-->
-                    <!--integration-test profile is integration-test, we must set the value of the-->
-                    <!--build.profile.id property to integration-test.-->
-                <!--&ndash;&gt;-->
-                <!--<build.profile.id>integration-test</build.profile.id>-->
-                <!--&lt;!&ndash;-->
-                    <!--Only integration tests are run when the integration-test profile is active-->
-                <!--&ndash;&gt;-->
-                <!--<skip.integration.tests>false</skip.integration.tests>-->
-                <!--<skip.unit.tests>true</skip.unit.tests>-->
-            <!--</properties>-->
-        <!--</profile>-->
-    <!--</profiles>-->
+    <profiles>
+        <!-- The Configuration of the development profile -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--
+                    Specifies the build.profile.id property that must be equal than the name of
+                    the directory that contains the profile specific configuration file.
+                    Because the name of the directory that contains the configuration file of the
+                    development profile is dev, we must set the value of the build.profile.id
+                    property to dev.
+                -->
+                <build.profile.id>dev</build.profile.id>
+                <!--
+                    Only unit tests are run when the development profile is active
+                -->
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+        <!-- The Configuration of the integration-test profile -->
+        <profile>
+            <id>integration-test</id>
+            <properties>
+                <!--
+                    Specifies the build.profile.id property that must be equal than the name of
+                    the directory that contains the profile specific configuration file.
+                    Because the name of the directory that contains the configuration file of the
+                    integration-test profile is integration-test, we must set the value of the
+                    build.profile.id property to integration-test.
+                -->
+                <build.profile.id>integration-test</build.profile.id>
+                <!--
+                    Only integration tests are run when the integration-test profile is active
+                -->
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
+        </profile>
+    </profiles>
 
 
     <build>
-        <!--<filters>-->
-            <!--&lt;!&ndash;-->
-                <!--Ensures that the config.properties file is always loaded from the-->
-                <!--configuration directory of the active Maven profile. -->
-            <!--&ndash;&gt;-->
-            <!--<filter>profiles/${build.profile.id}/config.properties</filter>-->
-        <!--</filters>-->
+        <filters>
+            <!--
+                Ensures that the config.properties file is always loaded from the
+                configuration directory of the active Maven profile. 
+            -->
+            <filter>profiles/${build.profile.id}/config.properties</filter>
+        </filters>
         <resources>
             <!--
                 Placeholders that are found from the files located in the configured resource
@@ -263,92 +263,92 @@
 
         <plugins>
 
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<version>2.18</version>-->
-                <!--<configuration>-->
-                    <!--&lt;!&ndash; Skips unit tests if the value of skip.unit.tests property is true &ndash;&gt;-->
-                    <!--<skipTests>${skip.unit.tests}</skipTests>-->
-                    <!--&lt;!&ndash; Excludes integration tests when unit tests are run &ndash;&gt;-->
-                    <!--<excludes>-->
-                        <!--<exclude>**/IT*.java</exclude>-->
-                        <!--&lt;!&ndash;<exclude>**/*FlowTest.java</exclude>&ndash;&gt;-->
-                        <!--<exclude>**/integration/*.java</exclude>-->
-                    <!--</excludes>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18</version>
+                <configuration>
+                    <!-- Skips unit tests if the value of skip.unit.tests property is true -->
+                    <skipTests>${skip.unit.tests}</skipTests>
+                    <!-- Excludes integration tests when unit tests are run -->
+                    <excludes>
+                        <exclude>**/IT*.java</exclude>
+                        <!--<exclude>**/*FlowTest.java</exclude>-->
+                        <exclude>**/integration/*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>build-helper-maven-plugin</artifactId>-->
-                <!--<version>1.9.1</version>-->
-                <!--<executions>-->
-                    <!--&lt;!&ndash; Add executions here &ndash;&gt;-->
-                    <!--&lt;!&ndash; Add a new source directory to our build &ndash;&gt;-->
-                    <!--<execution>-->
-                        <!--<id>add-integration-test-sources</id>-->
-                        <!--<phase>generate-test-sources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>add-test-source</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--&lt;!&ndash; Configures the source directory of our integration tests &ndash;&gt;-->
-                            <!--<sources>-->
-                                <!--<source>src/integration-test/java</source>-->
-                            <!--</sources>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                    <!--&lt;!&ndash; Add a new resource directory to our build &ndash;&gt;-->
-                    <!--<execution>-->
-                        <!--<id>add-integration-test-resources</id>-->
-                        <!--<phase>generate-test-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>add-test-resource</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--&lt;!&ndash; Configures the resource directory of our integration tests &ndash;&gt;-->
-                            <!--<resources>-->
-                                <!--&lt;!&ndash;-->
-                                    <!--Placeholders that are found from the files located in the configured resource-->
-                                    <!--directories are replaced with the property values found from the profile-->
-                                    <!--specific configuration file.-->
-                                <!--&ndash;&gt;-->
-                                <!--<resource>-->
-                                    <!--<filtering>true</filtering>-->
-                                    <!--<directory>src/integration-test/resources</directory>-->
-                                <!--</resource>-->
-                            <!--</resources>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <!-- Add executions here -->
+                    <!-- Add a new source directory to our build -->
+                    <execution>
+                        <id>add-integration-test-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Configures the source directory of our integration tests -->
+                            <sources>
+                                <source>src/integration-test/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <!-- Add a new resource directory to our build -->
+                    <execution>
+                        <id>add-integration-test-resources</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Configures the resource directory of our integration tests -->
+                            <resources>
+                                <!--
+                                    Placeholders that are found from the files located in the configured resource
+                                    directories are replaced with the property values found from the profile
+                                    specific configuration file.
+                                -->
+                                <resource>
+                                    <filtering>true</filtering>
+                                    <directory>src/integration-test/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-failsafe-plugin</artifactId>-->
-                <!--<version>2.18</version>-->
-                <!--<executions>-->
-                    <!--&lt;!&ndash;-->
-                        <!--Invokes both the integration-test and the verify goals of the-->
-                        <!--Failsafe Maven plugin-->
-                    <!--&ndash;&gt;-->
-                    <!--<execution>-->
-                        <!--<id>integration-tests</id>-->
-                        <!--<goals>-->
-                            <!--<goal>integration-test</goal>-->
-                            <!--<goal>verify</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--&lt;!&ndash;-->
-                                <!--Skips integration tests if the value of skip.integration.tests-->
-                                <!--property is true-->
-                            <!--&ndash;&gt;-->
-                            <!--<skipTests>${skip.integration.tests}</skipTests>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.18</version>
+                <executions>
+                    <!--
+                        Invokes both the integration-test and the verify goals of the
+                        Failsafe Maven plugin
+                    -->
+                    <execution>
+                        <id>integration-tests</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <!--
+                                Skips integration tests if the value of skip.integration.tests
+                                property is true
+                            -->
+                            <skipTests>${skip.integration.tests}</skipTests>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

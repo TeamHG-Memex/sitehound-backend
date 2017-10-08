@@ -13,9 +13,9 @@ import org.springframework.test.context.TestPropertySource;
     "com.hyperiongray.sitehound.backend.repository.impl.elasticsearch",
 })
 
-@TestPropertySource(locations = {
-        "file:properties/elasticsearch.properties",
-})
+//@TestPropertySource(locations = {
+//        "file:properties/elasticsearch.properties",
+//})
 
 public class ElasticsearchTestConfiguration {
 }

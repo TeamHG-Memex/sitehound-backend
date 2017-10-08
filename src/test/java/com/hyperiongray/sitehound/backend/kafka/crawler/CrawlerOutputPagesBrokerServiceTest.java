@@ -78,19 +78,19 @@ public class CrawlerOutputPagesBrokerServiceTest {
     @MockBean private GenericCrawlMongoRepository genericCrawlMongoRepositoryMock;
 
     @MockBean
-    MongoRepository mongoRepository;
+    private MongoRepository mongoRepository;
     @MockBean
-    GoogleCrawlerBrokerService googleCrawlerBrokerService;
+    private GoogleCrawlerBrokerService googleCrawlerBrokerService;
     @MockBean
-    BingCrawlerBrokerService bingCrawlerBrokerService;
+    private BingCrawlerBrokerService bingCrawlerBrokerService;
     @MockBean
-    DdModelerInputService ddModelerInputService;
+    private DdModelerInputService ddModelerInputService;
     @MockBean
-    HttpProxyClientImpl httpProxyClient;
+    private HttpProxyClientImpl httpProxyClient;
     @MockBean
-    HttpClientConnector httpClientConnector;
+    private HttpClientConnector httpClientConnector;
     @MockBean
-    TikaService tikaService;
+    private TikaService tikaService;
 
 
     @Test
