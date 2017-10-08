@@ -9,7 +9,7 @@ import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.Go
 import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.output.DdModelerProgressBrokerService;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.Producer;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl;
 import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;

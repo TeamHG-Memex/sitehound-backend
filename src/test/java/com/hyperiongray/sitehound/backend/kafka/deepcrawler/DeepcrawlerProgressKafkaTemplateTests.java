@@ -2,7 +2,8 @@ package com.hyperiongray.sitehound.backend.kafka.deepcrawler;
 
 import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.Producer;
+import com.hyperiongray.sitehound.backend.kafka.producer.AquariumProducer;
+import com.hyperiongray.sitehound.backend.test.kafka.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.ProgressDto;
@@ -29,6 +30,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
@@ -46,6 +48,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {KafkaTestConfiguration.class})
 @SpringBootTest
+//@TestPropertySource(locations = {"classpath:properties/kafka.properties"})
 public class DeepcrawlerProgressKafkaTemplateTests {
 
     private static final String TEMPLATE_TOPIC = "dd-deepcrawler-progress";
@@ -62,6 +65,7 @@ public class DeepcrawlerProgressKafkaTemplateTests {
     @MockBean private DdDeepcrawlerRepository ddDeepcrawlerRepository;
     @MockBean private DdDeepcrawlerOutputPagesAquariumCallbackService ddDeepcrawlerOutputPagesAquariumCallbackService;
     @MockBean private AquariumAsyncClient aquariumClient;
+
 
     @MockBean
     MongoRepository mongoRepository;

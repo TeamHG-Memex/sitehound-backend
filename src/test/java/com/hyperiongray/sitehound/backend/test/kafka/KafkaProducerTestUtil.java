@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.kafka;
+package com.hyperiongray.sitehound.backend.test.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.ClassRule;

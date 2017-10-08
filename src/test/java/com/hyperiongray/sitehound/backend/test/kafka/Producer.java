@@ -1,5 +1,6 @@
-package com.hyperiongray.sitehound.backend.kafka;
+package com.hyperiongray.sitehound.backend.test.kafka;
 
+import com.hyperiongray.sitehound.backend.test.kafka.KafkaProducerTestUtil;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;

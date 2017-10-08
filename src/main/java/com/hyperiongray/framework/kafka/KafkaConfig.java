@@ -33,6 +33,7 @@ public class KafkaConfig {
 
     @Bean
     public Map<String, Object> consumerConfigs() {
+        LOGGER.info("connecting to ${kafka.broker.list}: " + bootstrapServers);
         Map<String, Object> props = new HashMap<>();
 //        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 

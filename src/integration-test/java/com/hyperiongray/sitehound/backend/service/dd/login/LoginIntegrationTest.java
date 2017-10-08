@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.service.dd.login;
 
 import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginResultDto;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;

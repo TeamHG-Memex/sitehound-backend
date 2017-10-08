@@ -28,7 +28,7 @@ import static org.springframework.kafka.test.hamcrest.KafkaMatchers.hasValue;
 /**
  * Created by tomas on 14/06/17.
  */
-@Ignore
+
 public class KafkaTemplateExampleTests {
 
     private static final String TEMPLATE_TOPIC = "templateTopic";
