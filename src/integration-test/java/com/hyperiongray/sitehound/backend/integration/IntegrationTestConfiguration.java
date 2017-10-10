@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(value={
 		"com.hyperiongray.framework",
 		"com.hyperiongray.sitehound.backend.kafka.consumer",
+		"com.hyperiongray.sitehound.backend.test.kafka.producer",
 		"com.hyperiongray.sitehound.backend.config",
 		"com.hyperiongray.sitehound.backend.service.httpclient",
 		"com.hyperiongray.sitehound.backend.kafka",

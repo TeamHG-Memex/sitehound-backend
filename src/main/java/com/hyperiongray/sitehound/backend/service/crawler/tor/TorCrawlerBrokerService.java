@@ -22,6 +22,7 @@ import java.util.Set;
 /**
  * Created by tomas on 5/20/15.
  */
+@Deprecated
 @Service
 public class TorCrawlerBrokerService implements CrawlerBrokerService {
 
@@ -97,7 +98,9 @@ public class TorCrawlerBrokerService implements CrawlerBrokerService {
 
 		for(TorCrawlerResult torCrawlerResult: crawlResults){
 
+
 			taskSubmitter.submit(metadata, torCrawlerResult);
 		}
 	}
+
 }

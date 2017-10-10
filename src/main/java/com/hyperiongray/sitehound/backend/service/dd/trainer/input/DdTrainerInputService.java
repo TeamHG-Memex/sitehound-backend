@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by tomas on 29/09/16.
@@ -41,8 +42,14 @@ public class DdTrainerInputService {
         List<String> seeds = keywordsRepository.getAllUrls(eventInput.getWorkspaceId());
         ddTrainerInputStart.setSeeds(seeds);
 
-        ModelerModelDto modelerModelDto = modelerModelRepository.get(eventInput.getWorkspaceId());
-        ddTrainerInputStart.setPage_model(modelerModelDto.getModel());
+        Optional<ModelerModelDto> modelerModelDtoOptional = modelerModelRepository.get(eventInput.getWorkspaceId());
+        if(modelerModelDtoOptional.isPresent()){
+            ModelerModelDto modelerModelDto = modelerModelDtoOptional.get();
+            ddTrainerInputStart.setPageModel(modelerModelDto.getModel());
+        }
+        else{
+            throw new RuntimeException("Workspace's Model not found!");
+        }
 
         return ddTrainerInputStart;
 

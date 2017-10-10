@@ -1,13 +1,12 @@
 package com.hyperiongray.sitehound.backend.integration.impl.mongo.dd;
 
-import com.hyperiongray.sitehound.backend.TestConfiguration;
+import com.hyperiongray.sitehound.backend.integration.IntegrationTestConfiguration;
 import com.hyperiongray.sitehound.backend.model.DdLoginInput;
-import com.hyperiongray.sitehound.backend.model.DdLoginInputTestHelper;
+import com.hyperiongray.sitehound.backend.test.model.DdLoginInputTestHelper;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfiguration.class)
+@ContextConfiguration(classes = IntegrationTestConfiguration.class)
 @ActiveProfiles("integration-test")
 public class DdLoginRepositoryTest {
 

@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by tomas on 19/07/17.
@@ -39,13 +40,13 @@ public class ModelerModelRepositoryTest {
         ddModelerOutput.setQuality(quality);
         modelerModelRepository.save(ddModelerOutput);
 
-        ModelerModelDto savedModel = modelerModelRepository.get(id);
+        ModelerModelDto savedModel = modelerModelRepository.get(id).get();
         Assert.assertEquals(model, savedModel.getModel());
 
         modelerModelRepository.delete(id);
 
-        ModelerModelDto savedModelAfterDelete = modelerModelRepository.get(id);
-        Assert.assertNull(savedModelAfterDelete);
+        Optional<ModelerModelDto> savedModelAfterDeleteOptional = modelerModelRepository.get(id);
+        Assert.assertTrue(!savedModelAfterDeleteOptional.isPresent());
 
         modelerModelRepository.save(ddModelerOutput);
 
@@ -55,7 +56,7 @@ public class ModelerModelRepositoryTest {
     @Test
     public void getTest() throws IOException {
 //        NotFoundError: TransportError(404, u'{"_index":"modeler","_type":"model","_id":"59676bc6166f1c7543990bf3","found":false}')
-        ModelerModelDto model = modelerModelRepository.get(id);
+        ModelerModelDto model = modelerModelRepository.get(id).get();
         System.out.println(model);
     }
 }

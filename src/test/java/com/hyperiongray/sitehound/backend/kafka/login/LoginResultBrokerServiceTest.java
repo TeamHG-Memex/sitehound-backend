@@ -1,15 +1,16 @@
 package com.hyperiongray.sitehound.backend.kafka.login;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
 import com.hyperiongray.sitehound.backend.model.DdLoginResult;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
 import com.hyperiongray.sitehound.backend.service.dd.login.DdLoginResultBrokerService;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.test.kafka.producer.Producer;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl;
@@ -66,6 +67,10 @@ public class LoginResultBrokerServiceTest {
     HttpClientConnector httpClientConnector;
     @MockBean
     TikaService tikaService;
+    @MockBean
+    ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+    @MockBean
+    ExcavatorSearchService excavatorSearchService;
 
 
     @Test

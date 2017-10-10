@@ -1,18 +1,17 @@
 package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch;
 
 
-import com.google.common.collect.Sets;
+import com.hyperiongray.framework.JsonMapper;
 import com.hyperiongray.sitehound.backend.repository.CrawledIndexRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultWrapperDto;
-import com.hyperiongray.framework.JsonMapper;
-import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Repository
 public class CrawledIndexHttpRepository implements CrawledIndexRepository{
@@ -24,20 +23,27 @@ public class CrawledIndexHttpRepository implements CrawledIndexRepository{
 	@Autowired private ElasticsearchDatabaseClient elasticsearchDatabaseClient;
 
 	private final JsonMapper<AnalyzedCrawlResultDto> jsonMapper = new JsonMapper();
+	private final JsonMapper<AnalyzedCrawlResultWrapperDto> analyzedCrawlResultWrapperDtoJsonMapper = new JsonMapper();
 
 //	@Override
-	public String save(String url, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException{
+//	public void save(String url, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException{
+	public void save(String url, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException{
 		AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = new AnalyzedCrawlResultWrapperDto();
 		analyzedCrawlResultWrapperDto.setResult(analyzedCrawlResultDto);
-		analyzedCrawlResultWrapperDto.setWorkspaces(Sets.<String>newHashSet(workspace));
-		elasticsearchDatabaseClient.save(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, url, analyzedCrawlResultWrapperDto);
-		return url;
+//		analyzedCrawlResultWrapperDto.setWorkspaces(Sets.<String>newHashSet(workspace));
+
+		JsonMapper<AnalyzedCrawlResultDto> analyzedCrawlResultDtoJsonMapper = new JsonMapper<>();
+		String analyzedCrawlResultDtoAsString = analyzedCrawlResultDtoJsonMapper.toString(analyzedCrawlResultDto);
+		elasticsearchDatabaseClient.save(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, url, analyzedCrawlResultDtoAsString);
 	}
-		/**
-		 * This method does an upsert, adding the new documenent if not already exists.
-		 * Otherwise the current workspace will be added to the list of workspaces in the indexed document
-		 */
-//	@Override
+
+	/**
+	 * This method does an upsert, adding the new documenent if not already exists.
+	 * Otherwise the current workspace will be added to the list of workspaces in the indexed document
+	 */
+/*
+	//	@Override
+	@Deprecated
 	public String upsert(String url, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException{
 		LOGGER.info("saving: " + url);
 		//save(indexName, typeName, id, analyzedCrawlResultDto);
@@ -61,14 +67,27 @@ public class CrawledIndexHttpRepository implements CrawledIndexRepository{
 		elasticsearchDatabaseClient.upsert(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, id, script);
 		return id;
 	}
+*/
+
 
 //	@Override
 	public AnalyzedCrawlResultDto get(String url) throws IOException{
 		LOGGER.info("getting: " + url);
 //		String id = UuidGenerator.hash(url);
 		String id = url;
-		AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = elasticsearchDatabaseClient.get(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, id, AnalyzedCrawlResultWrapperDto.class);
-		return analyzedCrawlResultWrapperDto == null ? null : analyzedCrawlResultWrapperDto.getResult();
+
+//		AnalyzedCrawlResultWrapperDto.class
+		Optional<String> stringOptional = elasticsearchDatabaseClient.get(CRAWLED_INDEX_NAME, CRAWLED_TYPE_NAME, id);
+		if(stringOptional.isPresent()){
+			String result = stringOptional.get();
+
+			AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = analyzedCrawlResultWrapperDtoJsonMapper.toObject(result, AnalyzedCrawlResultWrapperDto.class);
+//			AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = stringOptional.get();
+			return analyzedCrawlResultWrapperDto == null ? null : analyzedCrawlResultWrapperDto.getResult();
+		}
+		else{
+			return null;
+		}
 
 	}
 

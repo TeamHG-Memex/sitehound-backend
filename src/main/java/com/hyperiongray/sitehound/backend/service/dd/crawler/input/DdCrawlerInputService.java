@@ -20,47 +20,48 @@ import java.util.List;
 /**
  * Created by tomas on 2/10/16.
  */
+@Deprecated
 @Service
 public class DdCrawlerInputService {
 
-    @Autowired private KeywordsRepository keywordsRepository;
-    @Autowired private BroadCrawlRepository broadCrawlRepository;
-
-    @Autowired private ElasticsearchModelerModelRepository modelerModelRepository;
-    @Autowired private TrainerModelRepository trainerModelRepository;
-
-
-    private JsonMapper<DdCrawlerInputStartArgs> jsonMapperDdCrawlerInputStartArgs = new JsonMapper();
-
-    public DdCrawlerInputStartDto getDdCrawlerInputStart(EventInput eventInput) throws IOException {
-
-        DdCrawlerInputStartArgs eventInputStartArgs = jsonMapperDdCrawlerInputStartArgs.toObject(eventInput.getArguments(), DdCrawlerInputStartArgs.class);
-
-        DdCrawlerInputStartDto ddCrawlerInputStartDto = new DdCrawlerInputStartDto();
-        ddCrawlerInputStartDto.setId(eventInputStartArgs.getJobId());
-        ddCrawlerInputStartDto.setWorkspaceId(eventInput.getWorkspaceId());
-
-        ddCrawlerInputStartDto.setBroadness(eventInputStartArgs.getBroadness());
-        ddCrawlerInputStartDto.setPageLimit(eventInputStartArgs.getnResults());
-
-
-//        Map<String, String> models = ddRepository.getModels(eventInput.getWorkspaceId());
-//        ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
-//        ddCrawlerInputStartDto.setLinkModel(models.get("link_model"));
-        ModelerModelDto modelerModelDto = modelerModelRepository.get(eventInput.getWorkspaceId());
-        DdTrainerOutputModel ddTrainerOutputModel = trainerModelRepository.get(eventInput.getWorkspaceId());
-        ddCrawlerInputStartDto.setPageModel(modelerModelDto.getModel());
-        ddCrawlerInputStartDto.setLinkModel(ddTrainerOutputModel.getLink_model());
-
-        List<String> seeds = keywordsRepository.getRelevantTrainedUrls(eventInput.getWorkspaceId());
-        ddCrawlerInputStartDto.setSeeds(seeds);
-
-
-        List<String> hints = broadCrawlRepository.getPinnedUrls(eventInput.getWorkspaceId());
-        ddCrawlerInputStartDto.setHints(hints);
-
-        return ddCrawlerInputStartDto;
-    }
+//    @Autowired private KeywordsRepository keywordsRepository;
+//    @Autowired private BroadCrawlRepository broadCrawlRepository;
+//
+//    @Autowired private ElasticsearchModelerModelRepository modelerModelRepository;
+//    @Autowired private TrainerModelRepository trainerModelRepository;
+//
+//
+//    private JsonMapper<DdCrawlerInputStartArgs> jsonMapperDdCrawlerInputStartArgs = new JsonMapper();
+//
+//    public DdCrawlerInputStartDto getDdCrawlerInputStart(EventInput eventInput) throws IOException {
+//
+//        DdCrawlerInputStartArgs eventInputStartArgs = jsonMapperDdCrawlerInputStartArgs.toObject(eventInput.getArguments(), DdCrawlerInputStartArgs.class);
+//
+//        DdCrawlerInputStartDto ddCrawlerInputStartDto = new DdCrawlerInputStartDto();
+//        ddCrawlerInputStartDto.setId(eventInputStartArgs.getJobId());
+//        ddCrawlerInputStartDto.setWorkspaceId(eventInput.getWorkspaceId());
+//
+//        ddCrawlerInputStartDto.setBroadness(eventInputStartArgs.getBroadness());
+//        ddCrawlerInputStartDto.setPageLimit(eventInputStartArgs.getnResults());
+//
+//
+////        Map<String, String> models = ddRepository.getModels(eventInput.getWorkspaceId());
+////        ddCrawlerInputStartDto.setPageModel(models.get("page_model"));
+////        ddCrawlerInputStartDto.setLinkModel(models.get("link_model"));
+//        ModelerModelDto modelerModelDto = modelerModelRepository.get(eventInput.getWorkspaceId());
+//        DdTrainerOutputModel ddTrainerOutputModel = trainerModelRepository.get(eventInput.getWorkspaceId());
+//        ddCrawlerInputStartDto.setPageModel(modelerModelDto.getModel());
+//        ddCrawlerInputStartDto.setLinkModel(ddTrainerOutputModel.getLink_model());
+//
+//        List<String> seeds = keywordsRepository.getRelevantTrainedUrls(eventInput.getWorkspaceId());
+//        ddCrawlerInputStartDto.setSeeds(seeds);
+//
+//
+//        List<String> hints = broadCrawlRepository.getPinnedUrls(eventInput.getWorkspaceId());
+//        ddCrawlerInputStartDto.setHints(hints);
+//
+//        return ddCrawlerInputStartDto;
+//    }
 
     public DdCrawlerInputStopDto getDdCrawlerInputStop(String workspaceId){
         DdCrawlerInputStopDto ddCrawlerInputStopDto = new DdCrawlerInputStopDto();

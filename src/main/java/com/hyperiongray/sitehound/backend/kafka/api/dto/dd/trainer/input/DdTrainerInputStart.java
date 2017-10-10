@@ -29,15 +29,18 @@ public class DdTrainerInputStart  extends KafkaDto {
         return workspaceId;
     }
 
+    @JsonProperty("workspace_id")
     public void setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
     }
 
-    public String getPage_model() {
+    @JsonProperty("page_model")
+    public String getPageModel() {
         return page_model;
     }
 
-    public void setPage_model(String page_model) {
+    @JsonProperty("page_model")
+    public void setPageModel(String page_model) {
         this.page_model = page_model;
     }
 

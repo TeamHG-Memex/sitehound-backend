@@ -41,7 +41,9 @@ public class DdCrawlerAquariumCallbackService{
             AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlRequestFactory.build(crawlResultDto);
 
             // update ES index
-            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(crawlRequestDto.getUrl(), crawlRequestDto.getWorkspace(), crawlRequestDto.getCrawlEntityType(), analyzedCrawlResultDto);
+//            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(crawlRequestDto.getUrl(), crawlRequestDto.getWorkspace(), crawlRequestDto.getCrawlEntityType(), analyzedCrawlResultDto);
+            String hashKey = crawlRequestDto.getUrl();
+            analyzedCrawlResultDtoIndexRepository.save(hashKey, analyzedCrawlResultDto);
 
             // update mongo index
             Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto, score);

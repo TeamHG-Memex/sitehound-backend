@@ -3,7 +3,7 @@ package com.hyperiongray.sitehound.backend.integration.service.aquarium;
 import com.hyperiongray.sitehound.backend.integration.IntegrationTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
-import com.hyperiongray.sitehound.backend.model.MetadataTestFactory;
+import com.hyperiongray.sitehound.backend.test.model.MetadataTestFactory;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DefaultAquariumCallbackService;

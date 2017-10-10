@@ -31,7 +31,6 @@ public class SplashTest {
 	}
 
 
-
 	@Test
 	public void snapshotTest() throws IOException{
 		String response = splash.snapshot("https://twitter.com/northquahog48/status/647427369783926785");

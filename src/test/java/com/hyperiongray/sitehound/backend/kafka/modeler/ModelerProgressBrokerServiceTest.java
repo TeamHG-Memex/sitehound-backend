@@ -1,15 +1,17 @@
 package com.hyperiongray.sitehound.backend.kafka.modeler;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
+import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.output.DdModelerProgressBrokerService;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.test.kafka.producer.Producer;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl;
 import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;
@@ -23,8 +25,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -64,6 +64,10 @@ public class ModelerProgressBrokerServiceTest {
     @MockBean
     TikaService tikaService;
 
+    @MockBean
+    ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+    @MockBean
+    ExcavatorSearchService excavatorSearchService;
 
     @Test
     public void testTemplate(){

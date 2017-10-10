@@ -1,6 +1,7 @@
 package com.hyperiongray.sitehound.backend.integration.impl.mongo.dd;
 
 import com.hyperiongray.sitehound.backend.TestConfiguration;
+import com.hyperiongray.sitehound.backend.integration.IntegrationTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerProgress;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdModelerProgressRepository;
 import org.junit.Assert;
@@ -18,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfiguration.class)
+@ContextConfiguration(classes = IntegrationTestConfiguration.class)
 @ActiveProfiles("integration-test")
 public class DdModelRepositoryTest {
 

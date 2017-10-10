@@ -1,8 +1,9 @@
 package com.hyperiongray.sitehound.backend.kafka.deepcrawler;
 
-import com.hyperiongray.sitehound.backend.config.Configuration;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
+import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
+import com.hyperiongray.sitehound.backend.test.kafka.producer.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.DdDeepcrawlerOutputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.output.PageSampleDto;
 import com.hyperiongray.framework.JsonMapper;
@@ -12,7 +13,6 @@ import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdDeepcrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdDeepcrawlerOutputPagesAquariumCallbackService;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawledIndexService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
@@ -81,7 +81,10 @@ public class DeepcrawlerOutputKafkaTemplateTests {
     HttpClientConnector httpClientConnector;
     @MockBean
     TikaService tikaService;
-
+    @MockBean
+    ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+    @MockBean
+    ExcavatorSearchService excavatorSearchService;
 
     @Test
     public void testTemplate(){

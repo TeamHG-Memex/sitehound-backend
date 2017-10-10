@@ -2,6 +2,7 @@ package com.hyperiongray.sitehound.backend.integration.impl.elasticsearch.dao;
 
 import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.Application;
+import com.hyperiongray.sitehound.backend.integration.IntegrationTestConfiguration;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.CrawledIndexHttpRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ImageTypeEnum;
@@ -26,7 +27,7 @@ import java.io.IOException;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = IntegrationTestConfiguration.class)
 @ActiveProfiles("integration-test")
 public class CrawledIndexHttpRepositoryTest{
 
@@ -38,17 +39,17 @@ public class CrawledIndexHttpRepositoryTest{
 	@Ignore
 	public void testSaveAnalyzedResult() throws Exception{
 		AnalyzedCrawlResultDto google = getGoogle();
-		analyzedCrawlResultDtoCrawledIndexHttpRepository.save("http://www.google.com", "ws1", Constants.CrawlEntityType.GOOGLE, google);
+		analyzedCrawlResultDtoCrawledIndexHttpRepository.save("http://www.google.com", google);
 
 		AnalyzedCrawlResultDto bing = getBing();
-		analyzedCrawlResultDtoCrawledIndexHttpRepository.save("http://www.bing.com", "ws1", Constants.CrawlEntityType.TOR, bing);
+		analyzedCrawlResultDtoCrawledIndexHttpRepository.save("http://www.bing.com", bing);
 	}
 
 	@Test
 	public void testWebType() throws IOException{
 		AnalyzedCrawlResultDto google = getGoogle();
 		String url = "http://www.google.com/" + System.currentTimeMillis();
-		analyzedCrawlResultDtoCrawledIndexHttpRepository.save(url, "ws1", Constants.CrawlEntityType.GOOGLE, google);
+		analyzedCrawlResultDtoCrawledIndexHttpRepository.save(url, google);
 		AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlResultDtoCrawledIndexHttpRepository.get(url);
 	}
 
@@ -59,7 +60,7 @@ public class CrawledIndexHttpRepositoryTest{
 		String url = "http://www.google.com.arrrr/" + System.currentTimeMillis();
 		AnalyzedCrawlResultDto google = getGoogle();
 		String workspace = "workspace-test-get";
-		analyzedCrawlResultDtoCrawledIndexHttpRepository.upsert(url, workspace, Constants.CrawlEntityType.GOOGLE, google);
+		analyzedCrawlResultDtoCrawledIndexHttpRepository.save(url, google);
 
 		AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlResultDtoCrawledIndexHttpRepository.get(url);
 		Assert.notNull(analyzedCrawlResultDto);
@@ -74,7 +75,7 @@ public class CrawledIndexHttpRepositoryTest{
 		String url = "http://www.google.com.arr/" + System.currentTimeMillis();
 		AnalyzedCrawlResultDto google = getGoogle();
 		String workspace = "workspace-test-get";
-		analyzedCrawlResultDtoCrawledIndexHttpRepository.save(url, workspace, Constants.CrawlEntityType.GOOGLE, google);
+		analyzedCrawlResultDtoCrawledIndexHttpRepository.save(url, google);
 
 		AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlResultDtoCrawledIndexHttpRepository.get(url);
 		Assert.notNull(analyzedCrawlResultDto);
@@ -87,7 +88,7 @@ public class CrawledIndexHttpRepositoryTest{
 		AnalyzedCrawlResultDto bingAnalyzedCrawlResultDto = getBing();
 		String url = "www.to-be-deleted-id.com";
 		String workspace = "workspace-test-delete";
-		analyzedCrawlResultDtoCrawledIndexHttpRepository.save(url, workspace, Constants.CrawlEntityType.GOOGLE, bingAnalyzedCrawlResultDto);
+		analyzedCrawlResultDtoCrawledIndexHttpRepository.save(url, bingAnalyzedCrawlResultDto);
 
 		AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlResultDtoCrawledIndexHttpRepository.get(url);
 		Assert.notNull(analyzedCrawlResultDto);

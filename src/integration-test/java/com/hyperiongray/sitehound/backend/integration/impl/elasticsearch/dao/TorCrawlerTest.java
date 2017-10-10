@@ -2,7 +2,7 @@ package com.hyperiongray.sitehound.backend.integration.impl.elasticsearch.dao;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.hyperiongray.sitehound.backend.TestConfiguration;
+import com.hyperiongray.sitehound.backend.integration.IntegrationTestConfiguration;
 import com.hyperiongray.sitehound.backend.service.crawler.CrawlResult;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawler;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerResult;
@@ -25,15 +25,14 @@ import java.util.Set;
  * Created by tomas on 7/28/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfiguration.class)
+@ContextConfiguration(classes = IntegrationTestConfiguration.class)
 @ActiveProfiles("integration-test")
 public class TorCrawlerTest{
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(TorCrawlerTest.class);
 
 	@Autowired
 	private TorCrawler torCrawler;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TorCrawlerTest.class);
 
 	@Test
 	public void crawlTest() throws IOException, URISyntaxException{
@@ -56,6 +55,7 @@ public class TorCrawlerTest{
 		}
 
 	}
+
 	@Test
 	public void crawlPaginatedTest() throws IOException, URISyntaxException{
 

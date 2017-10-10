@@ -1,9 +1,10 @@
 package com.hyperiongray.sitehound.backend.kafka.deepcrawler;
 
 import com.hyperiongray.framework.JsonMapper;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.kafka.producer.AquariumProducer;
-import com.hyperiongray.sitehound.backend.test.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
+import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
+import com.hyperiongray.sitehound.backend.test.kafka.producer.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.ProgressDto;
@@ -30,7 +31,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
@@ -82,6 +82,8 @@ public class DeepcrawlerProgressKafkaTemplateTests {
     @MockBean
     TikaService tikaService;
 
+    @MockBean ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+    @MockBean ExcavatorSearchService excavatorSearchService;
 
     @Test
     public void processTest() throws Exception {

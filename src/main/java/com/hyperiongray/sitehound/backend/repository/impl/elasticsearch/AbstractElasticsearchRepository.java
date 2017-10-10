@@ -1,9 +1,9 @@
 package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch;
 
-import io.searchbox.client.JestClient;
-import io.searchbox.client.JestResult;
-import io.searchbox.core.*;
-import io.searchbox.indices.CreateIndex;
+//import io.searchbox.client.JestClient;
+//import io.searchbox.client.JestResult;
+//import io.searchbox.core.*;
+//import io.searchbox.indices.CreateIndex;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

@@ -6,7 +6,6 @@ import com.hyperiongray.sitehound.backend.model.DeepcrawlerPageRequest;
 import com.hyperiongray.sitehound.backend.repository.CrawledIndexRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlResultDto;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.AnalyzedCrawlRequestFactory;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.translator.CrawlResultTranslator;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdDeepcrawlerRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
@@ -34,7 +33,9 @@ public class DdDeepcrawlerOutputPagesAquariumCallbackService {
             CrawlResultDto crawlResultDto = crawlResultTranslator.translateFromAquariumInternal(aquariumInternal);
             AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
             // update ES index
-            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(deepcrawlerPageRequest.getUrl(), crawlJob.getWorkspaceId(), crawlJob.getCrawlEntityType(), analyzedCrawlResultDto);
+//            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(deepcrawlerPageRequest.getUrl(), crawlJob.getWorkspaceId(), crawlJob.getCrawlEntityType(), analyzedCrawlResultDto);
+            String hashKey = deepcrawlerPageRequest.getUrl();
+            analyzedCrawlResultDtoIndexRepository.save(hashKey, analyzedCrawlResultDto);
 
             // update mongo index
             Map<String, Object> document = Maps.newHashMap();

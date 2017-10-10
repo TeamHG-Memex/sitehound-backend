@@ -11,7 +11,6 @@ import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.Bing
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.events.EventService;
-import com.hyperiongray.sitehound.backend.service.nlp.scorer.ScorerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 	@Autowired private BingCrawlerBrokerService broadcrawlerBingCrawlerBrokerService;
 	@Autowired private TorCrawlerBrokerService torCrawlerBrokerService;
 	@Autowired private CrawlJobRepository crawlJobRepository;
-	@Autowired private ScorerService scorerService;
 	@Autowired private AquariumTaskSubmitter aquariumTaskSubmitter;
 	@Autowired private EventService eventService;
 
@@ -57,20 +55,6 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 			}
 
 
-			for(String source : subscriberInput.getCrawlSources()) {
-				if(source.equals("SE") || source.equals("TOR")){
-					try{
-						scorerService.indexTrainedData(subscriberInput.getWorkspace(), subscriberInput.getJobId());
-					}catch(Exception e){
-						LOGGER.error("INDEXING ERROR", e);
-						throw new RuntimeException("INDEXING ERROR");
-					}
-					LOGGER.info("Broadcrawl indexed job:" +  subscriberInput.getJobId());
-					break;
-				}
-			}
-
-
 			if(subscriberInput.getCrawlProvider().equals("HH_JOOGLE")){
 				for(String source : subscriberInput.getCrawlSources()){
 					switch(source){
@@ -81,8 +65,9 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 							executorService.submit(new DispatcherWorker(broadcrawlerBingCrawlerBrokerService, subscriberInput, taskSubmitter, Constants.CrawlType.BROADCRAWL));
 							break;
 						case "TOR":
-							executorService.submit(new DispatcherWorker(torCrawlerBrokerService, subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.BROADCRAWL));
-							break;
+							throw new RuntimeException("TOR is not a supported crawl source for broadcrawling!");
+//							executorService.submit(new DispatcherWorker(torCrawlerBrokerService, subscriberInput, aquariumTaskSubmitter, Constants.CrawlType.BROADCRAWL));
+//							break;
 						case "DD":
 //							Metadata metadata = MetadataBuilder.build(subscriberInput, Constants.CrawlType.BROADCRAWL, Constants.CrawlEntityType.DD);
 							EventInput eventInput = new EventInput();

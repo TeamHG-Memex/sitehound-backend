@@ -10,9 +10,10 @@ import java.io.IOException;
  */
 public interface CrawledIndexRepository{
 
-	String save(String id, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException;
+//	void save(String id, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException;
+	void save(String id, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException;
 
-	String upsert(String id, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException;
+//	String upsert(String id, String workspace, Constants.CrawlEntityType crawlEntityType, AnalyzedCrawlResultDto analyzedCrawlResultDto) throws IOException;
 
 	AnalyzedCrawlResultDto get(String key) throws IOException;
 

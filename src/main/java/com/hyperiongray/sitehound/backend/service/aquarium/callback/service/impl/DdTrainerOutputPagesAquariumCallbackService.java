@@ -35,7 +35,10 @@ public class DdTrainerOutputPagesAquariumCallbackService {
             AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
 
             // update ES index
-            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(pageSample.getUrl(), crawlRequestDto.getWorkspace(), crawlRequestDto.getCrawlEntityType(), analyzedCrawlResultDto);
+//            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(pageSample.getUrl(), crawlRequestDto.getWorkspace(), crawlRequestDto.getCrawlEntityType(), analyzedCrawlResultDto);
+            String hashKey = pageSample.getUrl();
+            analyzedCrawlResultDtoIndexRepository.save(pageSample.getUrl(), analyzedCrawlResultDto);
+
 
             // update mongodb
             Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto, pageSample.getScore());

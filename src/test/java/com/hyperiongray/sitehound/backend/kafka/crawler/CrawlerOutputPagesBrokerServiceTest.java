@@ -1,9 +1,10 @@
 package com.hyperiongray.sitehound.backend.kafka.crawler;
 
 import com.google.common.collect.Lists;
-import com.hyperiongray.framework.kafka.KafkaConfig;
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
+import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
+import com.hyperiongray.sitehound.backend.test.kafka.producer.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.aquarium.AquariumInput;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.PageSample;
@@ -15,8 +16,6 @@ import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.GenericC
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumInternal;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdCrawlerAquariumCallbackService;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.service.impl.DdTrainerOutputPagesAquariumCallbackService;
-import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.DdTrainerOutputPagesCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.aquarium.callback.wrapper.ScoredCallbackServiceWrapper;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.MetadataBuilder;
@@ -24,7 +23,6 @@ import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.Bing
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.dd.crawler.output.DdCrawlerOutputPagesBrokerService;
 import com.hyperiongray.sitehound.backend.service.dd.modeler.input.DdModelerInputService;
-import com.hyperiongray.sitehound.backend.service.dd.trainer.output.DdTrainerOutputPagesBrokerService;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpClientConnector;
 import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl;
 import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;
@@ -45,7 +43,6 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -91,6 +88,11 @@ public class CrawlerOutputPagesBrokerServiceTest {
     private HttpClientConnector httpClientConnector;
     @MockBean
     private TikaService tikaService;
+    @MockBean ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+    @MockBean
+    ExcavatorSearchService excavatorSearchService;
+
+
 
 
     @Test
@@ -139,11 +141,11 @@ public class CrawlerOutputPagesBrokerServiceTest {
 
         verify(aquariumClient).fetch(eq(url1), any());
 
-        try {
-            when(analyzedCrawlResultDtoIndexRepositoryMock.upsert(anyString(), anyString(), any(), any())).thenReturn(url1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            when(analyzedCrawlResultDtoIndexRepositoryMock.save(anyString(), anyString(), any(), any())).thenReturn(url1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 //        manually invoke the callback to mock the splash call
         String html = "<DOCTYPE><html>....</html>";
@@ -167,19 +169,19 @@ public class CrawlerOutputPagesBrokerServiceTest {
 
 
         ArgumentCaptor<String> capturedHashKey = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> capturedWorkspaceId = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<Constants.CrawlEntityType> capturedCrawlEntityType = ArgumentCaptor.forClass(Constants.CrawlEntityType.class);
+//        ArgumentCaptor<String> capturedWorkspaceId = ArgumentCaptor.forClass(String.class);
+//        ArgumentCaptor<Constants.CrawlEntityType> capturedCrawlEntityType = ArgumentCaptor.forClass(Constants.CrawlEntityType.class);
         ArgumentCaptor<AnalyzedCrawlResultDto> capturedAnalyzedCrawlResultDto = ArgumentCaptor.forClass(AnalyzedCrawlResultDto.class);
 
         try {
-            verify(analyzedCrawlResultDtoIndexRepositoryMock).upsert(capturedHashKey.capture(), capturedWorkspaceId.capture(), capturedCrawlEntityType.capture(), capturedAnalyzedCrawlResultDto.capture());
+            verify(analyzedCrawlResultDtoIndexRepositoryMock).save(capturedHashKey.capture(), capturedAnalyzedCrawlResultDto.capture());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         assertEquals(pageSample.getUrl(), capturedHashKey.getValue());
-        assertEquals(workspaceId, capturedWorkspaceId.getValue());
-        assertEquals(Constants.CrawlEntityType.DD, capturedCrawlEntityType.getValue());
+//        assertEquals(workspaceId, capturedWorkspaceId.getValue());
+//        assertEquals(Constants.CrawlEntityType.DD, capturedCrawlEntityType.getValue());
         assertEquals(title, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getTitle());
         assertEquals(url1, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getUrl());
         assertEquals(ImageTypeEnum.PNG, capturedAnalyzedCrawlResultDto.getValue().getCrawlResultDto().getImage().getType());

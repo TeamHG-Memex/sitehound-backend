@@ -40,7 +40,9 @@ public class DefaultAquariumCallbackService{
             AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
 
             // update ES index
-            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(crawlRequestDto.getUrl(), crawlRequestDto.getWorkspace(), crawlRequestDto.getCrawlEntityType(), analyzedCrawlResultDto);
+//            String hashKey = analyzedCrawlResultDtoIndexRepository.upsert(crawlRequestDto.getUrl(), crawlRequestDto.getWorkspace(), crawlRequestDto.getCrawlEntityType(), analyzedCrawlResultDto);
+            String hashKey = crawlRequestDto.getUrl();
+            analyzedCrawlResultDtoIndexRepository.save(crawlRequestDto.getUrl(), analyzedCrawlResultDto);
 
             Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto);
             if(crawlRequestDto.getCrawlEntityType().equals(Constants.CrawlEntityType.MANUAL)){

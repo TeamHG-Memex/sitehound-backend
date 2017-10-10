@@ -1,7 +1,9 @@
 package com.hyperiongray.sitehound.backend.kafka.modeler;
 
-import com.hyperiongray.sitehound.backend.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.test.kafka.Producer;
+import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
+import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
+import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
+import com.hyperiongray.sitehound.backend.test.kafka.producer.Producer;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
@@ -61,6 +63,10 @@ public class ModelerOutputBrokerServiceTest {
     @MockBean HttpProxyClientImpl httpProxyClient;
     @MockBean HttpClientConnector httpClientConnector;
     @MockBean TikaService tikaService;
+    @MockBean
+    ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+    @MockBean
+    ExcavatorSearchService excavatorSearchService;
 
     @Test
     public void testTemplate(){
