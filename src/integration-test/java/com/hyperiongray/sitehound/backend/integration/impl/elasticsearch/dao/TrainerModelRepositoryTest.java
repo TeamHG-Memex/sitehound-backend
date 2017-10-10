@@ -26,6 +26,7 @@ import java.util.Optional;
 @Ignore
 public class TrainerModelRepositoryTest {
 
+    /*
     @Autowired private TrainerModelRepository trainerModelRepository;
 
     private String workspaceId = "adba333333312345678";
@@ -53,5 +54,5 @@ public class TrainerModelRepositoryTest {
         Optional<DdTrainerOutputModel> ddTrainerOutputModelSavedAfterDeleteOptional = trainerModelRepository.get(workspaceId);
         Assert.assertTrue(ddTrainerOutputModelSavedAfterDeleteOptional.isPresent());
     }
-
+    */
 }

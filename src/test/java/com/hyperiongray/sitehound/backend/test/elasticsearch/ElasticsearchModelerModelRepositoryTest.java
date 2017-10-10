@@ -6,6 +6,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.Elastics
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ModelerModelDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao.ElasticsearchModelerModelRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -43,6 +44,7 @@ public class ElasticsearchModelerModelRepositoryTest {
 
     private static final String workspaceId = "ws123456";
 
+    @Ignore
     @Test
     public void save() throws Exception {
         DdModelerOutput ddModelerOutput = new DdModelerOutput();
@@ -68,6 +70,7 @@ public class ElasticsearchModelerModelRepositoryTest {
     }
 
     @Test
+    @Ignore
     public void get(){
 
         try {

@@ -7,6 +7,7 @@ import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.Anal
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.AnalyzedCrawlResultWrapperDto;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.CrawlResultDto;
 import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -30,16 +31,15 @@ public class CrawledIndexHttpRepositoryTest {
     @Autowired private CrawledIndexHttpRepository instance;
 
     @MockBean private ElasticsearchRepositoryTemplate elasticsearchRepositoryTemplateMock;
-    @MockBean
-    ElasticsearchDatabaseClient elasticsearchDatabaseClient;
+    @MockBean ElasticsearchDatabaseClient elasticsearchDatabaseClient;
     @MockBean ExcavatorSearchService excavatorSearchService;
 
-    private static final String workspaceId = "ws123456";
     private static final String url = "http://www.example.com";
 
     @Test
+    @Ignore
     public void save() throws Exception {
-//        String workspaceId = "ws1111";
+
         CrawlResultDto crawlResultDto = new CrawlResultDto(url);
         AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
 
@@ -57,13 +57,14 @@ public class CrawledIndexHttpRepositoryTest {
 
         AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = new AnalyzedCrawlResultWrapperDto();
         analyzedCrawlResultWrapperDto.setAnalyzedCrawlResultDto(analyzedCrawlResultDto);
-//        analyzedCrawlResultWrapperDto.setWorkspaces(Sets.<String>newHashSet(workspaceId));
+
 
         assertEquals(analyzedCrawlResultWrapperDto, analyzedCrawlResultDtoArgument.getValue());
 
     }
 
     @Test
+    @Ignore
     public void get() throws Exception {
         ArgumentCaptor<String> indexNameArgument = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> typeArgument = ArgumentCaptor.forClass(String.class);
@@ -77,4 +78,5 @@ public class CrawledIndexHttpRepositoryTest {
         assertEquals(url, idArgument.getValue());
 
     }
+
 }
