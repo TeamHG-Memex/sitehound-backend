@@ -100,7 +100,7 @@ public class KeywordsMessageDispatcherTest {
 
         when(crawlJobRepository.updateJobStatus(any(), any())).thenReturn(true);
         try {
-            String input = jsonMapper.toString(subscriberInput);
+            String input = jsonMapper.toJson(subscriberInput);
             producer.produce(TEMPLATE_TOPIC, embeddedKafka, instance, input);
 
 

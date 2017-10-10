@@ -26,7 +26,7 @@ public class DdModelerProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdModelerProducer.class);
 
     public void submit(DdModelerInput ddModelerInput) throws IOException {
-        String message = jsonMapper.toString(ddModelerInput);
+        String message = jsonMapper.toJson(ddModelerInput);
         localQueueProducer.send(inputQueue, message);
         LOGGER.info("Sent to dd-modeler: "  + inputQueue +" with message:" + ddModelerInput);
         LOGGER.debug("Sent to dd-modeler: "  + inputQueue +" with message length:" + message.length());

@@ -56,7 +56,7 @@ public class CrawledIndexHttpRepositoryTest {
         assertEquals(url, idArgument.getValue());
 
         AnalyzedCrawlResultWrapperDto analyzedCrawlResultWrapperDto = new AnalyzedCrawlResultWrapperDto();
-        analyzedCrawlResultWrapperDto.setResult(analyzedCrawlResultDto);
+        analyzedCrawlResultWrapperDto.setAnalyzedCrawlResultDto(analyzedCrawlResultDto);
 //        analyzedCrawlResultWrapperDto.setWorkspaces(Sets.<String>newHashSet(workspaceId));
 
         assertEquals(analyzedCrawlResultWrapperDto, analyzedCrawlResultDtoArgument.getValue());

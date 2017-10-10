@@ -20,12 +20,15 @@ import java.util.Optional;
  * Created by tomas on 29/09/16.
  */
 @Service
+@Deprecated
 public class DdTrainerInputService {
 
     @Autowired private KeywordsRepository keywordsRepository;
     @Autowired private ElasticsearchModelerModelRepository modelerModelRepository;
     @Autowired private DdTrainerRepository ddTrainerRepository;
     @Autowired private TrainerModelRepository trainerModelRepository;
+
+/*
 
     public DdTrainerInputStart getDdTrainerInputStart(EventInput eventInput) throws IOException {
         DdTrainerInputStart ddTrainerInputStart = new DdTrainerInputStart();
@@ -54,6 +57,8 @@ public class DdTrainerInputService {
         return ddTrainerInputStart;
 
     }
+*/
+
 
     public DdTrainerInputStop getDdTrainerInputStop(EventInput eventInput) throws IOException {
         DdTrainerInputStop ddTrainerInputStop = new DdTrainerInputStop();

@@ -1,7 +1,7 @@
-package com.hyperiongray.sitehound.backend.integration.consumer;
+package com.hyperiongray.sitehound.backend.integration.kafka.consumer;
 
 import com.hyperiongray.sitehound.backend.Application;
-import com.hyperiongray.sitehound.backend.integration.consumer.mocks.KeywordCrawlerProducerMock;
+import com.hyperiongray.sitehound.backend.integration.kafka.consumer.mocks.KeywordCrawlerProducerMock;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;

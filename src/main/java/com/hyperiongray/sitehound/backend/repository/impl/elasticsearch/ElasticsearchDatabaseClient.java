@@ -13,11 +13,6 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Optional;
 
-//import io.searchbox.client.JestClient;
-//import io.searchbox.client.JestClientFactory;
-//import io.searchbox.client.config.HttpClientConfig;
-
-
 @Repository
 public class ElasticsearchDatabaseClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchDatabaseClient.class);
@@ -42,10 +37,6 @@ public class ElasticsearchDatabaseClient {
     public void save(String indexName, String type, String id, String source) throws IOException {
         elasticsearchRepositoryTemplate.save(client, indexName, type, id, source);
     }
-
-//    public void upsert(String indexName, String typeName, String id, String script) throws IOException {
-//        elasticsearchRepositoryTemplate.upsert(client, indexName, typeName, id, script);
-//    }
 
     public Optional<String> get(String indexName, String typeName, String id) throws IOException {
         return elasticsearchRepositoryTemplate.get(client, indexName, typeName, id);

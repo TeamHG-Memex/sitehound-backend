@@ -26,7 +26,7 @@ public class DdCrawlerHintsInputProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdCrawlerHintsInputProducer.class);
 
     public void submit(DdCrawlerHintsInputDto ddCrawlerHintsInputDto) throws IOException {
-        String message = jsonMapper.toString(ddCrawlerHintsInputDto);
+        String message = jsonMapper.toJson(ddCrawlerHintsInputDto);
         localQueueProducer.send(inputQueue, message);
         LOGGER.info("Sent "  + inputQueue + " with ddCrawlerHintsInputDto: " +  ddCrawlerHintsInputDto);
         LOGGER.debug("Sent "  + inputQueue +" with message length: " + message.length());

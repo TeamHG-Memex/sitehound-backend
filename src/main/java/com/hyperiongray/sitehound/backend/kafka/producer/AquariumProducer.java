@@ -28,13 +28,13 @@ public class AquariumProducer implements KafkaProducerProcessor<AquariumInput>{
 //		AquariumInput aquariumInput = new AquariumInput(metadata);
 //		aquariumInput.setUrl(url);
 //		aquariumInput.setIndex(100);
-//		String message = jsonMapper.toString(aquariumInput);
+//		String message = jsonMapper.toJson(aquariumInput);
 //		queueProducer.send(Queues.AQUARIUM_INPUT.getSubscriberTopic(), message);
 //		LOGGER.info("Sent to aquarium"  + Queues.AQUARIUM_INPUT.getSubscriberTopic() +" with url:" + aquariumInput.getUrl());
 //	}
 
 	public void submit(AquariumInput aquariumInput) throws IOException{
-		String message = jsonMapper.toString(aquariumInput);
+		String message = jsonMapper.toJson(aquariumInput);
 		queueProducer.send(Queues.AQUARIUM_INPUT.getSubscriberTopic(), message);
 		LOGGER.info("Sent to aquarium"  + Queues.AQUARIUM_INPUT.getSubscriberTopic() +" with url:" + aquariumInput.getUrl());
 	}

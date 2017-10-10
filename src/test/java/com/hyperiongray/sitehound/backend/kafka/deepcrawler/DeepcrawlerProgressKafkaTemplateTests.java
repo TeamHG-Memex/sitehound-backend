@@ -112,7 +112,7 @@ public class DeepcrawlerProgressKafkaTemplateTests {
         JsonMapper<DdDeepcrawlerProgressDto> jsonMapper = new JsonMapper();
         String input = "";
         try {
-            input = jsonMapper.toString(ddDeepcrawlerProgressDto);
+            input = jsonMapper.toJson(ddDeepcrawlerProgressDto);
         } catch (IOException e) {
             e.printStackTrace();
             fail();

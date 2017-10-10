@@ -21,7 +21,7 @@ public class JsonMapper<T> {
         return mapper.readValue(content, clazz);
     }
 
-	public String toString(T content) throws IOException {
+	public String toJson(T content) throws IOException {
 		return mapper.writeValueAsString(content);
 	}
 

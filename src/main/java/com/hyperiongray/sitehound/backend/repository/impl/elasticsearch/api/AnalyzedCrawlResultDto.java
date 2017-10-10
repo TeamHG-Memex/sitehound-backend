@@ -13,6 +13,7 @@ import java.util.Set;
  */
 public class AnalyzedCrawlResultDto{
 
+
 	private CrawlResultDto crawlResultDto;
 	private String text;
 	private Set<String> links = Sets.newHashSet();
@@ -25,8 +26,14 @@ public class AnalyzedCrawlResultDto{
 		this.crawlResultDto = crawlResultDto;
 	}
 
+	public AnalyzedCrawlResultDto(){}
+
 	public CrawlResultDto getCrawlResultDto(){
 		return crawlResultDto;
+	}
+
+	public void setCrawlResultDto(CrawlResultDto crawlResultDto) {
+		this.crawlResultDto = crawlResultDto;
 	}
 
 	public String getText(){

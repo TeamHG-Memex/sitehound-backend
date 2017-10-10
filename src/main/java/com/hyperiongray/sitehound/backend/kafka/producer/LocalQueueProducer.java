@@ -42,7 +42,7 @@ public class LocalQueueProducer{
 //		ProducerConfig producerConfig = new ProducerConfig(props);
 //		kafka.javaapi.producer.Producer<String, String> kafkaProducer = new kafka.javaapi.producer.Producer<String, String>(producerConfig);
 //		this.kafkaProducer = kafkaProducer;
-//		LOGGER.info(props.toString());
+//		LOGGER.info(props.toJson());
 //	}
 //
 ////	protected Producer getProducer(){

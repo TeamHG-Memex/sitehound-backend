@@ -27,14 +27,14 @@ public class DdCrawlerInputProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdCrawlerInputProducer.class);
 
     public void submit(DdCrawlerInputStartDto ddCrawlerInputStartDto) throws IOException {
-        String message = jsonMapper.toString(ddCrawlerInputStartDto);
+        String message = jsonMapper.toJson(ddCrawlerInputStartDto);
         localQueueProducer.send(inputQueue, message);
         LOGGER.info("Sent "  + inputQueue + " With ddCrawlerInputStartDto: " + ddCrawlerInputStartDto);
         LOGGER.debug("Sent "  + inputQueue +" with message length:" + message.length());
     }
 
     public void submit(DdCrawlerInputStopDto ddCrawlerInputStopDto) throws IOException {
-        String message = jsonMapper.toString(ddCrawlerInputStopDto);
+        String message = jsonMapper.toJson(ddCrawlerInputStopDto);
         localQueueProducer.send(inputQueue, message);
         LOGGER.info("Sent "  + inputQueue + " with ddCrawlerInputStopDto: " + ddCrawlerInputStopDto);
         LOGGER.debug("Sent "  + inputQueue +" with message length:" + message.length());

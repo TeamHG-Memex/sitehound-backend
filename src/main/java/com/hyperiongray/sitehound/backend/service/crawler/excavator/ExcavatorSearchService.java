@@ -62,7 +62,6 @@ public class ExcavatorSearchService {
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, password));
 
-
         try {
             final SSLContext sslContext = SSLContext.getInstance("SSL");
 
@@ -97,11 +96,7 @@ public class ExcavatorSearchService {
                                     .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                                     .setUserAgent("SITEHOUND-BACKEND")
                                     .setMaxConnTotal(20)
-                                    .setMaxConnPerRoute(20)
-//                                    .readTimeout(120 * 1000)
-//                                    setcconnTimeout(120 * 1000)
-//                                    .multiThreaded(true)
-                                    ;
+                                    .setMaxConnPerRoute(20);
                         }
                     })
                     .build();
@@ -109,9 +104,9 @@ public class ExcavatorSearchService {
             client = new RestHighLevelClient(lowLevelRestClient);
 
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LOGGER.error("FAILED", e);
         } catch (KeyManagementException e) {
-            e.printStackTrace();
+            LOGGER.error("FAILED", e);
         }
 
         //TODO   restClient.close(); when the app closes!
@@ -150,97 +145,10 @@ public class ExcavatorSearchService {
 
         List<String> onions = Lists.newArrayList();
         for (SearchHit hit : hits.getHits()) {
-            System.out.println(hit);
             onions.add((String) hit.getSourceAsMap().get("url"));
         }
 
         return onions;
     }
-
-    /*
-    @PostConstruct
-    public void postConstruct() throws KeyManagementException, NoSuchAlgorithmException {
-
-        SSLContext sslContext = SSLContext.getInstance("SSL");
-
-        // set up a TrustManager that trusts everything
-        sslContext.init(null, new TrustManager[] { new X509TrustManager() {
-            public X509Certificate[] getAcceptedIssuers() {
-                System.out.println("getAcceptedIssuers =============");
-                return null;
-            }
-
-            public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                System.out.println("checkClientTrusted =============");
-            }
-
-            public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                System.out.println("checkServerTrusted =============");
-            }
-        } }, new SecureRandom());
-
-        // skip hostname checks
-        HostnameVerifier hostnameVerifier = NoopHostnameVerifier.INSTANCE;
-        SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext, hostnameVerifier);
-        JestClientFactory factory = new JestClientFactory();
-
-        DefaultCredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
-        credentialsProvider.addCredentials(user, password);
-
-        //TODO externalize this
-        factory.setHttpClientConfig(new HttpClientConfig.Builder(endpoint)
-                .sslSocketFactory(sslSocketFactory)
-                .credentialsProvider(credentialsProvider)
-                .connTimeout(120 * 1000)
-                .readTimeout(120 * 1000)
-                .multiThreaded(true)
-                .build());
-        this.client = factory.getObject();
-    }
-
-    public void search(Set<String> keywords, int startingFrom, int pageSize){
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(CrawlerUtils.groupCreator(Lists.newArrayList(keywords)));
-
-        String query = "{"
-                + "    \"query\": {"
-                + "        \"filtered\" : {"
-                + "            \"query\" : {"
-                + "                \"query_string\" : {"
-                + "                \"fields\" : [\"pagetitle^6\", \"url^3\", \"pagetext^2\"],"
-                + "                  \"query\" : \""+ sb.toString() + "\"" //+ "\","
-//                + "		            \"use_dis_max\" : true"
-                + "                }"
-                + "            },"
-                + "            \"filter\" : {\"exists\" : { \"field\" : \"url\" }"
-                + "            }"
-                + "        }"
-                + "    }"
-                + "}";
-
-
-        LOGGER.info("excavator query: " + query);
-        Search search = new Search.Builder(query).addIndex("deeptexts").addType("pages")
-                .setSearchType(SearchType.QUERY_THEN_FETCH)
-                .setParameter("from", startingFrom)
-                .setParameter("size", pageSize)
-                .build();
-
-        SearchResult result = null;
-        try {
-            result = client.execute(search);
-            System.out.println(result.getTotal());
-            System.out.println(result.getMaxScore());
-        } catch (IOException e) {
-            LOGGER.error("Request to excavator Failed!", e);
-        }
-        LOGGER.debug(result.getJsonString());
-
-        //        return null;
-
-
-    }
-*/
 
 }

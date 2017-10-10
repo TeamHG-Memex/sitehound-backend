@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Deprecated
-public class DdTrainerOutputModelBrokerService implements BrokerService {
+public class DdTrainerOutputModelBrokerService {//implements BrokerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerOutputModelBrokerService.class);
-
+/*
     @Autowired private DdTrainerRepository ddTrainerRepository;
     @Autowired private TrainerModelRepository trainerModelRepository;
     @Autowired private CrawlJobRepository crawlJobRepository;
@@ -42,5 +42,5 @@ public class DdTrainerOutputModelBrokerService implements BrokerService {
             LOGGER.error("ERROR:" + jsonInput, e);
         }
     }
-
+*/
 }

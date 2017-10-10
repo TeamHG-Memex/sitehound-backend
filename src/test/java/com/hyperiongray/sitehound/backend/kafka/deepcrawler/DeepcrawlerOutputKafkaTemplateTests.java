@@ -105,7 +105,7 @@ public class DeepcrawlerOutputKafkaTemplateTests {
         JsonMapper<DdDeepcrawlerOutputDto> jsonMapper = new JsonMapper();
         String input = "";
         try {
-            input = jsonMapper.toString(ddDeepcrawlerOutputDto);
+            input = jsonMapper.toJson(ddDeepcrawlerOutputDto);
         } catch (IOException e) {
             e.printStackTrace();
             fail();

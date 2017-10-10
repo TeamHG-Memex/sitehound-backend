@@ -78,7 +78,7 @@ public class HttpDirectClientImpl implements HttpClient{
 				try {
 					content = IOUtils.toString(instream, Charset.forName("UTF-8"));
 					LOGGER.debug(content);
-//					Document document = Jsoup.parse(instream, "UTF-8", uri.toURL().toString());
+//					Document document = Jsoup.parse(instream, "UTF-8", uri.toURL().toJson());
 //					content = document.html();
 				} finally {
 					instream.close();

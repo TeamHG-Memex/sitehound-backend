@@ -1,6 +1,6 @@
-package com.hyperiongray.sitehound.backend.integration.consumer.mocks;
+package com.hyperiongray.sitehound.backend.integration.kafka.consumer.mocks;
 
-import com.hyperiongray.sitehound.backend.integration.consumer.ImportUrlFlowTest;
+import com.hyperiongray.sitehound.backend.integration.kafka.consumer.ImportUrlFlowTest;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;
 import com.hyperiongray.sitehound.backend.kafka.producer.LocalQueueProducer;
 import com.hyperiongray.sitehound.backend.model.Queues;
@@ -35,7 +35,7 @@ public class ImportUrlProducerMock {
 	public void submit(Metadata metadata, String url) throws IOException{
 
 		ImportUrlFlowTest.ImportUrl importUrl = new ImportUrlFlowTest.ImportUrl(metadata, url, true);
-		String importUrlString = jsonMapper.toString(importUrl);
+		String importUrlString = jsonMapper.toJson(importUrl);
 		localQueueProducer.send(Queues.IMPORT_URL_INPUT.getSubscriberTopic(), importUrlString);
 		LOGGER.info("Sent to aquarium"  + importUrlString +" with url:" + importUrl.getUrl());
 	}

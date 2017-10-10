@@ -18,7 +18,7 @@ public class ParserService{
 		htmlDocument.body().select("img").remove();
 		htmlDocument.body().select("a").remove();
 		htmlDocument.body().select("span").remove();
-		String cleanBodyNoImage = Jsoup.clean(htmlDocument.body().toString(), Whitelist.simpleText().removeAttributes("a", "span"));
+		String cleanBodyNoImage = Jsoup.clean(htmlDocument.body().toJson(), Whitelist.simpleText().removeAttributes("a", "span"));
 
 		cleanBodyNoImage = Jsoup.parseBodyFragment(cleanBodyNoImage).body().ownText();
 //		Document htmlDocument2 = Jsoup.parseBodyFragment(cleanBodyNoImage);

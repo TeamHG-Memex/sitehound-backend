@@ -1,9 +1,7 @@
 package com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.dao;
 
 import com.hyperiongray.framework.JsonMapper;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.modeler.output.DdModelerOutput;
-import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.AbstractElasticsearchRepository;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.api.ModelerModelDto;
 import org.slf4j.Logger;
@@ -35,7 +33,7 @@ public class ElasticsearchModelerModelRepository{
 
         ModelerModelDto modelerModelDto = new ModelerModelDto();
         modelerModelDto.setModel(ddModelerOutput.getModel());
-        String modelerModelDtoAsString = modelerModelDtoJsonMapper.toString(modelerModelDto);
+        String modelerModelDtoAsString = modelerModelDtoJsonMapper.toJson(modelerModelDto);
         elasticsearchDatabaseClient.save(MODELER_INDEX_NAME, MODELER_TYPE_NAME, ddModelerOutput.getWorkspaceId(), modelerModelDtoAsString);
         LOGGER.info("done saving DdModelerOutput");
     }

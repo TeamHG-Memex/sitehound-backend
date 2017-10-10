@@ -104,7 +104,7 @@ public abstract class AbstractCrawlerBrokerService implements CrawlerBrokerServi
 			aquariumInput.setIndex(currentTarget);
 			String aquariumInputString;
 			try {
-				aquariumInputString = jsonMapper.toString(aquariumInput);
+				aquariumInputString = jsonMapper.toJson(aquariumInput);
 				producer.send(aquariumInputString);
 				LOGGER.info("Sent #: " + currentTarget +" by " + producer  +" with url:" + aquariumInput.getUrl());
 //				LOGGER.info("Sent: " + aquariumInputString);

@@ -45,7 +45,7 @@ public class JsonMapperTest {
 
         JsonMapper<SubscriberInput> jsonMapperInput = new JsonMapper();
         JsonMapper<SubscriberOutput> jsonMapperOutput = new JsonMapper();
-        String json = jsonMapperOutput.toString(subscriberOutput);
+        String json = jsonMapperOutput.toJson(subscriberOutput);
         LOGGER.info("To JSON: " + json);
 
         String message = "{" +

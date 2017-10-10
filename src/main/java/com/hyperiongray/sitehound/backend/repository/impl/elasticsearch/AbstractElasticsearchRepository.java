@@ -96,7 +96,7 @@ public abstract class AbstractElasticsearchRepository<T>{
 				               + "            \"query\" : {"
 				               + "                \"query_string\" : {"
 				               + "					\"fields\" : [\"title^6\", \"links^2\", \"h1^3\", \"h2^3\", \"text^1\"],"
-				               + "                  \"query\" : \""+ sb.toString() + "\","
+				               + "                  \"query\" : \""+ sb.toJson() + "\","
 				               + "		            \"use_dis_max\" : true"
 				               + "                }"
 				               + "            },"

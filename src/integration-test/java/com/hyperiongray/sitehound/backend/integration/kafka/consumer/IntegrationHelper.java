@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.integration.consumer;
+package com.hyperiongray.sitehound.backend.integration.kafka.consumer;
 
 import com.google.common.collect.Lists;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.Metadata;

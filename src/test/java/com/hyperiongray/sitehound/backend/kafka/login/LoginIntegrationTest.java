@@ -1,10 +1,12 @@
 package com.hyperiongray.sitehound.backend.kafka.login;
 
 import com.hyperiongray.framework.JsonMapper;
-//import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
-import com.hyperiongray.sitehound.backend.integration.IntegrationTestConfiguration;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
+import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginResultDto;
+import com.hyperiongray.sitehound.backend.model.DdLoginInput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository;
+import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import com.hyperiongray.sitehound.backend.service.aquarium.AquariumAsyncClient;
 import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
@@ -17,10 +19,6 @@ import com.hyperiongray.sitehound.backend.service.httpclient.HttpProxyClientImpl
 import com.hyperiongray.sitehound.backend.service.nlp.tika.TikaService;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.test.kafka.producer.Producer;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginInputDto;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.login.input.DdLoginResultDto;
-import com.hyperiongray.sitehound.backend.model.DdLoginInput;
-import com.hyperiongray.sitehound.backend.repository.impl.mongo.dd.DdLoginRepository;
 import org.assertj.core.util.Lists;
 import org.assertj.core.util.Maps;
 import org.junit.Assert;
@@ -31,7 +29,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -111,7 +108,7 @@ public class LoginIntegrationTest {
         JsonMapper<DdLoginInputDto> loginInputJsonMapper = new JsonMapper();
         String loginInput="";
         try {
-            loginInput = loginInputJsonMapper.toString(ddLoginInputDto);
+            loginInput = loginInputJsonMapper.toJson(ddLoginInputDto);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,7 +130,7 @@ public class LoginIntegrationTest {
         JsonMapper<DdLoginResultDto> loginResultJsonMapper = new JsonMapper();
         String loginResult = "";
         try {
-            loginResult = loginResultJsonMapper.toString(ddLoginResultDto);
+            loginResult = loginResultJsonMapper.toJson(ddLoginResultDto);
         } catch (IOException e) {
             e.printStackTrace();
         }

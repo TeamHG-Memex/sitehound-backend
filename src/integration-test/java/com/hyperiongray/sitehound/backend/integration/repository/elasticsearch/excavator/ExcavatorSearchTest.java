@@ -1,8 +1,9 @@
-package com.hyperiongray.sitehound.backend.integration.impl.elasticsearch.dao;
+package com.hyperiongray.sitehound.backend.integration.repository.elasticsearch.excavator;
 
 import com.google.common.collect.Sets;
 import com.hyperiongray.sitehound.backend.TestConfiguration;
 import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorSearchService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import static junit.framework.TestCase.fail;
@@ -29,13 +31,15 @@ public class ExcavatorSearchTest {
 
     @Test
     public void test(){
-//        Set<String> keywords = Sets.newHashSet("bitcoin", "etherum");
+
         Set<String> keywords = Sets.newHashSet("bitcoin");
         int startingFrom = 0;
         int pageSize = 50;
 
         try {
-            excavatorSearchService.search(keywords, startingFrom, pageSize);
+            List<String> search = excavatorSearchService.search(keywords, startingFrom, pageSize);
+            search.stream().forEach(x-> System.out.println(x));
+            Assert.assertTrue(search.size()==10);
         } catch (IOException e) {
             e.printStackTrace();
             fail();

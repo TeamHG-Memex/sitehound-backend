@@ -27,7 +27,7 @@ public class DdTrainerInputProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DdTrainerInputProducer.class);
 
     public void submit(DdTrainerInputStart ddTrainerInputStart) throws IOException {
-        String message = jsonMapper.toString(ddTrainerInputStart);
+        String message = jsonMapper.toJson(ddTrainerInputStart);
         localQueueProducer.send(inputQueue, message);
         LOGGER.info("Sent "  + inputQueue + " with  ddTrainerInputStart: " + ddTrainerInputStart);
         LOGGER.debug("Sent "  + inputQueue +" with message (size):" + message.length());
@@ -35,7 +35,7 @@ public class DdTrainerInputProducer {
 
     public void submit(DdTrainerInputStop ddTrainerInputStop) throws IOException {
 //        LOGGER.info("Sent "  + inputQueue );
-        String message = jsonMapper.toString(ddTrainerInputStop);
+        String message = jsonMapper.toJson(ddTrainerInputStop);
         localQueueProducer.send(inputQueue, message);
         LOGGER.info("Sent "  + inputQueue +" with message:" + ddTrainerInputStop);
         LOGGER.debug("Sent "  + inputQueue +" with message:" + message.length());

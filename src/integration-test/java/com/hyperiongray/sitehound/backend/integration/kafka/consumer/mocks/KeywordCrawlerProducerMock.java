@@ -1,4 +1,4 @@
-package com.hyperiongray.sitehound.backend.integration.consumer.mocks;
+package com.hyperiongray.sitehound.backend.integration.kafka.consumer.mocks;
 
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.kafka.producer.LocalQueueProducer;
@@ -22,7 +22,7 @@ public class KeywordCrawlerProducerMock{
 
 
 	public void submit(SubscriberInput subscriberInput) throws IOException{
-		String subscriberInputString = jsonMapper.toString(subscriberInput);
+		String subscriberInputString = jsonMapper.toJson(subscriberInput);
 		localQueueProducer.send(Queues.KEYWORDS_INPUT.getSubscriberTopic(), subscriberInputString);
 		LOGGER.info("Sent to keywords"  + subscriberInputString +" with url:" + subscriberInput);
 
