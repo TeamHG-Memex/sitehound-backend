@@ -26,7 +26,7 @@ public class ModelerElasticsearchCrudTest {
 
     @Autowired private ElasticsearchDatabaseClient elasticsearchDatabaseClient;
 
-    private static String workspaceId = "wsModelerClientTest00001";
+    private static String workspaceId = "wsModelerClientTest00001".toLowerCase();
     private static String model = "....model....wsModelerClientTest00001...";
 
     private final JsonMapper<ModelerModelDto> modelerModelDtoJsonMapper = new JsonMapper<ModelerModelDto>();

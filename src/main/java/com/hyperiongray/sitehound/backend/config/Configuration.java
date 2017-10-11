@@ -30,6 +30,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 		@PropertySource(value = "file:config/properties-override/classifier.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/tor.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/kafka.properties", ignoreResourceNotFound = true),
+		@PropertySource(value = "file:config/properties-override/excavator.properties", ignoreResourceNotFound = true),
 
 		@PropertySource(value = "file:/root/sitehound-backend/config/properties-override/application-override.properties", ignoreResourceNotFound = true),
 })

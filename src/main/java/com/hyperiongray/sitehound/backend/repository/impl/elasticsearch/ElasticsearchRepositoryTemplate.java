@@ -32,10 +32,9 @@ public class ElasticsearchRepositoryTemplate{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchRepositoryTemplate.class);
 
-
 	public void save(RestHighLevelClient client, String index, String type, String id, String source) throws IOException{
 	    LOGGER.info("saving: (index:" + index + "), (type:" + type + "), (id:" + id + ")");
-        IndexRequest indexRequest = new IndexRequest(index, type, id.toLowerCase());
+        IndexRequest indexRequest = new IndexRequest(index, type, id);
         indexRequest.source(source, XContentType.JSON);
         IndexResponse indexResponse = client.index(indexRequest);
     }
@@ -44,7 +43,7 @@ public class ElasticsearchRepositoryTemplate{
 	public Optional<String> get(RestHighLevelClient client, String index, String type, String id) throws IOException{
 
         Optional<String> result;
-        GetRequest request = new GetRequest(index, type, id.toLowerCase());
+        GetRequest request = new GetRequest(index, type, id);
         try {
 
             GetResponse response = client.get(request);
@@ -68,7 +67,7 @@ public class ElasticsearchRepositoryTemplate{
     }
 
 	public void delete(RestHighLevelClient client, String indexName, String typeName, String id) throws IOException{
-        DeleteRequest deleteRequest = new DeleteRequest(indexName, typeName, id.toLowerCase());
+        DeleteRequest deleteRequest = new DeleteRequest(indexName, typeName, id);
         DeleteResponse response = client.delete(deleteRequest);
 	}
 

@@ -21,8 +21,7 @@ public class ExcavatorTaskRunnable implements Runnable {
         try {
             excavatorBrokerService.process(subscriberInput);
         } catch (Exception e) {
-            LOGGER.error("Failed to run excavatorBrokerService");
-
+            LOGGER.error("Failed to run excavatorBrokerService", e);
         }
     }
 }
