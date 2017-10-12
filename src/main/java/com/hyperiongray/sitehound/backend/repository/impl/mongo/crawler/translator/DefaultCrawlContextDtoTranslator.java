@@ -45,14 +45,16 @@ public class DefaultCrawlContextDtoTranslator{
 		document.put("workspaceId", crawlRequestDto.getWorkspace());
 		document.put("jobId", crawlRequestDto.getJobId());
 		document.put("crawlEntityType", crawlRequestDto.getCrawlEntityType().toString());
-		document.put("timestamp", crawlRequestDto.getTimestamp());
-		document.put("provider", Constants.CrawlerProvider.HH_JOOGLE.toString());
+		document.put("keywordSourceType", crawlRequestDto.getKeywordSourceType().toString());
+		document.put("timestamp", System.currentTimeMillis());
+//		document.put("provider", Constants.CrawlerProvider.HH_JOOGLE.toString());
 		document.put("url", crawlRequestDto.getUrl().toLowerCase());
 		document.put("host", analyzedCrawlResultDto.getCrawlResultDto().getHost().toLowerCase());
-		document.put("language", analyzedCrawlResultDto.getLanguage()); // this is also stored in Elasticsearch
-		document.put("categories", analyzedCrawlResultDto.getCategories());  // this is also stored in Elasticsearch
+//		document.put("language", analyzedCrawlResultDto.getLanguage()); // this is also stored in Elasticsearch
+//		document.put("categories", analyzedCrawlResultDto.getCategories());  // this is also stored in Elasticsearch
 		document.put("words", analyzedCrawlResultDto.getWords());  // this is also stored in Elasticsearch
 		document.put("title", analyzedCrawlResultDto.getCrawlResultDto().getTitle());  // this is also stored in Elasticsearch
+
 		return document;
 	}
 

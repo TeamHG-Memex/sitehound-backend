@@ -119,12 +119,13 @@ public class TrainerOutputPagesBrokerServiceTest {
         metadataMock.setWorkspace(workspaceId);
         metadataMock.setJobId(workspaceId); // using the workspace as jobId cause not only one job per ws is allowed
         metadataMock.setCrawlType(Constants.CrawlType.KEYWORDS);
-        metadataMock.setSource("DD");
         metadataMock.setStrTimestamp(String.valueOf(timestamp));
-        metadataMock.setTimestamp(timestamp);
-        metadataMock.setCallbackQueue("");
+//        metadataMock.setTimestamp(timestamp);
+//        metadataMock.setSource("DD");
+//        metadataMock.setCallbackQueue("");
         metadataMock.setCrawlEntityType(Constants.CrawlEntityType.DD);
         metadataMock.setnResults(30);
+        metadataMock.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
 
         when(metadataBuilder.buildFromTrainerOutputPages(workspaceId)).thenReturn(metadataMock);
 
@@ -213,11 +214,11 @@ public class TrainerOutputPagesBrokerServiceTest {
         assertEquals(workspaceId, capturedDocumentValue.get("jobId"));
         assertEquals(workspaceId, capturedDocumentValue.get("workspaceId"));
         assertEquals(score1, capturedDocumentValue.get("score"));
-        assertEquals(Constants.CrawlerProvider.HH_JOOGLE.name(), capturedDocumentValue.get("provider"));
+//        assertEquals(Constants.CrawlerProvider.HH_JOOGLE.name(), capturedDocumentValue.get("provider"));
         assertEquals("example.com", capturedDocumentValue.get("host"));
         assertEquals(Constants.CrawlEntityType.DD.name(), capturedDocumentValue.get("crawlEntityType"));
 //        assertEquals(List.empty(), capturedDocumentValue.get("categories"));
-        assertEquals(timestamp, capturedDocumentValue.get("timestamp"));
+//        assertEquals(timestamp, capturedDocumentValue.get("timestamp"));
 
     }
 }

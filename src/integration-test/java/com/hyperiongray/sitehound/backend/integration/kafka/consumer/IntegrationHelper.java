@@ -15,27 +15,30 @@ public class IntegrationHelper{
 	public static Metadata getMetadata(){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(Constants.CrawlType.BROADCRAWL);
-		metadata.setSource("fake-source");
 		metadata.setStrTimestamp("123456");
 		metadata.setWorkspace("test");
-		metadata.setTimestamp(123456L);
-		metadata.setCallbackQueue("callback-queue");
+//		metadata.setSource("fake-source");
+//		metadata.setTimestamp(123456L);
+//		metadata.setCallbackQueue("callback-queue");
 		metadata.setJobId("jobId-123");
 		metadata.setCrawlEntityType(Constants.CrawlEntityType.BING);
 		metadata.setnResults(10);
+		metadata.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
 		return metadata;
 	}
 
 
 	public static SubscriberInput getSubscriberInput(){
 		SubscriberInput subscriberInput = new SubscriberInput();
-		subscriberInput.setSource("fake-source");
 		subscriberInput.setStrTimestamp("2016-01-27 23:44:01");
 		subscriberInput.setWorkspace("test");
-		subscriberInput.setTimestamp(123456L);
-		subscriberInput.setCallbackQueue("callback-queue");
+//		subscriberInput.setSource("fake-source");
+//		subscriberInput.setTimestamp(123456L);
+//		subscriberInput.setCallbackQueue("callback-queue");
 		subscriberInput.setJobId("568a8649132ad21be932d3c2");
 		subscriberInput.setnResults(10);
+		subscriberInput.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
+
 		List<String> crawlSources = Lists.newArrayList("SE");
 		subscriberInput.setCrawlSources(crawlSources);
 		List<String> excludedList = Lists.newArrayList("playstation");

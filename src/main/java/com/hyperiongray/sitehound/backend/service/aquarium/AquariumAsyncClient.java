@@ -60,7 +60,7 @@ public class AquariumAsyncClient{
 //        executorService=Executors.newFixedThreadPool(threads);
         executorService=newWorkStealingPool();
         futureRequestExecutionService = new FutureRequestExecutionService(httpClient, executorService);
-        config = RequestConfig.custom().setConnectionRequestTimeout(120*1000).setConnectTimeout(120*1000).setSocketTimeout(120*1000).build();
+        config = RequestConfig.custom().setConnectionRequestTimeout(180*1000).setConnectTimeout(180*1000).setSocketTimeout(180*1000).build();
 
 	    //TODO implement retry strategy ...http://fahdshariff.blogspot.com.es/2009/08/retrying-operations-in-java.html ?
     }

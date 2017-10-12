@@ -9,24 +9,18 @@ import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 public class Metadata extends KafkaDto {
 	private String workspace;
 	private String jobId;
-	@Deprecated private Long timestamp;
 	private String strTimestamp;
-	@Deprecated private String source;
-	@Deprecated private Constants.CrawlerProvider provider = Constants.CrawlerProvider.HH_JOOGLE;
 	private Constants.CrawlEntityType crawlEntityType;
 	private Constants.CrawlType crawlType;
 	private Integer nResults;
 	private String uow;
-	@Deprecated private String callbackQueue;
+	private Constants.KeywordSourceType keywordSourceType;
 
+	//	@Deprecated private String source;
+//	@Deprecated private Constants.CrawlerProvider provider = Constants.CrawlerProvider.HH_JOOGLE;
+//	@Deprecated private Long timestamp;
+//	@Deprecated private String callbackQueue;
 
-	public Long getTimestamp(){
-		return timestamp;
-	}
-
-	public void setTimestamp(Long timestamp){
-		this.timestamp=timestamp;
-	}
 
 	public String getStrTimestamp(){
 		return strTimestamp;
@@ -42,30 +36,6 @@ public class Metadata extends KafkaDto {
 
 	public void setWorkspace(String workspace){
 		this.workspace=workspace;
-	}
-
-	public String getSource(){
-		return source;
-	}
-
-	public void setSource(String source){
-		this.source=source;
-	}
-
-	public String getCallbackQueue(){
-		return callbackQueue;
-	}
-
-	public void setCallbackQueue(String callbackQueue){
-		this.callbackQueue=callbackQueue;
-	}
-
-	public void setProvider(Constants.CrawlerProvider provider){
-		this.provider=provider;
-	}
-
-	public Constants.CrawlerProvider getProvider(){
-		return provider;
 	}
 
 	public void setCrawlEntityType(Constants.CrawlEntityType crawlEntityType){
@@ -108,20 +78,25 @@ public class Metadata extends KafkaDto {
 		this.crawlType=crawlType;
 	}
 
+	public Constants.KeywordSourceType getKeywordSourceType() {
+		return keywordSourceType;
+	}
+	public void setKeywordSourceType(Constants.KeywordSourceType keywordSourceType) {
+		this.keywordSourceType = keywordSourceType;
+	}
+
 	@Override
 	public String toString(){
 		return "Metadata{" +
-				       "timestamp=" + timestamp +
 				       ", strTimestamp='" + strTimestamp + '\'' +
 				       ", workspace='" + workspace + '\'' +
-				       ", source='" + source + '\'' +
-				       ", callbackQueue='" + callbackQueue + '\'' +
-				       ", provider=" + provider +
 				       ", crawlEntityType=" + crawlEntityType +
+				       ", keywordSourceType=" + keywordSourceType +
 				       ", crawlType=" + crawlType +
 				       ", nResults=" + nResults +
 				       ", uow='" + uow + '\'' +
 				       ", jobId='" + jobId + '\'' +
 				       '}';
 	}
+
 }

@@ -11,19 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CrawlRequestTranslator{
 
-	@Deprecated
-	public CrawlRequestDto fromAquariumInput(AquariumInput aquariumInput){
-		return fromMetadata(aquariumInput.getUrl(), aquariumInput.getMetadata());
-	}
+
 
 	public CrawlRequestDto fromMetadata(String url, Metadata metadata){
 		CrawlRequestDto crawlRequestDto = new CrawlRequestDto(url);
 		crawlRequestDto.setCrawlEntityType(metadata.getCrawlEntityType());
 		crawlRequestDto.setCrawlType(metadata.getCrawlType());
 		crawlRequestDto.setJobId(metadata.getJobId());
-		crawlRequestDto.setTimestamp(metadata.getTimestamp());
+//		crawlRequestDto.setTimestamp(metadata.getTimestamp());
 		crawlRequestDto.setUow(metadata.getUow());
 		crawlRequestDto.setWorkspace(metadata.getWorkspace());
+		crawlRequestDto.setKeywordSourceType(metadata.getKeywordSourceType());
 		return crawlRequestDto;
 	}
 }

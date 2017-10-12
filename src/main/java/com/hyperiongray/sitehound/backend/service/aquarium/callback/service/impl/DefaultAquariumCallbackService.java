@@ -35,7 +35,7 @@ public class DefaultAquariumCallbackService{
     public void process(AquariumInput aquariumInput, AquariumInternal aquariumInternal){
 
         try{
-            CrawlRequestDto crawlRequestDto = crawlRequestTranslator.fromAquariumInput(aquariumInput);
+            CrawlRequestDto crawlRequestDto = crawlRequestTranslator.fromMetadata(aquariumInput.getUrl(), aquariumInput.getMetadata());
             CrawlResultDto crawlResultDto = crawlResultTranslator.translateFromAquariumInternal(aquariumInternal);
             AnalyzedCrawlResultDto analyzedCrawlResultDto = new AnalyzedCrawlResultDto(crawlResultDto);
 

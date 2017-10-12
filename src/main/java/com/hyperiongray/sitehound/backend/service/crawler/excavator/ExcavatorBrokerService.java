@@ -48,13 +48,14 @@ public class ExcavatorBrokerService {
         Metadata metadata = new Metadata();
         metadata.setCrawlEntityType(Constants.CrawlEntityType.TOR);
         metadata.setCrawlType(Constants.CrawlType.KEYWORDS);
-        metadata.setSource(subscriberInput.getSource());
+//        metadata.setSource(subscriberInput.getSource());
         metadata.setStrTimestamp(subscriberInput.getStrTimestamp());
         metadata.setWorkspace(subscriberInput.getWorkspace());
-        metadata.setTimestamp(subscriberInput.getTimestamp());
-        metadata.setCallbackQueue(subscriberInput.getCallbackQueue());
+//        metadata.setTimestamp(subscriberInput.getTimestamp());
+//        metadata.setCallbackQueue(subscriberInput.getCallbackQueue());
         metadata.setJobId(subscriberInput.getJobId());
         metadata.setnResults(subscriberInput.getnResults());
+        metadata.setKeywordSourceType(subscriberInput.getKeywordSourceType());
         return metadata;
     }
 }

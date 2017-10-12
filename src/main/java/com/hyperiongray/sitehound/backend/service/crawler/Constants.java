@@ -17,7 +17,7 @@ public class Constants {
 	 *	Which was the source of the data
 	 */
 	public enum CrawlEntityType {
-		GOOGLE, TWITTER, TOR, BING, MANUAL, DD
+		GOOGLE, TOR, BING, MANUAL, DD
 	}
 
 	/**
@@ -35,5 +35,8 @@ public class Constants {
 		STARTED, QUEUED, STOPPED, FINISHED
 	}
 
+	public enum KeywordSourceType {
+		FETCHED, MANUAL
+	}
 
 }

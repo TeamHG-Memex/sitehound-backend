@@ -2,6 +2,7 @@ package com.hyperiongray.sitehound.backend.kafka.keywords;
 
 import com.google.common.collect.Lists;
 import com.hyperiongray.framework.JsonMapper;
+import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.test.kafka.KafkaTestConfiguration;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
 import com.hyperiongray.sitehound.backend.repository.impl.elasticsearch.ElasticsearchDatabaseClient;
@@ -94,7 +95,8 @@ public class KeywordsMessageDispatcherTest {
         subscriberInput.setWorkspace("11111111");
         subscriberInput.setnResults(nResults);
         subscriberInput.setStrTimestamp("la hora");
-        subscriberInput.setTimestamp(System.currentTimeMillis());
+        subscriberInput.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
+//        subscriberInput.setTimestamp("today");
         subscriberInput.setRelevantUrl(Lists.newArrayList());
 
 

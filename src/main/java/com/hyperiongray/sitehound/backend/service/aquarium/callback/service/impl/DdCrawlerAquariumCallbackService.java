@@ -36,7 +36,7 @@ public class DdCrawlerAquariumCallbackService{
     public void process(AquariumInput aquariumInput, AquariumInternal aquariumInternal, Double score){
 
         try{
-            CrawlRequestDto crawlRequestDto = crawlRequestTranslator.fromAquariumInput(aquariumInput);
+            CrawlRequestDto crawlRequestDto = crawlRequestTranslator.fromMetadata(aquariumInput.getUrl(), aquariumInput.getMetadata());
             CrawlResultDto crawlResultDto = crawlResultTranslator.translateFromAquariumInternal(aquariumInternal);
             AnalyzedCrawlResultDto analyzedCrawlResultDto = analyzedCrawlRequestFactory.build(crawlResultDto);
 

@@ -5,6 +5,7 @@ package com.hyperiongray.sitehound.backend.kafka.api.dto.crawler;
  */
 
 import com.hyperiongray.framework.kafka.dto.KafkaDto;
+import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,9 @@ public class SubscriberInput extends KafkaDto{
     private List<String> included;
     private List<String> excluded;
 //    Map<String> words
-    private String source;
-    private String callbackQueue;
-    private Long timestamp;
+//    private String source;
+//    private String callbackQueue;
+//    private Long timestamp;
     private String strTimestamp;
     private String workspace;
     private int nResults;
@@ -50,6 +51,8 @@ public class SubscriberInput extends KafkaDto{
 
     private String crawlProvider;
     private List<String> crawlSources;
+    private Constants.KeywordSourceType keywordSourceType;
+
 
 
     public List<String> getIncluded() {
@@ -73,30 +76,30 @@ public class SubscriberInput extends KafkaDto{
     public void setExcluded(List<String> excluded) {
         this.excluded = excluded;
     }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getCallbackQueue() {
-        return callbackQueue;
-    }
-
-    public void setCallbackQueue(String callbackQueue) {
-        this.callbackQueue = callbackQueue;
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
-    }
+//
+//    public String getSource() {
+//        return source;
+//    }
+//
+//    public void setSource(String source) {
+//        this.source = source;
+//    }
+//
+//    public String getCallbackQueue() {
+//        return callbackQueue;
+//    }
+//
+//    public void setCallbackQueue(String callbackQueue) {
+//        this.callbackQueue = callbackQueue;
+//    }
+//
+//    public Long getTimestamp() {
+//        return timestamp;
+//    }
+//
+//    public void setTimestamp(Long timestamp) {
+//        this.timestamp = timestamp;
+//    }
 
     public String getStrTimestamp() {
         return strTimestamp;
@@ -178,14 +181,23 @@ public class SubscriberInput extends KafkaDto{
         this.crawlSources=crawlSources;
     }
 
+
+    public Constants.KeywordSourceType getKeywordSourceType() {
+        return keywordSourceType;
+    }
+
+    public void setKeywordSourceType(Constants.KeywordSourceType keywordSourceType) {
+        this.keywordSourceType = keywordSourceType;
+    }
+
     @Override
     public String toString(){
         return "SubscriberInput{" +
                        "included=" + included +
                        ", excluded=" + excluded +
-                       ", source='" + source + '\'' +
-                       ", callbackQueue='" + callbackQueue + '\'' +
-                       ", timestamp=" + timestamp +
+//                       ", source='" + source + '\'' +
+//                       ", callbackQueue='" + callbackQueue + '\'' +
+//                       ", timestamp=" + timestamp +
                        ", strTimestamp='" + strTimestamp + '\'' +
                        ", workspace='" + workspace + '\'' +
                        ", nResults=" + nResults +
@@ -195,6 +207,7 @@ public class SubscriberInput extends KafkaDto{
                        ", jobId='" + jobId + '\'' +
                        ", crawlProvider='" + crawlProvider + '\'' +
                        ", crawlSources=" + crawlSources +
+                       ", keywordSourceType=" + keywordSourceType+
                        '}';
     }
 }

@@ -85,11 +85,11 @@ public class TorCrawlerBrokerService implements CrawlerBrokerService {
 
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(crawlType);
-		metadata.setSource(subscriberInput.getSource());
+//		metadata.setSource(subscriberInput.getSource());
 		metadata.setStrTimestamp(subscriberInput.getStrTimestamp());
 		metadata.setWorkspace(subscriberInput.getWorkspace());
-		metadata.setTimestamp(subscriberInput.getTimestamp());
-		metadata.setCallbackQueue(subscriberInput.getCallbackQueue());
+//		metadata.setTimestamp(subscriberInput.getTimestamp());
+//		metadata.setCallbackQueue(subscriberInput.getCallbackQueue());
 		metadata.setJobId(subscriberInput.getJobId());
 		metadata.setCrawlEntityType(crawler.getCrawlerEntityType());
 		metadata.setnResults(subscriberInput.getnResults());

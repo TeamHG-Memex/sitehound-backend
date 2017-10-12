@@ -14,6 +14,7 @@ public class CrawlRequestDto{
 	private Long timestamp;
 	private Constants.CrawlEntityType crawlEntityType;
 	private Constants.CrawlType crawlType;
+	private Constants.KeywordSourceType keywordSourceType;
 
 	public CrawlRequestDto(String url){
 		this.url = url;
@@ -69,5 +70,13 @@ public class CrawlRequestDto{
 
 	public void setJobId(String jobId){
 		this.jobId = jobId;
+	}
+
+	public Constants.KeywordSourceType getKeywordSourceType() {
+		return keywordSourceType;
+	}
+
+	public void setKeywordSourceType(Constants.KeywordSourceType keywordSourceType) {
+		this.keywordSourceType = keywordSourceType;
 	}
 }

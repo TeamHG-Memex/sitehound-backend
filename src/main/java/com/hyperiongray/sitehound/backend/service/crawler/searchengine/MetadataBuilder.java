@@ -18,14 +18,15 @@ public class MetadataBuilder{
 	public static Metadata build(SubscriberInput subscriberInput, Constants.CrawlType crawlType, Constants.CrawlEntityType crawlEntityType){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(crawlType);
-		metadata.setSource(subscriberInput.getSource());
+//		metadata.setSource(subscriberInput.getSource());
 		metadata.setStrTimestamp(subscriberInput.getStrTimestamp());
 		metadata.setWorkspace(subscriberInput.getWorkspace());
-		metadata.setTimestamp(subscriberInput.getTimestamp());
-		metadata.setCallbackQueue(subscriberInput.getCallbackQueue());
+//		metadata.setTimestamp(subscriberInput.getTimestamp());
+//		metadata.setCallbackQueue(subscriberInput.getCallbackQueue());
 		metadata.setJobId(subscriberInput.getJobId());
 		metadata.setCrawlEntityType(crawlEntityType);
 		metadata.setnResults(subscriberInput.getnResults());
+		metadata.setKeywordSourceType(subscriberInput.getKeywordSourceType());
 		return metadata;
 	}
 /*
@@ -48,40 +49,43 @@ public class MetadataBuilder{
 		metadata.setWorkspace(workspaceId);
 		metadata.setJobId(workspaceId); // using the workspace as jobId cause not only one job per ws is allowed
 		metadata.setCrawlType(Constants.CrawlType.KEYWORDS);
-		metadata.setSource("DD");
 		metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
-		metadata.setTimestamp(System.currentTimeMillis());
-		metadata.setCallbackQueue("");
+//		metadata.setSource("DD");
+//		metadata.setTimestamp(System.currentTimeMillis());
+//		metadata.setCallbackQueue("");
 		metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
 		metadata.setnResults(30);
+		metadata.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
 		return metadata;
 	}
 
 	public Metadata buildFromCrawlerOutput(String jobId){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(Constants.CrawlType.BROADCRAWL);
-		metadata.setSource("DD");
 		metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
 		metadata.setWorkspace(crawlJobRepository.getWorkspaceId(jobId));
-		metadata.setTimestamp(System.currentTimeMillis());
-		metadata.setCallbackQueue("");
+//		metadata.setSource("DD");
+//		metadata.setTimestamp(System.currentTimeMillis());
+//		metadata.setCallbackQueue("");
 		metadata.setJobId("generic-broadcrawl-job-id");
 		metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
 		metadata.setnResults(1000);
+		metadata.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
 		return metadata;
 	}
 
 	public Metadata buildFromDeepcrawlerOutput(String jobId){
 		Metadata metadata = new Metadata();
 		metadata.setCrawlType(Constants.CrawlType.DEEPCRAWL);
-		metadata.setSource("DD");
 		metadata.setStrTimestamp(String.valueOf(System.currentTimeMillis()));
 		metadata.setWorkspace(crawlJobRepository.getWorkspaceId(jobId));
-		metadata.setTimestamp(System.currentTimeMillis());
-		metadata.setCallbackQueue("");
+//		metadata.setSource("DD");
+//		metadata.setTimestamp(System.currentTimeMillis());
+//		metadata.setCallbackQueue("");
 		metadata.setJobId(jobId);
 		metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
 		metadata.setnResults(1000);
+		metadata.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
 		return metadata;
 	}
 
