@@ -25,7 +25,15 @@ public class ImportUrlListenerService implements KafkaListenerProcessor<ImportUr
 	public void process(ImportUrlInput importUrlInput) throws IOException {
 		Metadata metadata = importUrlInput.getMetadata();
 		metadata.setCrawlType(Constants.CrawlType.KEYWORDS);
-		metadata.setCrawlEntityType(Constants.CrawlEntityType.MANUAL);
+		metadata.setKeywordSourceType(Constants.KeywordSourceType.MANUAL);
+
+		if(importUrlInput.getUrl().contains(".onion")){
+			metadata.setCrawlEntityType(Constants.CrawlEntityType.TOR);
+		}
+		else{
+			metadata.setCrawlEntityType(Constants.CrawlEntityType.MANUAL);
+		}
+
 		metadata.setnResults(1);
 
 		AquariumInput aquariumInput = new AquariumInput(metadata);

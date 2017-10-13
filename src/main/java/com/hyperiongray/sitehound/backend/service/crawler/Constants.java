@@ -39,4 +39,8 @@ public class Constants {
 		FETCHED, MANUAL
 	}
 
+	public enum KeywordSearchWeb{
+		CLEARNET, DARKNET
+	}
+
 }
