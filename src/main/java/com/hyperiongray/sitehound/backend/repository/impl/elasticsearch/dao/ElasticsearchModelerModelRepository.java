@@ -34,12 +34,12 @@ public class ElasticsearchModelerModelRepository{
         ModelerModelDto modelerModelDto = new ModelerModelDto();
         modelerModelDto.setModel(ddModelerOutput.getModel());
         String modelerModelDtoAsString = modelerModelDtoJsonMapper.toJson(modelerModelDto);
-        elasticsearchDatabaseClient.save(MODELER_INDEX_NAME, MODELER_TYPE_NAME, ddModelerOutput.getWorkspaceId().toLowerCase(), modelerModelDtoAsString);
+        elasticsearchDatabaseClient.save(MODELER_INDEX_NAME, MODELER_TYPE_NAME, ddModelerOutput.getWorkspaceId(), modelerModelDtoAsString);
         LOGGER.info("done saving DdModelerOutput");
     }
 
     public Optional<ModelerModelDto> get(String id) throws IOException {
-        Optional<String> repositoryResult = elasticsearchDatabaseClient.get(MODELER_INDEX_NAME, MODELER_TYPE_NAME, id.toLowerCase());
+        Optional<String> repositoryResult = elasticsearchDatabaseClient.get(MODELER_INDEX_NAME, MODELER_TYPE_NAME, id);
 
         Optional<ModelerModelDto> result = Optional.empty();
         if(repositoryResult.isPresent()){

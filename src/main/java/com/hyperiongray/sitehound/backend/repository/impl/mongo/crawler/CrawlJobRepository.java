@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.hyperiongray.sitehound.backend.repository.impl.mongo.MongoRepository.JOB_COLLECTION_NAME;
@@ -40,26 +41,34 @@ public class CrawlJobRepository{
 	private ConcurrentHashMap<String, String> cacheMap = new ConcurrentHashMap<>(50);
 
 
-	public CrawlJob get(String id){
+	public Optional<CrawlJob> get(String id){
 		LOGGER.info("About to get crawlJob:" + id);
 		MongoCollection<Document> collection = mongoRepository.getDatabase().getCollection(CRAWL_JOB_COLLECTION_NAME);
 		Bson filter = new BasicDBObject("_id", new ObjectId(id));
 		FindIterable<Document> iterable = collection.find(filter);
-		Document document = iterable.iterator().next();
+		Document document = iterable.first();
 
-		CrawlJob crawlJob = new CrawlJob.Builder()
-				.withWorkspaceId(document.getString("workspaceId"))
-				.withJobId(id)
-				.withSources((List<String>) document.get("sources"))
-				.withCrawlType(Constants.CrawlType.valueOf(document.getString("crawlType")))
-				.withCrawlEntityType(Constants.CrawlEntityType.DD)
-				.withCrawlStatus(Constants.CrawlStatus.valueOf(document.getString("status")))
-				.withTimestamp(document.getDouble("timestamp").longValue())
-				.withNResultsRequested(document.getInteger("nResultsRequested"))
-				.withProgress(document.containsKey("progress"))
-				.build();
+		Optional<CrawlJob> result;
+		if(document==null){
+			result = Optional.empty();
+			LOGGER.warn("Crawl Job doesn't exists!!!!!!!!!!!:" + id);
 
-		return crawlJob;
+		}
+		else{
+			CrawlJob crawlJob = new CrawlJob.Builder()
+					.withWorkspaceId(document.getString("workspaceId"))
+					.withJobId(id)
+					.withSources((List<String>) document.get("sources"))
+					.withCrawlType(Constants.CrawlType.valueOf(document.getString("crawlType")))
+					.withCrawlEntityType(Constants.CrawlEntityType.DD)
+					.withCrawlStatus(Constants.CrawlStatus.valueOf(document.getString("status")))
+					.withTimestamp(document.getDouble("timestamp").longValue())
+					.withNResultsRequested(document.getInteger("nResultsRequested"))
+					.withProgress(document.containsKey("progress"))
+					.build();
+			result = Optional.of(crawlJob);
+		}
+		return result;
 	}
 
 

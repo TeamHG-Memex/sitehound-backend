@@ -21,7 +21,7 @@ public class CrawlResultDto{
 	public CrawlResultDto(){}
 
 	public CrawlResultDto(String url){
-		this.url = url.toLowerCase();
+		this.url = url;
 		this.timestamp = System.currentTimeMillis();
 	}
 

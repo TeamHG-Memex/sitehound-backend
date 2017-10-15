@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Created by tomas on 28/09/16.
  */
@@ -32,11 +34,14 @@ public class DdDeepcrawlerOutputBrokerService implements BrokerService {
         try{
             JsonMapper<DdDeepcrawlerOutputDto> jsonMapper= new JsonMapper();
             DdDeepcrawlerOutputDto ddDeepcrawlerOutputDto = jsonMapper.toObject(jsonInput, DdDeepcrawlerOutputDto.class);
-            CrawlJob crawlJob = crawlJobRepository.get(ddDeepcrawlerOutputDto.getId());
-            for (PageSampleDto pageSample : ddDeepcrawlerOutputDto.getPageSamples()){
-                DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(pageSample.getUrl(), pageSample.getDomain(), false);
-                DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
-                aquariumClient.fetch(pageSample.getUrl(), callbackServiceWrapper);
+            Optional<CrawlJob> crawlJobOptional = crawlJobRepository.get(ddDeepcrawlerOutputDto.getId());
+            if(crawlJobOptional.isPresent()){
+                CrawlJob crawlJob = crawlJobOptional.get();
+                for (PageSampleDto pageSample : ddDeepcrawlerOutputDto.getPageSamples()){
+                    DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(pageSample.getUrl(), pageSample.getDomain(), false);
+                    DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
+                    aquariumClient.fetch(pageSample.getUrl(), callbackServiceWrapper);
+                }
             }
         }
         catch(Exception e){

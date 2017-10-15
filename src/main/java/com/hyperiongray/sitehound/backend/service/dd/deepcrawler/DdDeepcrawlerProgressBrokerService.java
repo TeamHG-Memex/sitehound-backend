@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Created by tomas on 28/09/16.
  */
@@ -36,21 +38,25 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
             JsonMapper<DdDeepcrawlerProgressDto> jsonMapper= new JsonMapper();
             DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto = jsonMapper.toObject(jsonInput, DdDeepcrawlerProgressDto.class);
 
-            CrawlJob crawlJob = crawlJobRepository.get(ddDeepcrawlerProgressDto.getId());
+            Optional<CrawlJob> crawlJobOptional = crawlJobRepository.get(ddDeepcrawlerProgressDto.getId());
+            if(crawlJobOptional.isPresent()){
+                CrawlJob crawlJob = crawlJobOptional.get();
 
-            if(!crawlJob.getHasProgress()){ //do this only the first time
-                for(DomainDto domain :ddDeepcrawlerProgressDto.getProgress().getDomains()){
-                    DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(domain.getUrl(), domain.getDomain(), true);
-                    DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
-//                    AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(domain.getUrl(), semaphore, callbackServiceWrapper);
-//                    aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
-                    aquariumClient.fetch(domain.getUrl(), callbackServiceWrapper);
+                if(!crawlJob.getHasProgress()){ //do this only the first time
+                    for(DomainDto domain :ddDeepcrawlerProgressDto.getProgress().getDomains()){
+                        DeepcrawlerPageRequest deepcrawlerPageRequest = new DeepcrawlerPageRequest(domain.getUrl(), domain.getDomain(), true);
+                        DeepcrawlerOutputCallbackServiceWrapper callbackServiceWrapper = new DeepcrawlerOutputCallbackServiceWrapper(crawlJob, deepcrawlerPageRequest, ddDeepcrawlerOutputPagesAquariumCallbackService);
+    //                    AquariumAsyncClientCallback aquariumAsyncClientCallback = new AquariumAsyncClientCallback(domain.getUrl(), semaphore, callbackServiceWrapper);
+    //                    aquariumClient.fetch(domain.getUrl(), new ContentResponseHandler(), aquariumAsyncClientCallback);
+                        aquariumClient.fetch(domain.getUrl(), callbackServiceWrapper);
+                    }
                 }
+
+                LOGGER.debug("DdDeepcrawlerProgressBrokerService received ddDeepcrawlerProgress: " + ddDeepcrawlerProgressDto);
+                ddDeepcrawlerRepository.saveProgress(ddDeepcrawlerProgressDto);
+                LOGGER.info("DdDeepcrawlerProgressBrokerService saved ddDeepcrawlerProgress: ");
             }
 
-            LOGGER.debug("DdDeepcrawlerProgressBrokerService received ddDeepcrawlerProgress: " + ddDeepcrawlerProgressDto);
-            ddDeepcrawlerRepository.saveProgress(ddDeepcrawlerProgressDto);
-            LOGGER.info("DdDeepcrawlerProgressBrokerService saved ddDeepcrawlerProgress: ");
         }
         catch(Exception e){
             LOGGER.error("ERROR:" + jsonInput, e);

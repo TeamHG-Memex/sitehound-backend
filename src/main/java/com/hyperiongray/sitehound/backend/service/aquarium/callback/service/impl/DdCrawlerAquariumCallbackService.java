@@ -46,7 +46,8 @@ public class DdCrawlerAquariumCallbackService{
             analyzedCrawlResultDtoIndexRepository.save(hashKey, analyzedCrawlResultDto);
 
             // update mongo index
-            Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto, score);
+            Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto);
+    		document.put("score", score);
             genericCrawlMongoRepository.save(crawlRequestDto.getCrawlType(), crawlRequestDto.getWorkspace(), document);
 
         }catch(Exception e){

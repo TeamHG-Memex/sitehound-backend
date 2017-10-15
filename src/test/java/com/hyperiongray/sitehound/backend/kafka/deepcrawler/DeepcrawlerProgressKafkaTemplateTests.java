@@ -35,6 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import static junit.framework.TestCase.fail;
 import static org.mockito.Matchers.any;
@@ -132,7 +133,7 @@ public class DeepcrawlerProgressKafkaTemplateTests {
                 .withProgress(false)
                 .build();
 
-        when(crawlJobRepository.get(id)).thenReturn(crawlJob);
+        when(crawlJobRepository.get(id)).thenReturn(Optional.of(crawlJob));
 
         producer.produce(TEMPLATE_TOPIC, embeddedKafka, instance, input);
 

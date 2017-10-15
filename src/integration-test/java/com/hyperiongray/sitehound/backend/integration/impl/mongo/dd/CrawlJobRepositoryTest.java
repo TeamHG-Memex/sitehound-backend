@@ -13,6 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Optional;
+
 /**
  * Created by tomas on 12/21/15.
  */
@@ -24,22 +26,6 @@ public class CrawlJobRepositoryTest{
 
 	@Autowired
 	private CrawlJobRepository instance;
-
-//	@Test
-//	public void get() throws Exception {
-//	}
-//
-//	@Test
-//	public void updateJobStatus() throws Exception {
-//	}
-//
-//	@Test
-//	public void isJobActive() throws Exception {
-//	}
-//
-//	@Test
-//	public void getWorkspaceId() throws Exception {
-//	}
 
 	@Test
 	public void saveProgress() throws Exception {
@@ -57,8 +43,9 @@ public class CrawlJobRepositoryTest{
 
 		instance.saveProgress(ddCrawlerOutputProgress);
 
-		CrawlJob crawlJob = instance.get(jobId);
-		System.out.println(crawlJob);
+		Optional<CrawlJob> crawlJobOptional = instance.get(jobId);
+
+		System.out.println(crawlJobOptional.get());
 	}
 
 

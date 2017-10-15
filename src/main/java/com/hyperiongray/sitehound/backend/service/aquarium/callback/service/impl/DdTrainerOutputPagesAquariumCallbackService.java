@@ -41,7 +41,8 @@ public class DdTrainerOutputPagesAquariumCallbackService {
 
 
             // update mongodb
-            Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto, pageSample.getScore());
+            Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto);
+    		document.put("score", pageSample.getScore());
             genericCrawlMongoRepository.save(crawlRequestDto.getCrawlType(), crawlRequestDto.getWorkspace(), document);
 
         }catch(Exception e){

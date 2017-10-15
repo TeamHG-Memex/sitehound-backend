@@ -43,7 +43,7 @@ public class DdDeepcrawlerOutputPagesAquariumCallbackService {
             document.put("jobId", crawlJob.getJobId());
             document.put("timestamp", crawlResultDto.getTimestamp());
             document.put("title", crawlResultDto.getTitle());
-            document.put("url", deepcrawlerPageRequest.getUrl().toLowerCase());
+            document.put("url", deepcrawlerPageRequest.getUrl());
             document.put("domain", deepcrawlerPageRequest.getDomain());
             document.put("hashKey", hashKey);
 
