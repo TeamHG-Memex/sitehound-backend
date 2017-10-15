@@ -9,12 +9,13 @@ import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 public class Metadata extends KafkaDto {
 	private String workspace;
 	private String jobId;
-	private String strTimestamp;
-	private Constants.CrawlEntityType crawlEntityType;
 	private Constants.CrawlType crawlType;
+	private Constants.CrawlEntityType crawlEntityType;
+	private Constants.KeywordSourceType keywordSourceType;
+	private Constants.KeywordSearchWeb keywordSearchWeb;
+	private String strTimestamp;
 	private Integer nResults;
 	private String uow;
-	private Constants.KeywordSourceType keywordSourceType;
 
 	//	@Deprecated private String source;
 //	@Deprecated private Constants.CrawlerProvider provider = Constants.CrawlerProvider.HH_JOOGLE;
@@ -81,22 +82,35 @@ public class Metadata extends KafkaDto {
 	public Constants.KeywordSourceType getKeywordSourceType() {
 		return keywordSourceType;
 	}
+
 	public void setKeywordSourceType(Constants.KeywordSourceType keywordSourceType) {
 		this.keywordSourceType = keywordSourceType;
 	}
 
+
+	public Constants.KeywordSearchWeb getKeywordSearchWeb() {
+		return keywordSearchWeb;
+	}
+
+	public void setKeywordSearchWeb(Constants.KeywordSearchWeb keywordSearchWeb) {
+		this.keywordSearchWeb = keywordSearchWeb;
+	}
+
+
 	@Override
 	public String toString(){
 		return "Metadata{" +
-				       ", strTimestamp='" + strTimestamp + '\'' +
 				       ", workspace='" + workspace + '\'' +
+				       ", jobId='" + jobId + '\'' +
+				       ", crawlType=" + crawlType +
 				       ", crawlEntityType=" + crawlEntityType +
 				       ", keywordSourceType=" + keywordSourceType +
-				       ", crawlType=" + crawlType +
+				       ", keywordSearchWeb=" + keywordSearchWeb +
+				       ", strTimestamp='" + strTimestamp + '\'' +
 				       ", nResults=" + nResults +
 				       ", uow='" + uow + '\'' +
-				       ", jobId='" + jobId + '\'' +
 				       '}';
 	}
+
 
 }

@@ -45,12 +45,10 @@ public class DefaultAquariumCallbackService{
             analyzedCrawlResultDtoIndexRepository.save(crawlRequestDto.getUrl(), analyzedCrawlResultDto);
 
             Map<String, Object> document = defaultCrawlContextDtoTranslator.translate(hashKey, crawlRequestDto, analyzedCrawlResultDto);
-            if(crawlRequestDto.getCrawlEntityType().equals(Constants.CrawlEntityType.MANUAL)){
+            if(crawlRequestDto.getCrawlEntityType().equals(Constants.KeywordSourceType.MANUAL)){
                 document.put("relevant", true);
             }
             genericCrawlMongoRepository.save(crawlRequestDto.getCrawlType(), crawlRequestDto.getWorkspace(), document);
-
-
         }catch(Exception e){
             LOGGER.error("Error Analyzing: " + aquariumInput.getUrl(), e);
         }

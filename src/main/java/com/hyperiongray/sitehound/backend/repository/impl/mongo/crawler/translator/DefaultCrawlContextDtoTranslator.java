@@ -15,22 +15,22 @@ import java.util.Map;
 @Service
 public class DefaultCrawlContextDtoTranslator{
 
-	@Deprecated
-	public Map<String, Object> translate(CrawlContextDto crawlContextDto){
-		Map<String, Object> document = Maps.newHashMap();
-		document.put("workspaceId", crawlContextDto.getCrawlRequestDto().getWorkspace());
-		document.put("jobId", crawlContextDto.getCrawlRequestDto().getJobId());
-		document.put("crawlEntityType", crawlContextDto.getCrawlRequestDto().getCrawlEntityType().toString());
-		document.put("timestamp", crawlContextDto.getCrawlRequestDto().getTimestamp());
-		document.put("provider", Constants.CrawlerProvider.HH_JOOGLE.toString());
-		document.put("url", crawlContextDto.getCrawlRequestDto().getUrl().toLowerCase());
-		document.put("host", crawlContextDto.getAnalyzedCrawlResultDto().getCrawlResultDto().getHost().toLowerCase());
-		document.put("language", crawlContextDto.getAnalyzedCrawlResultDto().getLanguage()); // this is also stored in Elasticsearch
-		document.put("categories", crawlContextDto.getAnalyzedCrawlResultDto().getCategories());  // this is also stored in Elasticsearch
-		document.put("words", crawlContextDto.getAnalyzedCrawlResultDto().getWords());  // this is also stored in Elasticsearch
-		document.put("title", crawlContextDto.getAnalyzedCrawlResultDto().getCrawlResultDto().getTitle());  // this is also stored in Elasticsearch
-		return document;
-	}
+//	@Deprecated
+//	public Map<String, Object> translate(CrawlContextDto crawlContextDto){
+//		Map<String, Object> document = Maps.newHashMap();
+//		document.put("workspaceId", crawlContextDto.getCrawlRequestDto().getWorkspace());
+//		document.put("jobId", crawlContextDto.getCrawlRequestDto().getJobId());
+//		document.put("crawlEntityType", crawlContextDto.getCrawlRequestDto().getCrawlEntityType().toString());
+//		document.put("timestamp", crawlContextDto.getCrawlRequestDto().getTimestamp());
+//		document.put("provider", Constants.CrawlerProvider.HH_JOOGLE.toString());
+//		document.put("url", crawlContextDto.getCrawlRequestDto().getUrl().toLowerCase());
+//		document.put("host", crawlContextDto.getAnalyzedCrawlResultDto().getCrawlResultDto().getHost().toLowerCase());
+//		document.put("language", crawlContextDto.getAnalyzedCrawlResultDto().getLanguage()); // this is also stored in Elasticsearch
+//		document.put("categories", crawlContextDto.getAnalyzedCrawlResultDto().getCategories());  // this is also stored in Elasticsearch
+//		document.put("words", crawlContextDto.getAnalyzedCrawlResultDto().getWords());  // this is also stored in Elasticsearch
+//		document.put("title", crawlContextDto.getAnalyzedCrawlResultDto().getCrawlResultDto().getTitle());  // this is also stored in Elasticsearch
+//		return document;
+//	}
 
 
 	public Map<String, Object> translate(String hashKey, CrawlRequestDto crawlRequestDto, AnalyzedCrawlResultDto analyzedCrawlResultDto, Double score){
@@ -45,7 +45,21 @@ public class DefaultCrawlContextDtoTranslator{
 		document.put("workspaceId", crawlRequestDto.getWorkspace());
 		document.put("jobId", crawlRequestDto.getJobId());
 		document.put("crawlEntityType", crawlRequestDto.getCrawlEntityType().toString());
-		document.put("keywordSourceType", crawlRequestDto.getKeywordSourceType().toString());
+
+		if(crawlRequestDto.getKeywordSourceType()!=null){
+			document.put("keywordSourceType", crawlRequestDto.getKeywordSourceType().toString());
+		}
+		else{
+			System.out.println("crawlRequestDto not keywordSourceType:" + crawlRequestDto);
+		}
+
+		if(crawlRequestDto.getKeywordSearchWeb()!=null){
+			document.put("keywordSearchWeb", crawlRequestDto.getKeywordSearchWeb().toString());
+		} else{
+			System.out.println("crawlRequestDto not keywordSearchWeb:" + crawlRequestDto);
+		}
+
+
 		document.put("timestamp", System.currentTimeMillis());
 //		document.put("provider", Constants.CrawlerProvider.HH_JOOGLE.toString());
 		document.put("url", crawlRequestDto.getUrl().toLowerCase());

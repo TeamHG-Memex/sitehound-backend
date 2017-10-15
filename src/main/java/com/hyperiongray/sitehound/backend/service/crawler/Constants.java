@@ -16,6 +16,7 @@ public class Constants {
 	/**
 	 *	Which was the source of the data
 	 */
+	@Deprecated
 	public enum CrawlEntityType {
 		GOOGLE, TOR, BING, MANUAL, DD
 	}

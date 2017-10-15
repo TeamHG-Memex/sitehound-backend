@@ -29,9 +29,11 @@ public class ImportUrlListenerService implements KafkaListenerProcessor<ImportUr
 
 		if(importUrlInput.getUrl().contains(".onion")){
 			metadata.setCrawlEntityType(Constants.CrawlEntityType.TOR);
+			metadata.setKeywordSearchWeb(Constants.KeywordSearchWeb.DARKNET);
 		}
 		else{
 			metadata.setCrawlEntityType(Constants.CrawlEntityType.MANUAL);
+			metadata.setKeywordSearchWeb(Constants.KeywordSearchWeb.CLEARNET);
 		}
 
 		metadata.setnResults(1);

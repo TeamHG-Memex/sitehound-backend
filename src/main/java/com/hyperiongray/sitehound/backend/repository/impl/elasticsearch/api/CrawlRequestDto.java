@@ -15,6 +15,8 @@ public class CrawlRequestDto{
 	private Constants.CrawlEntityType crawlEntityType;
 	private Constants.CrawlType crawlType;
 	private Constants.KeywordSourceType keywordSourceType;
+	private Constants.KeywordSearchWeb keywordSearchWeb;
+
 
 	public CrawlRequestDto(String url){
 		this.url = url;
@@ -78,5 +80,28 @@ public class CrawlRequestDto{
 
 	public void setKeywordSourceType(Constants.KeywordSourceType keywordSourceType) {
 		this.keywordSourceType = keywordSourceType;
+	}
+
+	public Constants.KeywordSearchWeb getKeywordSearchWeb() {
+		return keywordSearchWeb;
+	}
+
+	public void setKeywordSearchWeb(Constants.KeywordSearchWeb keywordSearchWeb) {
+		this.keywordSearchWeb = keywordSearchWeb;
+	}
+
+	@Override
+	public String toString() {
+		return "CrawlRequestDto{" +
+				"url='" + url + '\'' +
+				", workspace='" + workspace + '\'' +
+				", jobId='" + jobId + '\'' +
+				", uow='" + uow + '\'' +
+				", timestamp=" + timestamp +
+				", crawlEntityType=" + crawlEntityType +
+				", crawlType=" + crawlType +
+				", keywordSourceType=" + keywordSourceType +
+				", keywordSearchWeb=" + keywordSearchWeb +
+				'}';
 	}
 }

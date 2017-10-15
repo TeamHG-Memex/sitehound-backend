@@ -67,7 +67,7 @@ public class MetadataBuilder{
 //		metadata.setSource("DD");
 //		metadata.setTimestamp(System.currentTimeMillis());
 //		metadata.setCallbackQueue("");
-		metadata.setJobId("generic-broadcrawl-job-id");
+		metadata.setJobId(jobId);
 		metadata.setCrawlEntityType(Constants.CrawlEntityType.DD);
 		metadata.setnResults(1000);
 		metadata.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
@@ -90,4 +90,7 @@ public class MetadataBuilder{
 	}
 
 
+	public static boolean isOnion(String url){
+		return url.contains(".onion");
+	}
 }

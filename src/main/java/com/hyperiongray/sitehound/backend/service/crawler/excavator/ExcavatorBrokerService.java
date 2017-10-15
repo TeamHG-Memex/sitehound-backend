@@ -29,6 +29,8 @@ public class ExcavatorBrokerService {
         LOGGER.info("got onions: " + onions.size());
 
         Metadata metadata = buildMetadata(subscriberInput);
+        metadata.setKeywordSearchWeb(Constants.KeywordSearchWeb.DARKNET);
+        metadata.setKeywordSourceType(Constants.KeywordSourceType.FETCHED);
 
         for(String onion : onions){
             AquariumInput aquariumInput = new AquariumInput(metadata);

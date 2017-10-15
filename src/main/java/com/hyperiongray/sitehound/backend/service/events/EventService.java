@@ -94,9 +94,9 @@ public class EventService {
                     throw new UnsupportedOperationException();
                 }
                 else if (eventInput.getAction().equals("stop")){
-                    DdCrawlerInputStopDto ddCrawlerInputStopDto = ddCrawlerInputService.getDdCrawlerInputStop(eventInput.getWorkspaceId());
-                    crawlJobRepository.updateJobStatus(ddCrawlerInputStopDto.getId(), Constants.JobStatus.STOPPED);
-                    ddCrawlerInputProducer.submit(ddCrawlerInputStopDto);
+//                    DdCrawlerInputStopDto ddCrawlerInputStopDto = ddCrawlerInputService.getDdCrawlerInputStop(eventInput.getWorkspaceId());
+//                    crawlJobRepository.updateJobStatus(ddCrawlerInputStopDto.getId(), Constants.JobStatus.STOPPED);
+//                    ddCrawlerInputProducer.submit(ddCrawlerInputStopDto);
                 }
                 else if (eventInput.getAction().toLowerCase().equals("finished")){
                     DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
