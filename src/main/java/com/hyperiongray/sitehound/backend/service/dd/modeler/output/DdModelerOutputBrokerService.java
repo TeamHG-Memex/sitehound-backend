@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * Created by tomas on 28/09/16.
@@ -26,6 +27,8 @@ public class DdModelerOutputBrokerService implements BrokerService {
             LOGGER.debug("Receiving response from DdModelerOutputBrokerService size: " + jsonInput.length());
             JsonMapper<DdModelerOutput> jsonMapper= new JsonMapper();
             DdModelerOutput ddModelerOutput = jsonMapper.toObject(jsonInput, DdModelerOutput.class);
+            Assert.hasText(ddModelerOutput.getWorkspaceId());
+
             LOGGER.info("Receiving response from DdModelerOutputBrokerService ddModelerOutput: " + ddModelerOutput);
             elasticsearchModelerModelRepository.save(ddModelerOutput);
             ddModelerProgressRepository.saveQuality(ddModelerOutput);

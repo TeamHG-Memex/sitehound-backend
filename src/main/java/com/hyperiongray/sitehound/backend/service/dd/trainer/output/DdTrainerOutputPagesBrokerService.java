@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * Created by tomas on 28/09/16.
@@ -32,7 +33,8 @@ public class DdTrainerOutputPagesBrokerService implements BrokerService {
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdTrainerOutputPages> jsonMapper= new JsonMapper();
             DdTrainerOutputPages ddTrainerOutputPages = jsonMapper.toObject(jsonInput, DdTrainerOutputPages.class);
-
+            Assert.hasText(ddTrainerOutputPages.getWorkspaceId());
+            Assert.notEmpty(ddTrainerOutputPages.getPageSamples());
             Metadata metadata = metadataBuilder.buildFromTrainerOutputPages(ddTrainerOutputPages.getWorkspaceId());
 
             for (PageSample pageSample : ddTrainerOutputPages.getPageSamples()){

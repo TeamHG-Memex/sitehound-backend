@@ -1,5 +1,6 @@
 package com.hyperiongray.sitehound.backend.service.dd.deepcrawler;
 
+import com.googlecode.mp4parser.boxes.ultraviolet.AssetInformationBox;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DdDeepcrawlerProgressDto;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.dd.deepcrawler.progress.DomainDto;
 import com.hyperiongray.sitehound.backend.model.CrawlJob;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.Optional;
 
@@ -37,6 +39,8 @@ public class DdDeepcrawlerProgressBrokerService implements BrokerService {
             LOGGER.debug("Receiving response size: " + jsonInput.length());
             JsonMapper<DdDeepcrawlerProgressDto> jsonMapper= new JsonMapper();
             DdDeepcrawlerProgressDto ddDeepcrawlerProgressDto = jsonMapper.toObject(jsonInput, DdDeepcrawlerProgressDto.class);
+            Assert.hasText(ddDeepcrawlerProgressDto.getId());
+            Assert.notNull(ddDeepcrawlerProgressDto.getProgress());
 
             Optional<CrawlJob> crawlJobOptional = crawlJobRepository.get(ddDeepcrawlerProgressDto.getId());
             if(crawlJobOptional.isPresent()){

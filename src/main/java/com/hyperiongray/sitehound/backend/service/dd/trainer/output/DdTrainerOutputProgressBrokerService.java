@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * Created by tomas on 28/09/16.
@@ -28,6 +29,9 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdTrainerOutputProgress> jsonMapper= new JsonMapper();
             DdTrainerOutputProgress ddTrainerOutputProgress = jsonMapper.toObject(jsonInput, DdTrainerOutputProgress.class);
+            Assert.hasText(ddTrainerOutputProgress.getWorkspaceId());
+            Assert.isNull(ddTrainerOutputProgress.getProgress());
+
             ddTrainerRepository.saveProgress(ddTrainerOutputProgress);
         }
         catch(Exception e){

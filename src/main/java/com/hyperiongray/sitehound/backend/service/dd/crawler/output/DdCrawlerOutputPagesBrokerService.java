@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * Created by tomas on 28/09/16.
@@ -32,6 +33,10 @@ public class DdCrawlerOutputPagesBrokerService implements BrokerService {
             LOGGER.debug("Receiving response: " + jsonInput);
             JsonMapper<DdCrawlerOutputPages> jsonMapper= new JsonMapper();
             DdCrawlerOutputPages ddCrawlerOutputPages = jsonMapper.toObject(jsonInput, DdCrawlerOutputPages.class);
+            Assert.hasText(ddCrawlerOutputPages.getId());
+            Assert.hasText(ddCrawlerOutputPages.getWorkspaceId());
+            Assert.notEmpty(ddCrawlerOutputPages.getPageSamples());
+            Assert.isTrue(!ddCrawlerOutputPages.getId().equals(ddCrawlerOutputPages.getWorkspaceId()));
             Metadata metadata = metadataBuilder.buildFromCrawlerOutput(ddCrawlerOutputPages.getId());
             for (PageSample pageSample : ddCrawlerOutputPages.getPageSamples()){
                 AquariumInput aquariumInput = new AquariumInput(metadata);
