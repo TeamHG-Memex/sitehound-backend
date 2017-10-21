@@ -71,14 +71,13 @@ public class EventService {
 
                 }
                 else if (eventInput.getAction().toLowerCase().equals("finished")){
-//                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
-//                    crawlJobRepository.updateJobStatus(ddTrainerInputStop.getId(), Constants.JobStatus.FINISHED);
-                    throw new UnsupportedOperationException();
+                    DdTrainerInputStop ddTrainerInputStop = ddTrainerInputService.getDdTrainerInputStop(eventInput);
+                    crawlJobRepository.updateJobStatus(ddTrainerInputStop.getId(), Constants.JobStatus.FINISHED);
                 }
                 else {
                     throw new UnsupportedOperationException();
                 }
-//                break;
+                break;
 
             case DD_CRAWLER:
                 if (eventInput.getAction().equals("start")){
