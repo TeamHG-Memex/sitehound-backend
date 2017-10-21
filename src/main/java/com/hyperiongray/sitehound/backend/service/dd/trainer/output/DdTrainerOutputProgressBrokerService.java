@@ -30,7 +30,7 @@ public class DdTrainerOutputProgressBrokerService implements BrokerService {
             JsonMapper<DdTrainerOutputProgress> jsonMapper= new JsonMapper();
             DdTrainerOutputProgress ddTrainerOutputProgress = jsonMapper.toObject(jsonInput, DdTrainerOutputProgress.class);
             Assert.hasText(ddTrainerOutputProgress.getWorkspaceId());
-            Assert.isNull(ddTrainerOutputProgress.getProgress());
+            Assert.notNull(ddTrainerOutputProgress.getProgress());
 
             ddTrainerRepository.saveProgress(ddTrainerOutputProgress);
         }
