@@ -12,7 +12,7 @@ public class DdDeepcrawlerOutputDto extends KafkaDto {
 
     /** crawl id */
     private String id;
-
+    private String workspaceId;
     private List<PageSampleDto> pageSamples;
 
     public String getId() {
@@ -21,6 +21,15 @@ public class DdDeepcrawlerOutputDto extends KafkaDto {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @JsonProperty("workspace_id")
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+    @JsonProperty("workspace_id")
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
     @JsonProperty("page_samples")
