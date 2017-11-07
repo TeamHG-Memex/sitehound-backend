@@ -9,7 +9,6 @@ import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJob
 import com.hyperiongray.sitehound.backend.service.crawler.Constants;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.events.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,6 @@ public class BroadCrawlerMessageDispatcher implements KafkaListenerProcessor<Sub
 
 	@Autowired private GoogleCrawlerBrokerService broadcrawlerGoogleCrawlerBrokerService;
 	@Autowired private BingCrawlerBrokerService broadcrawlerBingCrawlerBrokerService;
-	@Autowired private TorCrawlerBrokerService torCrawlerBrokerService;
 	@Autowired private CrawlJobRepository crawlJobRepository;
 	@Autowired private AquariumTaskSubmitter aquariumTaskSubmitter;
 	@Autowired private EventService eventService;

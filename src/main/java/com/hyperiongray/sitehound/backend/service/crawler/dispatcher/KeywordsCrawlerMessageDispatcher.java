@@ -1,9 +1,7 @@
 package com.hyperiongray.sitehound.backend.service.crawler.dispatcher;
 
 import com.hyperiongray.framework.JsonMapper;
-import com.hyperiongray.framework.kafka.service.KafkaListenerProcessor;
 import com.hyperiongray.sitehound.backend.kafka.api.dto.crawler.SubscriberInput;
-import com.hyperiongray.sitehound.backend.kafka.api.dto.event.EventInput;
 import com.hyperiongray.sitehound.backend.kafka.submitter.AquariumTaskSubmitter;
 import com.hyperiongray.sitehound.backend.repository.impl.mongo.crawler.CrawlJobRepository;
 import com.hyperiongray.sitehound.backend.service.crawler.BrokerService;
@@ -12,14 +10,12 @@ import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorBro
 import com.hyperiongray.sitehound.backend.service.crawler.excavator.ExcavatorTaskRunnable;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.bing.BingCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.crawler.searchengine.google.GoogleCrawlerBrokerService;
-import com.hyperiongray.sitehound.backend.service.crawler.tor.TorCrawlerBrokerService;
 import com.hyperiongray.sitehound.backend.service.events.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,7 +29,6 @@ public class KeywordsCrawlerMessageDispatcher implements BrokerService{//KafkaLi
 
 	@Autowired private GoogleCrawlerBrokerService keywordGoogleCrawlerBrokerService;
 	@Autowired private BingCrawlerBrokerService keywordBingCrawlerBrokerService;
-	@Autowired private TorCrawlerBrokerService torCrawlerBrokerService;
 	@Autowired private CrawlJobRepository crawlJobRepository;
 	@Autowired private AquariumTaskSubmitter aquariumTaskSubmitter;
 	@Autowired private EventService eventService;
