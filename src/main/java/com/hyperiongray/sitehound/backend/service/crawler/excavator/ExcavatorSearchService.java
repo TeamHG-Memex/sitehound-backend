@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
+import java.util.stream.Collectors;
 
 @Service
 public class ExcavatorSearchService {
@@ -114,9 +114,11 @@ public class ExcavatorSearchService {
 
 
     public List<String> search(Set<String> keywords, int startingFrom, int pageSize) throws IOException {
-
         StringBuilder sb = new StringBuilder();
-        sb.append(CrawlerUtils.groupCreator(Lists.newArrayList(keywords)));
+
+        List<String> keywordsLowercaseAsList = keywords.stream().map(x -> x.toLowerCase()).collect(Collectors.toList());
+
+        sb.append(CrawlerUtils.groupCreator(keywordsLowercaseAsList);
 
         SearchRequest searchRequest = new SearchRequest(index);
         searchRequest.types("pages");
