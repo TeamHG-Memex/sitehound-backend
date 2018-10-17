@@ -22,12 +22,10 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 		@PropertySource("file:config/properties/scorer.properties"),
 		@PropertySource("file:config/properties/elasticsearch.properties"),
 		@PropertySource("file:config/properties/excavator.properties"),
-		@PropertySource("file:config/properties/classifier.properties"),
 
 		@PropertySource(value = "file:config/properties-override/application-override.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/splash.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/proxy.properties", ignoreResourceNotFound = true),
-		@PropertySource(value = "file:config/properties-override/classifier.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/tor.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/kafka.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "file:config/properties-override/excavator.properties", ignoreResourceNotFound = true),
